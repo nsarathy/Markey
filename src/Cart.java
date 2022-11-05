@@ -9,6 +9,6 @@ public class Cart {
     /*
     add purchased items to customer history
     remove products from seller (reduce quantity by the amount purchased by customer)
-    create a Purchase object for each product and call updateStatistics
+    create a Purchase object for each product and call updateSellerStatistics & updateCustomerStatistics
      */
 }

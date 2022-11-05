@@ -1,2 +1,2 @@
-s_username;password
-c_username;password
+seller_username;password
+customer_username;password

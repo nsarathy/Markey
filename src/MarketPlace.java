@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 public class MarketPlace {
     private String username;
-    Cart cart;
     /**
      * TODO: Display listed products
      * TODO: Let user select product to add to cart with a specific quantity [Display product information before prompting for quantity]
@@ -16,8 +15,10 @@ public class MarketPlace {
      * TODO: Let user exit whenever (loop dashboard)
      */
     public void checkout(ArrayList<Product> proceedToCheckout) {
-        // create arraylist of Products
-        // initiliaze Cart object with the arraylist
+        var cart = new Cart(proceedToCheckout);
+        /*
+        cart.buy();
+         */
     }
 
     public void main(boolean customer) {

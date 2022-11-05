@@ -1,9 +1,13 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MarketPlace {
-    public static final String PRODUCT_DISPLAY = "\n%s\nSold by: %s\nPrice: %.2f\n";
-    public static final String CART_END = "\nTotal Price: %.2f\nEnter 'buy' to checkout\nEnter 'exit' to exit cart\n";
+    public static final String PRODUCT_DISPLAY = "\n%s\t%s\tSold by: %s\tPrice: %.2f\n";
+    public static final String CART_END = "\nTotal Price: %.2f\nEnter '$' to checkout\nEnter '?' to exit cart\n";
+    public static final String[] BUTTONS = {"#", "<", ">", "?"};
+    public static final String BUTTONS_PROMPT = "\nEnter %s to %s";
     private String username;
 
     /**
@@ -22,8 +26,63 @@ public class MarketPlace {
     public void main(boolean customer) {
         // if @param customer is false, don't let user do first 4 todos
         // Let user do those if @param customer is true
+        Scanner scanner = new Scanner(System.in);
         ArrayList<Product> proceedToCheckout = new ArrayList<>();
+        try {
+            FileReader frProducts = new FileReader("Products.txt");
+            BufferedReader brProducts = new BufferedReader(frProducts);
+            ArrayList<Product> listings = new ArrayList<>();
+            String line = brProducts.readLine();
+            while (line != null) {
+                String[] sellerAndProduct = line.split(";", 2);
+                String[] productDetails = sellerAndProduct[1].split("_", -1);
+                Store store = new Store(productDetails[1]);
+                int quantity = Integer.parseInt(productDetails[2]);
+                double price = Double.parseDouble(productDetails[3]);
+                listings.add(new Product(productDetails[0], store, quantity, price, productDetails[4]));
+                line = brProducts.readLine();
+            }
+            listingDisplay:
+            while (true) {
+                // Displaying listings
+                for (Product product : listings) {
+                    displayProduct(product, listings.indexOf(product));
+                }
+                System.out.println();
+                if (customer) {
+                    System.out.printf(BUTTONS_PROMPT, BUTTONS[0], "view your cart");
+                    System.out.printf(BUTTONS_PROMPT, BUTTONS[1], "sort listings by cost (low to high)");
+                    System.out.printf(BUTTONS_PROMPT, BUTTONS[2], "sort listings by cost (high to low)");
+                }
+                System.out.printf(BUTTONS_PROMPT, BUTTONS[3], "exit");
+                String action = scanner.nextLine();
+                if (action.equalsIgnoreCase(BUTTONS[3])) {
+                    break listingDisplay;
+                } else if (customer) {
+                    if (action.equalsIgnoreCase(BUTTONS[0])) {
+                        viewCart(proceedToCheckout, scanner);
+                    } else if (action.equalsIgnoreCase(BUTTONS[1])) {
+                        sortLowToHigh(listings);
+                    } else if (action.equalsIgnoreCase(BUTTONS[2])) {
+                        sortHighToLow(listings);
+                    }
+                }
+                // TODO: add items to cart
+            }
+            brProducts.close();
+            frProducts.close();
+            System.out.println("Thank you for using Markey! Have a nice day :)");
+        } catch (Exception e) {
+            // test purposes
+            e.printStackTrace();
+        }
+    }
 
+    public void displayProduct(Product product, int index) {
+        String name = product.getName();
+        String storeName = product.getStore().getName();
+        double price = product.getPrice();
+        System.out.printf(PRODUCT_DISPLAY, index + ".", name, storeName, price);
     }
 
     public void checkout(ArrayList<Product> proceedToCheckout) {
@@ -32,27 +91,37 @@ public class MarketPlace {
     }
 
     public void viewCart(ArrayList<Product> currentCart, Scanner scanner) {
+        if (currentCart.size() == 0) {
+            System.out.println("Cart is empty");
+        }
         double totalPrice = 0;
         for (Product product : currentCart) {
-            String name = product.getName();
-            String storeName = product.getStore().getName();
-            double price = product.getPrice();
-            totalPrice += price;
-            System.out.printf(PRODUCT_DISPLAY, name, storeName, price);
+            displayProduct(product, currentCart.indexOf(product));
+            totalPrice += product.getPrice();
         }
         System.out.printf(CART_END, totalPrice);
         boolean stepFound = false;
         while (!stepFound) {
             String nextStep = scanner.nextLine();
-            if (nextStep.equalsIgnoreCase("buy")) {
+            if (nextStep.equalsIgnoreCase("$")) {
                 checkout(currentCart);
-            } else if (nextStep.equalsIgnoreCase("exit")) {
+            } else if (nextStep.equalsIgnoreCase("?")) {
                 stepFound = true;
             }
         }
     }
+    
+    
+    // Sorting using bubble sort method
+    public void sortLowToHigh(ArrayList<Product> list) {
+        
+    }
+
+    public void sortHighToLow(ArrayList<Product> list) {
+
+    }
 
     public void viewPurchaseHistory() {
-
+        // TODO: this
     }
 }

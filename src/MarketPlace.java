@@ -18,16 +18,17 @@ public class MarketPlace {
      * TODO: Let customers proceed to checkout cart
      * TODO: Let user exit whenever (loop dashboard)
      */
-    public void checkout(ArrayList<Product> proceedToCheckout) {
-        var cart = new Cart(proceedToCheckout);
-        cart.buy();
-    }
 
     public void main(boolean customer) {
         // if @param customer is false, don't let user do first 4 todos
         // Let user do those if @param customer is true
         ArrayList<Product> proceedToCheckout = new ArrayList<>();
 
+    }
+
+    public void checkout(ArrayList<Product> proceedToCheckout) {
+        var cart = new Cart(proceedToCheckout);
+        cart.buy();
     }
 
     public void viewCart(ArrayList<Product> currentCart, Scanner scanner) {
@@ -52,6 +53,6 @@ public class MarketPlace {
     }
 
     public void viewPurchaseHistory() {
-        // Using username, get purchase history from
+
     }
 }

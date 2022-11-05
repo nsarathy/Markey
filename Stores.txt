@@ -1,0 +1,1 @@
+username;store1,store2

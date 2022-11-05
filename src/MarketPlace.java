@@ -1,6 +1,9 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MarketPlace {
+    public static final String PRODUCT_DISPLAY = "\n%s\nSold by: %s\nPrice: %.2f\n";
+    public static final String CART_END = "\nTotal Price: %.2f\nEnter 'buy' to checkout\nEnter 'exit' to exit cart\n";
     private String username;
 
     /**
@@ -27,12 +30,24 @@ public class MarketPlace {
 
     }
 
-    public void viewCart(ArrayList<Product> currentCart) {
+    public void viewCart(ArrayList<Product> currentCart, Scanner scanner) {
+        double totalPrice = 0;
         for (Product product : currentCart) {
             String name = product.getName();
             String storeName = product.getStore().getName();
             double price = product.getPrice();
-
+            totalPrice += price;
+            System.out.printf(PRODUCT_DISPLAY, name, storeName, price);
+        }
+        System.out.printf(CART_END, totalPrice);
+        boolean stepFound = false;
+        while (!stepFound) {
+            String nextStep = scanner.nextLine();
+            if (nextStep.equalsIgnoreCase("buy")) {
+                checkout(currentCart);
+            } else if (nextStep.equalsIgnoreCase("exit")) {
+                stepFound = true;
+            }
         }
     }
 

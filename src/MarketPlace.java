@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class MarketPlace {
     private String username;
+
     /**
      * TODO: Display listed products
      * TODO: Let user select product to add to cart with a specific quantity [Display product information before prompting for quantity]
@@ -16,9 +17,7 @@ public class MarketPlace {
      */
     public void checkout(ArrayList<Product> proceedToCheckout) {
         var cart = new Cart(proceedToCheckout);
-        /*
         cart.buy();
-         */
     }
 
     public void main(boolean customer) {
@@ -29,7 +28,12 @@ public class MarketPlace {
     }
 
     public void viewCart(ArrayList<Product> currentCart) {
-        // display every product in currentCart [pass proceedToCheckout from main()]
+        for (Product product : currentCart) {
+            String name = product.getName();
+            String storeName = product.getStore().getName();
+            double price = product.getPrice();
+
+        }
     }
 
     public void viewPurchaseHistory() {

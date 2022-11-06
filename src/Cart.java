@@ -2,8 +2,10 @@ import java.util.ArrayList;
 
 public class Cart {
     private ArrayList<Product> productsToBuy;
-    public Cart(ArrayList<Product> productsToBuy) {
-        this. productsToBuy = productsToBuy;
+    private ArrayList<String> sellerUsernames;
+    public Cart(ArrayList<Product> productsToBuy, ArrayList<String> sellerUsernames) {
+        this.productsToBuy = productsToBuy;
+        this.sellerUsernames = sellerUsernames;
     }
     // buy() method
     /*

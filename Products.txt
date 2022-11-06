@@ -1,3 +1,4 @@
+sellerUsername;productName_storeName_quanity_price_description
 wantGorOwner;Metal Headband_WantGor_100_3.98_Metal headband for men and women
 jbl;JBL Vibe 200TWs_JBL_30_29.95_Black wireless earbuds
 steveJ;USB-C Wall Charger_INCORIC_200_9.27_iPhone 14 Charger Block 20W PD Power Adaptor

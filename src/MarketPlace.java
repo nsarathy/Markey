@@ -31,6 +31,7 @@ public class MarketPlace {
      * TODO: view purchase history
      * TODO: store cart
      * TODO: Let customers proceed to checkout cart
+     * TODO: Use methods from Seller.java to create, edit or remove products/stores
      */
 
     public void main(boolean customer) {

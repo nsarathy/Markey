@@ -3,12 +3,12 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-// Classes: MarketPlace, Listing, NotInStockException
+
 public class MarketPlace {
     public static final String PRODUCT_DISPLAY = "\n%d.\t%s\tSold by: %s\tPrice: %.2f\n";
     public static final String SELECTED_PRODUCT_DISPLAY = "\n%s\tSold by: %s\tPrice: %.2f\nAvailable in stock: %d\nDescription: %s\n";
     public static final String CART_END = "\n\nTotal Price: %.2f\n\nEnter '$' to checkout\nEnter '?' to exit cart\n";
-    public static final String[] BUTTONS = {"#", "<", ">", "?"};
+    public static final String[] BUTTONS = {"#", "<", ">", "<>", "?"};
     public static final String BUTTONS_PROMPT = "\nEnter '%s' to %s";
     public static final String ADD_TO_CART = "\nEnter '2' to add item number 2 to your cart";
     public static final String QUANTITY_PROMPT = "Enter quantity for the selected item ('?' to exit)";
@@ -30,7 +30,7 @@ public class MarketPlace {
     /**
      * TODO: view purchase history
      * TODO: store cart
-     * TODO: Let customers proceed to checkout cart
+     * TODO: Let customers proceed to checkout cart (uncomment)
      * TODO: Use methods from Seller.java to create, edit or remove products/stores
      */
 
@@ -40,11 +40,14 @@ public class MarketPlace {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Product> cartItems = new ArrayList<>();
         ArrayList<String> cartSellerUsernames = new ArrayList<>();
+        // TODO: read stored cart
         try {
             FileReader frProducts = new FileReader("Products.txt");
             BufferedReader brProducts = new BufferedReader(frProducts);
             ArrayList<Product> listings = new ArrayList<>();
             ArrayList<String> sellerUsernames = new ArrayList<>();
+            final ArrayList<Product> originalListings;
+            final ArrayList<String> originalSellerUsernames;
             String line = brProducts.readLine();
             while (line != null) {
                 String[] sellerAndProduct = line.split(";", 2);
@@ -56,6 +59,8 @@ public class MarketPlace {
                 listings.add(new Product(productDetails[0], store, quantity, price, productDetails[4]));
                 line = brProducts.readLine();
             }
+            originalListings = listings;
+            originalSellerUsernames = sellerUsernames;
             listingDisplay:
             while (true) {
                 // Displaying listings
@@ -72,11 +77,12 @@ public class MarketPlace {
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[0], "view your cart");
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[1], "sort listings by cost (low to high)");
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[2], "sort listings by cost (high to low)");
+                    System.out.printf(BUTTONS_PROMPT, BUTTONS[3], "de-sort");
                 }
-                System.out.printf(BUTTONS_PROMPT, BUTTONS[3], "exit");
+                System.out.printf(BUTTONS_PROMPT, BUTTONS[4], "exit");
                 System.out.println();
                 String action = scanner.nextLine();
-                if (action.equalsIgnoreCase(BUTTONS[3])) {
+                if (action.equalsIgnoreCase(BUTTONS[4])) {
                     break listingDisplay;
                 } else if (customer) {
                     if (action.equalsIgnoreCase(BUTTONS[0])) {
@@ -89,6 +95,9 @@ public class MarketPlace {
                         Listing listing = sortHighToLow(listings, sellerUsernames);
                         listings = listing.getProducts();
                         sellerUsernames = listing.getSellers();
+                    } else if (action.equalsIgnoreCase(BUTTONS[3])) {
+                        listings = originalListings;
+                        sellerUsernames = originalSellerUsernames;
                     } else {
                         try {
                             int itemNumber = Integer.parseInt(action);
@@ -108,7 +117,15 @@ public class MarketPlace {
                                             Product cartProduct = new Product(product.getName(), product.getStore(), quantity, product.getPrice(), product.getDescription());
                                             cartItems.add(cartProduct);
                                             cartSellerUsernames.add(sellerUsernames.get(listings.indexOf(product)));
-                                            System.out.println(ADDED_TO_CART);
+                                            int forRemove = cartItems.size() - 1;
+                                            try {
+                                                storeCart(cartItems, cartSellerUsernames);
+                                                System.out.println(ADDED_TO_CART);
+                                            } catch (CartNotTrackableException e) {
+                                                cartItems.remove(forRemove);
+                                                cartSellerUsernames.remove(forRemove);
+                                                System.out.println(e.getMessage());
+                                            }
                                         }
                                     } catch (NotInStockException e) {
                                         System.out.println(e.getMessage());
@@ -229,8 +246,14 @@ public class MarketPlace {
     }
 
     public void viewPurchaseHistory() {
-        // TODO: this
+        // TODO: this after Oh gets done with Cart and Purchase
     }
+
+    public void storeCart(ArrayList<Product> currentCart, ArrayList<String> currentSellers) throws CartNotTrackableException {
+        // username TODO: txt file write
+    }
+    // TODO: read stored cart
+
 
     public String getUsername() {
         return username;

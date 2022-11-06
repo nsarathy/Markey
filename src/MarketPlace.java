@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MarketPlace {
-    public static final String PRODUCT_DISPLAY = "\n%s\t%s\tSold by: %s\tPrice: %.2f\n";
+    public static final String PRODUCT_DISPLAY = "\n%d.\t%s\tSold by: %s\tPrice: %.2f\n";
     public static final String SELECTED_PRODUCT_DISPLAY = "\n%s\tSold by: %s\tPrice: %.2f\nAvailable in stock: %d\nDescription: %s\nHas been selected\n";
     public static final String CART_END = "\nTotal Price: %.2f\nEnter '$' to checkout\nEnter '?' to exit cart\n";
     public static final String[] BUTTONS = {"#", "<", ">", "?"};
@@ -74,7 +74,7 @@ public class MarketPlace {
                     break listingDisplay;
                 } else if (customer) {
                     if (action.equalsIgnoreCase(BUTTONS[0])) {
-                        viewCart(cartItems, scanner);
+                        viewCart(cartItems, cartSellerUsernames, scanner);
                     } else if (action.equalsIgnoreCase(BUTTONS[1])) {
                         sortLowToHigh(listings);
                     } else if (action.equalsIgnoreCase(BUTTONS[2])) {
@@ -127,14 +127,16 @@ public class MarketPlace {
         String name = product.getName();
         String storeName = product.getStore().getName();
         double price = product.getPrice();
-        System.out.printf(PRODUCT_DISPLAY, (index + 1) + ".", name, storeName, price);
+        System.out.printf(PRODUCT_DISPLAY, (index + 1), name, storeName, price);
     }
 
     public void displaySelectedProduct(Product product) {
         String name = product.getName();
         String storeName = product.getStore().getName();
         double price = product.getPrice();
-        System.out.printf(SELECTED_PRODUCT_DISPLAY, name, storeName, price);
+        int quantity = product.getQuantity();
+        String description = product.getDescription();
+        System.out.printf(SELECTED_PRODUCT_DISPLAY, name, storeName, price, quantity, description);
     }
 
     public void checkout(ArrayList<Product> proceedToCheckout, ArrayList<String> sellerUsernames) {
@@ -145,11 +147,13 @@ public class MarketPlace {
     public void viewCart(ArrayList<Product> currentCart, ArrayList<String> currentCartSellers, Scanner scanner) {
         if (currentCart.size() == 0) {
             System.out.println("Cart is empty");
+            return;
         }
         double totalPrice = 0;
         for (Product product : currentCart) {
             displayProduct(product, currentCart.indexOf(product));
-            totalPrice += product.getPrice();
+            System.out.printf("\n" + QUANTITY_SHOW, product.getQuantity());
+            totalPrice += (product.getPrice() * product.getQuantity());
         }
         System.out.printf(CART_END, totalPrice);
         boolean stepFound = false;
@@ -161,6 +165,7 @@ public class MarketPlace {
                 stepFound = true;
             }
         }
+        // TODO: remove items from cart
     }
 
 

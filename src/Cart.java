@@ -3,9 +3,11 @@ import java.util.ArrayList;
 public class Cart {
     private ArrayList<Product> productsToBuy;
     private ArrayList<String> sellerUsernames;
-    public Cart(ArrayList<Product> productsToBuy, ArrayList<String> sellerUsernames) {
+    private String customerUsername;
+    public Cart(ArrayList<Product> productsToBuy, ArrayList<String> sellerUsernames, String customerUsername) {
         this.productsToBuy = productsToBuy;
         this.sellerUsernames = sellerUsernames;
+        this.customerUsername = customerUsername;
     }
     // buy() method
     /*

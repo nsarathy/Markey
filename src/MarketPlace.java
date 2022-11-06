@@ -1,32 +1,36 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
-
+// Classes: MarketPlace, Listing, NotInStockException
 public class MarketPlace {
     public static final String PRODUCT_DISPLAY = "\n%d.\t%s\tSold by: %s\tPrice: %.2f\n";
-    public static final String SELECTED_PRODUCT_DISPLAY = "\n%s\tSold by: %s\tPrice: %.2f\nAvailable in stock: %d\nDescription: %s\nHas been selected\n";
-    public static final String CART_END = "\nTotal Price: %.2f\nEnter '$' to checkout\nEnter '?' to exit cart\n";
+    public static final String SELECTED_PRODUCT_DISPLAY = "\n%s\tSold by: %s\tPrice: %.2f\nAvailable in stock: %d\nDescription: %s\n";
+    public static final String CART_END = "\n\nTotal Price: %.2f\n\nEnter '$' to checkout\nEnter '?' to exit cart\n";
     public static final String[] BUTTONS = {"#", "<", ">", "?"};
     public static final String BUTTONS_PROMPT = "\nEnter '%s' to %s";
     public static final String ADD_TO_CART = "\nEnter '2' to add item number 2 to your cart";
     public static final String QUANTITY_PROMPT = "Enter quantity for the selected item ('?' to exit)";
     public static final String QUANTITY_SHOW = "Quantity: %d";
-    public static final String ADDED_TO_CART = "Has been added to your cart :)";
+    public static final String ADDED_TO_CART = "Added to your cart :)";
     public static final String NO_LISTINGS = "There is nothing for sale :(";
     private String username;
 
+    public MarketPlace(String username) {
+        this.username = username;
+    }
+
+    // TODO: psvm method for testing purposes only, delete later
+    public static void main(String[] args) {
+        MarketPlace marketPlace = new MarketPlace("testUser");
+        marketPlace.main(true);
+    }
+
     /**
-     * TODO: Display listed products
-     * TODO: Let user select product to add to cart with a specific quantity [Display product information before prompting for quantity]
-     * TODO: view cart
      * TODO: view purchase history
-     * TODO: Let user sort listings based on cost
-     * TODO: If user is a seller don't let them do above 4 steps
-     * check for errors like not in stock
-     * TODO: Sorting: by cost [low to high & high to low]
+     * TODO: store cart
      * TODO: Let customers proceed to checkout cart
-     * TODO: Let user exit whenever (loop dashboard)
      */
 
     public void main(boolean customer) {
@@ -69,6 +73,7 @@ public class MarketPlace {
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[2], "sort listings by cost (high to low)");
                 }
                 System.out.printf(BUTTONS_PROMPT, BUTTONS[3], "exit");
+                System.out.println();
                 String action = scanner.nextLine();
                 if (action.equalsIgnoreCase(BUTTONS[3])) {
                     break listingDisplay;
@@ -76,9 +81,13 @@ public class MarketPlace {
                     if (action.equalsIgnoreCase(BUTTONS[0])) {
                         viewCart(cartItems, cartSellerUsernames, scanner);
                     } else if (action.equalsIgnoreCase(BUTTONS[1])) {
-                        sortLowToHigh(listings);
+                        Listing listing = sortLowToHigh(listings, sellerUsernames);
+                        listings = listing.getProducts();
+                        sellerUsernames = listing.getSellers();
                     } else if (action.equalsIgnoreCase(BUTTONS[2])) {
-                        sortHighToLow(listings);
+                        Listing listing = sortHighToLow(listings, sellerUsernames);
+                        listings = listing.getProducts();
+                        sellerUsernames = listing.getSellers();
                     } else {
                         try {
                             int itemNumber = Integer.parseInt(action);
@@ -98,6 +107,7 @@ public class MarketPlace {
                                             Product cartProduct = new Product(product.getName(), product.getStore(), quantity, product.getPrice(), product.getDescription());
                                             cartItems.add(cartProduct);
                                             cartSellerUsernames.add(sellerUsernames.get(listings.indexOf(product)));
+                                            System.out.println(ADDED_TO_CART);
                                         }
                                     } catch (NotInStockException e) {
                                         System.out.println(e.getMessage());
@@ -140,8 +150,11 @@ public class MarketPlace {
     }
 
     public void checkout(ArrayList<Product> proceedToCheckout, ArrayList<String> sellerUsernames) {
-        var cart = new Cart(proceedToCheckout, sellerUsernames);
+        var cart = new Cart(proceedToCheckout, sellerUsernames, username);
+        // TODO: uncomment after testing
+        /*
         cart.buy();
+         */
     }
 
     public void viewCart(ArrayList<Product> currentCart, ArrayList<String> currentCartSellers, Scanner scanner) {
@@ -152,7 +165,7 @@ public class MarketPlace {
         double totalPrice = 0;
         for (Product product : currentCart) {
             displayProduct(product, currentCart.indexOf(product));
-            System.out.printf("\n" + QUANTITY_SHOW, product.getQuantity());
+            System.out.printf(QUANTITY_SHOW, product.getQuantity());
             totalPrice += (product.getPrice() * product.getQuantity());
         }
         System.out.printf(CART_END, totalPrice);
@@ -161,6 +174,7 @@ public class MarketPlace {
             String nextStep = scanner.nextLine();
             if (nextStep.equalsIgnoreCase("$")) {
                 checkout(currentCart, currentCartSellers);
+                stepFound = true;
             } else if (nextStep.equalsIgnoreCase("?")) {
                 stepFound = true;
             }
@@ -168,17 +182,60 @@ public class MarketPlace {
         // TODO: remove items from cart
     }
 
-
     // Sorting using bubble sort method
-    public void sortLowToHigh(ArrayList<Product> list) {
-
+    public Listing sortLowToHigh(ArrayList<Product> list, ArrayList<String> sellers) {
+        Product[] array = list.toArray(new Product[0]);
+        String[] sellerArray = sellers.toArray(new String[0]);
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array.length - i - 1; j++) {
+                double priceJ = array[j].getPrice();
+                double priceJPlus1 = array[j + 1].getPrice();
+                if (priceJ > priceJPlus1) {
+                    Product temporary = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temporary;
+                    String tempString = sellerArray[j];
+                    sellerArray[j] = sellerArray[j + 1];
+                    sellerArray[j + 1] = tempString;
+                }
+            }
+        }
+        list = new ArrayList<>(Arrays.asList(array));
+        sellers = new ArrayList<>(Arrays.asList(sellerArray));
+        return new Listing(list, sellers);
     }
 
-    public void sortHighToLow(ArrayList<Product> list) {
-
+    public Listing sortHighToLow(ArrayList<Product> list, ArrayList<String> sellers) {
+        Product[] array = list.toArray(new Product[0]);
+        String[] sellerArray = sellers.toArray(new String[0]);
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array.length - i - 1; j++) {
+                double priceJ = array[j].getPrice();
+                double priceJPlus1 = array[j + 1].getPrice();
+                if (priceJ < priceJPlus1) {
+                    Product temporary = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temporary;
+                    String tempString = sellerArray[j];
+                    sellerArray[j] = sellerArray[j + 1];
+                    sellerArray[j + 1] = tempString;
+                }
+            }
+        }
+        list = new ArrayList<>(Arrays.asList(array));
+        sellers = new ArrayList<>(Arrays.asList(sellerArray));
+        return new Listing(list, sellers);
     }
 
     public void viewPurchaseHistory() {
         // TODO: this
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

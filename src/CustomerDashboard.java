@@ -1,3 +1,4 @@
 public class CustomerDashboard {
-    // Call MarketPlace [main(true)]
+    // Format and display CustomerStatistics.txt
+    // Call MarketPlace [viewPurchaseHistory()]
 }

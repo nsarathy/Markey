@@ -8,4 +8,5 @@ public class Purchase {
     // Sellers can view a list of their sales by store, including customer information and revenues from the sale.
     // TODO: method updateCustomerStatistics
     // Append CustomerPurchaseHistory.txt
+    // Update CustomerStatistics.txt
 }

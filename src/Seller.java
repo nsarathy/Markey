@@ -4,6 +4,7 @@ public class Seller extends Account{
     ArrayList<Store> stores;
     ArrayList<Product> products;
     // TODO: getters and setters
+
     
     public void createProduct(/* params */) {
         // initialize a product

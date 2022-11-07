@@ -4,6 +4,7 @@ public class Product {
     private int quantity;
     private double price;
     private String description;
+
     // TODO: getters and setters
     // branch Neel:
     public Product(String name, Store store, int quantity, double price, String description) {
@@ -52,5 +53,10 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s_%s_%d_%.2f_%s", name, store.getName(), quantity, price, description);
     }
 }

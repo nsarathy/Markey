@@ -1,5 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -32,6 +31,7 @@ public class MarketPlace {
      * TODO: store cart
      * TODO: Let customers proceed to checkout cart (uncomment)
      * TODO: Use methods from Seller.java to create, edit or remove products/stores
+     * todo: comment every implementation
      */
 
     public void main(boolean customer) {
@@ -169,6 +169,7 @@ public class MarketPlace {
 
     public void checkout(ArrayList<Product> proceedToCheckout, ArrayList<String> sellerUsernames) {
         var cart = new Cart(proceedToCheckout, sellerUsernames, username);
+        // todo: clear cart.txt
         // TODO: uncomment after testing
         /*
         cart.buy();
@@ -246,11 +247,52 @@ public class MarketPlace {
     }
 
     public void viewPurchaseHistory() {
-        // TODO: this after Oh gets done with Cart and Purchase
+        // TODO: after Oh gets done with Cart and Purchase
     }
 
     public void storeCart(ArrayList<Product> currentCart, ArrayList<String> currentSellers) throws CartNotTrackableException {
-        // username TODO: txt file write
+        String finalLine = username + ";";
+        for (Product product : currentCart) {
+            finalLine = finalLine + product.toString() + "!!";
+        }
+        finalLine = finalLine + ";";
+        for (String seller : currentSellers) {
+            finalLine = finalLine + seller + "!!";
+        }
+        try {
+            ArrayList<String> toAppend = new ArrayList<>();
+            FileReader fr = new FileReader("carts.txt");
+            BufferedReader br = new BufferedReader(fr);
+            boolean flag = true;
+            String line = br.readLine();
+            while (line != null) {
+                String[] toGetCustomer = line.split(";", -1);
+                if (toGetCustomer[0].equals(username)) {
+                    flag = false;
+                    String[] newItems = finalLine.split(";", -1);
+                    String newFinalLine = username + ";" + toGetCustomer[1] + newItems[1] + ";" + toGetCustomer[2] + newItems[2];
+                    toAppend.add(newFinalLine);
+                    line = br.readLine();
+                    continue;
+                }
+                toAppend.add(line);
+                line = br.readLine();
+            }
+            br.close();
+            fr.close();
+            if (flag) {
+                toAppend.add(finalLine);
+            }
+            FileOutputStream fos = new FileOutputStream("carts.txt");
+            PrintWriter pw = new PrintWriter(fos);
+            for (String eachLine : toAppend) {
+                pw.println(eachLine);
+            }
+            pw.close();
+            fos.close();
+        } catch (IOException e) {
+            throw new CartNotTrackableException("Something went wrong - Could not add to cart :(");
+        }
     }
     // TODO: read stored cart
 

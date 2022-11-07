@@ -1,11 +1,32 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Seller extends Account{
     ArrayList<Store> stores;
     ArrayList<Product> products;
-    // TODO: getters and setters
 
-    
+    public  Seller (String username, String password, ArrayList<Store> stores, ArrayList<Product> products) {
+        super(username, password);
+        this.stores = stores;
+        this.products = products;
+    }
+
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
+    }
+
+    public void setStores(ArrayList<Store> stores) {
+        this.stores = stores;
+    }
+
+    public ArrayList<Product> getProducts() {
+        return this.products;
+    }
+
+    public ArrayList<Store> getStores() {
+        return stores;
+    }
+
     public void createProduct(/* params */) {
         // initialize a product
         // add created product to products
@@ -19,12 +40,10 @@ public class Seller extends Account{
 
     // Sellers can editing: Using getters and setters
 
-    // deleting
     public void deleteProduct(int index) {
-        // remove product of @param index from products
+        this.products.remove(index);
     }
 
     // TODO: methods for displaying stores and products
-
     // TODO: equals() method checks only username
 }

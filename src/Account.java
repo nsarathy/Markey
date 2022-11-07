@@ -1,7 +1,29 @@
 public class Account {
     private String username;
     private String password;
-    // TODO: getters and setters
 
-    // TODO: toString
+    public Account(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String toString() {
+        return "<Username:" + this.username + " Password:" + this.password + ">";
+    }
 }

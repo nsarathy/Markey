@@ -24,6 +24,6 @@ public class Account {
     }
 
     public String toString() {
-        return "<Username:" + this.username + " Password:" + this.password + ">";
+        return this.username + ";" + this.password;
     }
 }

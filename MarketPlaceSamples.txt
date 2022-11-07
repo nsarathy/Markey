@@ -1,0 +1,253 @@
+MarketPlace
+content within [] indicate input
+These samples use MarketPlace.java 's main(boolean) method
+
+Sample 1:
+
+carts.txt :
+testUser2;Metal Headband_WantGor_2_3.98_Metal headband for men and womenMetal Headband_WantGor_2_3.98_Metal headband for men and women!!Guide to investing in your 20s_Puffin Books_1_12.99_Book about long term investingMetal Headband_WantGor_2_3.98_Metal headband for men and women!!Guide to investing in your 20s_Puffin Books_1_12.99_Book about long term investing!!Wool Socks 5 pairs_YSense_3_10.99_Thick Wool socks winter warm for men;wantGorOwnerwantGorOwner!!warrenBuffetwantGorOwner!!warrenBuffet!!ysenser
+testUser3;JBL Vibe 200TWs_JBL_1_29.95_Black wireless earbudsJBL Vibe 200TWs!!USB-C Wall Charger_INCORIC_12_9.27_iPhone 14 Charger Block 20W PD Power AdaptorJBL Vibe 200TWs!!USB-C Wall Charger_INCORIC_12_9.27_iPhone 14 Charger Block 20W PD Power Adaptor!!Razer DeathAdder Essential Gaming Mouse_Razer_1_17.85_Gaming mouse - 5 programmable buttons - Mechanical switches - rubber side grips - Mercury white!!Wool Socks 5 pairs_YSense_5_10.99_Thick Wool socks winter warm for men;jbljbl!!steveJjbl!!steveJ!!proGamer69!!ysenser
+testUser;USB-C Wall Charger_INCORIC_1_9.27_iPhone 14 Charger Block 20W PD Power Adaptor;steveJ
+
+Products.txt :
+wantGorOwner;Metal Headband_WantGor_100_3.98_Metal headband for men and women
+jbl;JBL Vibe 200TWs_JBL_30_29.95_Black wireless earbuds
+steveJ;USB-C Wall Charger_INCORIC_200_9.27_iPhone 14 Charger Block 20W PD Power Adaptor
+proGamer69;Razer DeathAdder Essential Gaming Mouse_Razer_50_17.85_Gaming mouse - 5 programmable buttons - Mechanical switches - rubber side grips - Mercury white
+warrenBuffet;Guide to investing in your 20s_Puffin Books_600_12.99_Book about long term investing
+ysenser;Wool Socks 5 pairs_YSense_36_10.99_Thick Wool socks winter warm for men
+
+Output :
+
+
+1.	Metal Headband	Sold by: WantGor	Price: 3.98
+
+2.	JBL Vibe 200TWs	Sold by: JBL	Price: 29.95
+
+3.	USB-C Wall Charger	Sold by: INCORIC	Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse	Sold by: Razer	Price: 17.85
+
+5.	Guide to investing in your 20s	Sold by: Puffin Books	Price: 12.99
+
+6.	Wool Socks 5 pairs	Sold by: YSense	Price: 10.99
+
+
+You have 1 item in your cart
+
+Enter '2' to add item number 2 to your cart
+
+Enter '#' to view your cart
+Enter '<' to sort listings by cost (low to high)
+Enter '>' to sort listings by cost (high to low)
+Enter '<>' to de-sort
+Enter '?' to exit
+[#]
+
+1.	USB-C Wall Charger	Sold by: INCORIC	Price: 9.27
+Quantity: 1
+
+Total Price: 9.27
+
+Enter '$' to checkout
+Enter 2 to remove item number 2
+Enter '?' to exit cart
+[?]
+
+1.	Metal Headband	Sold by: WantGor	Price: 3.98
+
+2.	JBL Vibe 200TWs	Sold by: JBL	Price: 29.95
+
+3.	USB-C Wall Charger	Sold by: INCORIC	Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse	Sold by: Razer	Price: 17.85
+
+5.	Guide to investing in your 20s	Sold by: Puffin Books	Price: 12.99
+
+6.	Wool Socks 5 pairs	Sold by: YSense	Price: 10.99
+
+
+You have 1 item in your cart
+
+Enter '2' to add item number 2 to your cart
+
+Enter '#' to view your cart
+Enter '<' to sort listings by cost (low to high)
+Enter '>' to sort listings by cost (high to low)
+Enter '<>' to de-sort
+Enter '?' to exit
+[<]
+
+1.	Metal Headband	Sold by: WantGor	Price: 3.98
+
+2.	USB-C Wall Charger	Sold by: INCORIC	Price: 9.27
+
+3.	Wool Socks 5 pairs	Sold by: YSense	Price: 10.99
+
+4.	Guide to investing in your 20s	Sold by: Puffin Books	Price: 12.99
+
+5.	Razer DeathAdder Essential Gaming Mouse	Sold by: Razer	Price: 17.85
+
+6.	JBL Vibe 200TWs	Sold by: JBL	Price: 29.95
+
+
+You have 1 item in your cart
+
+Enter '2' to add item number 2 to your cart
+
+Enter '#' to view your cart
+Enter '<' to sort listings by cost (low to high)
+Enter '>' to sort listings by cost (high to low)
+Enter '<>' to de-sort
+Enter '?' to exit
+[6]
+
+JBL Vibe 200TWs	Sold by: JBL	Price: 29.95
+Available in stock: 30
+Description: Black wireless earbuds
+Enter quantity for the selected item ('?' to exit)
+[4]
+Added to your cart :)
+
+1.	Metal Headband	Sold by: WantGor	Price: 3.98
+
+2.	USB-C Wall Charger	Sold by: INCORIC	Price: 9.27
+
+3.	Wool Socks 5 pairs	Sold by: YSense	Price: 10.99
+
+4.	Guide to investing in your 20s	Sold by: Puffin Books	Price: 12.99
+
+5.	Razer DeathAdder Essential Gaming Mouse	Sold by: Razer	Price: 17.85
+
+6.	JBL Vibe 200TWs	Sold by: JBL	Price: 29.95
+
+
+You have 2 items in your cart
+
+Enter '2' to add item number 2 to your cart
+
+Enter '#' to view your cart
+Enter '<' to sort listings by cost (low to high)
+Enter '>' to sort listings by cost (high to low)
+Enter '<>' to de-sort
+Enter '?' to exit
+[>]
+
+1.	JBL Vibe 200TWs	Sold by: JBL	Price: 29.95
+
+2.	Razer DeathAdder Essential Gaming Mouse	Sold by: Razer	Price: 17.85
+
+3.	Guide to investing in your 20s	Sold by: Puffin Books	Price: 12.99
+
+4.	Wool Socks 5 pairs	Sold by: YSense	Price: 10.99
+
+5.	USB-C Wall Charger	Sold by: INCORIC	Price: 9.27
+
+6.	Metal Headband	Sold by: WantGor	Price: 3.98
+
+
+You have 2 items in your cart
+
+Enter '2' to add item number 2 to your cart
+
+Enter '#' to view your cart
+Enter '<' to sort listings by cost (low to high)
+Enter '>' to sort listings by cost (high to low)
+Enter '<>' to de-sort
+Enter '?' to exit
+[3]
+
+Guide to investing in your 20s	Sold by: Puffin Books	Price: 12.99
+Available in stock: 600
+Description: Book about long term investing
+Enter quantity for the selected item ('?' to exit)
+[1]
+Added to your cart :)
+
+1.	JBL Vibe 200TWs	Sold by: JBL	Price: 29.95
+
+2.	Razer DeathAdder Essential Gaming Mouse	Sold by: Razer	Price: 17.85
+
+3.	Guide to investing in your 20s	Sold by: Puffin Books	Price: 12.99
+
+4.	Wool Socks 5 pairs	Sold by: YSense	Price: 10.99
+
+5.	USB-C Wall Charger	Sold by: INCORIC	Price: 9.27
+
+6.	Metal Headband	Sold by: WantGor	Price: 3.98
+
+
+You have 3 items in your cart
+
+Enter '2' to add item number 2 to your cart
+
+Enter '#' to view your cart
+Enter '<' to sort listings by cost (low to high)
+Enter '>' to sort listings by cost (high to low)
+Enter '<>' to de-sort
+Enter '?' to exit
+[<>]
+
+1.	Metal Headband	Sold by: WantGor	Price: 3.98
+
+2.	JBL Vibe 200TWs	Sold by: JBL	Price: 29.95
+
+3.	USB-C Wall Charger	Sold by: INCORIC	Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse	Sold by: Razer	Price: 17.85
+
+5.	Guide to investing in your 20s	Sold by: Puffin Books	Price: 12.99
+
+6.	Wool Socks 5 pairs	Sold by: YSense	Price: 10.99
+
+
+You have 3 items in your cart
+
+Enter '2' to add item number 2 to your cart
+
+Enter '#' to view your cart
+Enter '<' to sort listings by cost (low to high)
+Enter '>' to sort listings by cost (high to low)
+Enter '<>' to de-sort
+Enter '?' to exit
+[#]
+
+1.	USB-C Wall Charger	Sold by: INCORIC	Price: 9.27
+Quantity: 1
+2.	JBL Vibe 200TWs	Sold by: JBL	Price: 29.95
+Quantity: 4
+3.	Guide to investing in your 20s	Sold by: Puffin Books	Price: 12.99
+Quantity: 1
+
+Total Price: 142.06
+
+Enter '$' to checkout
+Enter 2 to remove item number 2
+Enter '?' to exit cart
+[3]
+Item removed
+
+1.	Metal Headband	Sold by: WantGor	Price: 3.98
+
+2.	JBL Vibe 200TWs	Sold by: JBL	Price: 29.95
+
+3.	USB-C Wall Charger	Sold by: INCORIC	Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse	Sold by: Razer	Price: 17.85
+
+5.	Guide to investing in your 20s	Sold by: Puffin Books	Price: 12.99
+
+6.	Wool Socks 5 pairs	Sold by: YSense	Price: 10.99
+
+
+You have 2 items in your cart
+
+Enter '2' to add item number 2 to your cart
+
+Enter '#' to view your cart
+Enter '<' to sort listings by cost (low to high)
+Enter '>' to sort listings by cost (high to low)
+Enter '<>' to de-sort
+Enter '?' to exit
+[?]
+Thank you for using Markey! Have a nice day :)

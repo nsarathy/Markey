@@ -15,7 +15,7 @@ public class MarketPlace {
     public static final String ADDED_TO_CART = "Added to your cart :)";
     public static final String NO_LISTINGS = "There is nothing for sale :(";
     public static final String CART_LENGTH = "\nYou have %d items in your cart\n";
-    public static final String CART_LENGTH_1 = "\nYou have %d items in your cart\n";
+    public static final String CART_LENGTH_1 = "\nYou have %d item in your cart\n";
     private String username;
 
     public MarketPlace(String username) {
@@ -31,7 +31,6 @@ public class MarketPlace {
 
     /**
      * TODO: view purchase history
-     * TODO: read cart
      * TODO: Let customers proceed to checkout cart (uncomment)
      * TODO: Use methods from Seller.java to create, edit or remove products/stores
      * todo: comment every implementation

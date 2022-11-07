@@ -24,7 +24,6 @@ public class MarketPlace {
 
     // TODO: psvm method for testing purposes only, delete later
     public static void main(String[] args) {
-        System.out.println("".split("Q", -1)[0]);
         MarketPlace marketPlace = new MarketPlace("testUser");
         marketPlace.main(true);
     }

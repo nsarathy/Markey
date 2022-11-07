@@ -2,7 +2,7 @@ MarketPlace
 content within [] indicate input
 These samples use MarketPlace.java 's main(boolean) method
 
-Sample 1:
+Sample 1: username = testUser and main(true)
 
 carts.txt :
 testUser2;Metal Headband_WantGor_2_3.98_Metal headband for men and womenMetal Headband_WantGor_2_3.98_Metal headband for men and women!!Guide to investing in your 20s_Puffin Books_1_12.99_Book about long term investingMetal Headband_WantGor_2_3.98_Metal headband for men and women!!Guide to investing in your 20s_Puffin Books_1_12.99_Book about long term investing!!Wool Socks 5 pairs_YSense_3_10.99_Thick Wool socks winter warm for men;wantGorOwnerwantGorOwner!!warrenBuffetwantGorOwner!!warrenBuffet!!ysenser

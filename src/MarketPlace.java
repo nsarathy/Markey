@@ -7,7 +7,7 @@ public class MarketPlace {
     public static final String PRODUCT_DISPLAY = "\n%d.\t%s\tSold by: %s\tPrice: %.2f\n";
     public static final String SELECTED_PRODUCT_DISPLAY = "\n%s\tSold by: %s\tPrice: %.2f\nAvailable in stock: %d\nDescription: %s\n";
     public static final String CART_END = "\n\nTotal Price: %.2f\n\nEnter '$' to checkout\nEnter 2 to remove item number 2\nEnter '?' to exit cart\n";
-    public static final String[] BUTTONS = {"#", "<", ">", "<>", "?"};
+    public static final String[] BUTTONS = {"#", "<", ">", "<>", "?", "@", "++", "--", "*", "csv"};
     public static final String BUTTONS_PROMPT = "\nEnter '%s' to %s";
     public static final String ADD_TO_CART = "\nEnter '2' to add item number 2 to your cart";
     public static final String QUANTITY_PROMPT = "Enter quantity for the selected item ('?' to exit)";
@@ -16,6 +16,7 @@ public class MarketPlace {
     public static final String NO_LISTINGS = "There is nothing for sale :(";
     public static final String CART_LENGTH = "\nYou have %d items in your cart\n";
     public static final String CART_LENGTH_1 = "\nYou have %d item in your cart\n";
+    public static final String SELLER_NOTHING = "You do not having anything for sale";
     private String username;
 
     public MarketPlace(String username) {
@@ -24,8 +25,8 @@ public class MarketPlace {
 
     // TODO: psvm method for testing purposes only, delete later
     public static void main(String[] args) {
-        MarketPlace marketPlace = new MarketPlace("testUser");
-        marketPlace.main(true);
+        MarketPlace marketPlace = new MarketPlace("testUserSeller");
+        marketPlace.main(false);
     }
 
     /**
@@ -42,6 +43,7 @@ public class MarketPlace {
         ArrayList<Product> cartItems = new ArrayList<>();
         ArrayList<String> cartSellerUsernames = new ArrayList<>();
         try {
+            // Reading products in listings
             FileReader frProducts = new FileReader("Products.txt");
             BufferedReader brProducts = new BufferedReader(frProducts);
             ArrayList<Product> listings = new ArrayList<>();
@@ -59,8 +61,10 @@ public class MarketPlace {
                 listings.add(new Product(productDetails[0], store, quantity, price, productDetails[4]));
                 line = brProducts.readLine();
             }
+            // for de-sort
             originalListings = listings;
             originalSellerUsernames = sellerUsernames;
+            // main loop for the program
             listingDisplay:
             while (true) {
                 // Displaying listings
@@ -73,7 +77,8 @@ public class MarketPlace {
                 }
                 System.out.println();
                 if (customer) {
-                    // read cart
+                    // reading and displaying number of items in cart
+                    // cart data is stored
                     try {
                         Listing readCart = readCart();
                         cartItems = readCart.getProducts();
@@ -86,15 +91,24 @@ public class MarketPlace {
                     } catch (CartNotTrackableException e) {
                         System.out.println(e.getMessage());
                     }
+                    // displaying actions for each input
                     System.out.println(ADD_TO_CART);
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[0], "view your cart");
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[1], "sort listings by cost (low to high)");
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[2], "sort listings by cost (high to low)");
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[3], "de-sort");
+                } else {
+                    System.out.printf(BUTTONS_PROMPT, BUTTONS[5], "open a new Store");
+                    System.out.printf(BUTTONS_PROMPT, BUTTONS[6], "list a new item for sale");
+                    System.out.printf(BUTTONS_PROMPT, BUTTONS[7], "remove an item from sale");
+                    System.out.printf(BUTTONS_PROMPT, BUTTONS[8], "edit an item that's on sale");
                 }
+                System.out.printf(BUTTONS_PROMPT, BUTTONS[9], "get a csv file with data");
+                // todo : csv for both seller and buyer
                 System.out.printf(BUTTONS_PROMPT, BUTTONS[4], "exit");
                 System.out.println();
                 String action = scanner.nextLine();
+                // carrying out the actions
                 if (action.equalsIgnoreCase(BUTTONS[4])) {
                     break listingDisplay;
                 } else if (customer) {
@@ -114,6 +128,7 @@ public class MarketPlace {
                     } else {
                         try {
                             int itemNumber = Integer.parseInt(action);
+                            // Adding an item to cart
                             if (itemNumber > 0 && itemNumber <= listings.size()) {
                                 Product product = listings.get(itemNumber - 1);
                                 displaySelectedProduct(product);
@@ -151,16 +166,43 @@ public class MarketPlace {
                             continue listingDisplay;
                         }
                     }
+                } else if (!customer) {
+                    boolean listed = false;
+                    ArrayList<Product> products = new ArrayList<>();
+                    ArrayList<Store> stores = new ArrayList<>();
+                    for (int i = 0; i < listings.size(); i++) {
+                        String sellerUsername = sellerUsernames.get(i);
+                        if (sellerUsername.equals(username)) {
+                            listed = true;
+                            products.add(listings.get(i));
+                        }
+                    }
+                    if (listed) {
+                        try {
+                            FileReader frSeller = new FileReader("Stores.txt");
+                            BufferedReader brSeller = new BufferedReader(frSeller);
+                            // read actions
+                            // TODO : after Yudon gets done with Seller
+                            brSeller.close();
+                            frSeller.close();
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                    } else {
+                        System.out.println(SELLER_NOTHING);
+                        // mandatory to have at least one product
+                        // prompt to open store
+                        // TODO : After Yudon gets done with Seller
+                    }
+                    // todo: instantiate Seller object and call methods according to actions
                 }
-
             }
             brProducts.close();
             frProducts.close();
+            // farewell message
             System.out.println("Thank you for using Markey! Have a nice day :)");
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            // test purposes TODO: remove next line
-            e.printStackTrace();
         }
     }
 
@@ -171,6 +213,7 @@ public class MarketPlace {
         System.out.printf(PRODUCT_DISPLAY, (index + 1), name, storeName, price);
     }
 
+    // product page
     public void displaySelectedProduct(Product product) {
         String name = product.getName();
         String storeName = product.getStore().getName();
@@ -182,13 +225,15 @@ public class MarketPlace {
 
     public void checkout(ArrayList<Product> proceedToCheckout, ArrayList<String> sellerUsernames) {
         var cart = new Cart(proceedToCheckout, sellerUsernames, username);
-        // todo: clear cart.txt
+        // todo: clear line in cart.txt
         // TODO: uncomment after testing
         /*
         cart.buy();
          */
     }
 
+    // Displaying cart
+    // Actions : remove item, exit cart, proceed to checkout
     public void viewCart(ArrayList<Product> currentCart, ArrayList<String> currentCartSellers, Scanner scanner) {
         boolean stepFound = false;
         while (!stepFound) {
@@ -273,21 +318,23 @@ public class MarketPlace {
 
     public void viewPurchaseHistory() {
         // TODO: after Oh gets done with Cart and Purchase
+        // Use Customer.displayPurchases
     }
 
+    // Writing user's cart to a txt file
     public void storeCart(ArrayList<Product> currentCart, ArrayList<String> currentSellers) throws CartNotTrackableException {
         String finalLine = username + ";";
         for (Product product : currentCart) {
-            finalLine = finalLine + product.toString() + "!!";
+            finalLine = finalLine + product.toString() + "___";
         }
-        if (finalLine.endsWith("!!")) {
+        if (finalLine.endsWith("___")) {
             finalLine = finalLine.substring(0, finalLine.length() - 2);
         }
         finalLine = finalLine + ";";
         for (String seller : currentSellers) {
-            finalLine = finalLine + seller + "!!";
+            finalLine = finalLine + seller + "___";
         }
-        if (finalLine.endsWith("!!")) {
+        if (finalLine.endsWith("___")) {
             finalLine = finalLine.substring(0, finalLine.length() - 2);
         }
         try {
@@ -336,8 +383,8 @@ public class MarketPlace {
                 String[] toGetCustomer = line.split(";", -1);
                 if (toGetCustomer[0].equals(username)) {
                     flag = false;
-                    String[] products = toGetCustomer[1].split("!!", -1);
-                    String[] sellers = toGetCustomer[2].split("!!", -1);
+                    String[] products = toGetCustomer[1].split("___", -1);
+                    String[] sellers = toGetCustomer[2].split("___", -1);
                     if (!products[0].isEmpty()) {
                         for (String value : products) {
                             String[] productDetails = value.split("_", -1);

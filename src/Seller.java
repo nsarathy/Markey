@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -43,18 +45,34 @@ public class Seller extends Account{
             e.printStackTrace();
         }
     }
-    public void createStore(/* params */) {
+    public void createStore(String storeName) {
+        int indexOf = 0;
+        String sellerName = this.getUsername();
         // initialize a store
+        Store newStore = new Store(storeName);
         // add created store to stores
+        this.stores.add(newStore);
         // Update Stores.txt
+        try {
+            BufferedReader bfr = new BufferedReader(new FileReader("Stores.txt"));
+            BufferedWriter bfw = new BufferedWriter(new FileWriter("Stores.txt"));
+            String line = "";
+            while ((line = bfr.readLine()) != null) {
+                indexOf = line.indexOf(";");
+                if (sellerName.equals(line.substring(0, indexOf))) {
+                    bfw.write(line + "," + storeName);
+                }
+            }
+            bfr.close();
+            bfw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
-    // Sellers can editing: Using getters and setters
 
     public void deleteProduct(int index) {
         this.products.remove(index);
     }
 
-    // TODO: methods for displaying stores and products
     // TODO: equals() method checks only username
 }

@@ -1,1 +1,4 @@
-username;product1,product2,...
+customerUsername;product1.toString$sellerUsername___product2.toString$seller___product3.toString
+
+//this is the format for looking at purchase history
+customerUsername;product1$sellerUsername___product2$sellerUsername___product3$sellerUsername

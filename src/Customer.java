@@ -26,5 +26,16 @@ public class Customer extends Account{
     }
 
     // TODO: equals() checks only
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if ( !(obj instanceof Customer)) {
+            return false;
+        }
+        Customer p = (Customer) obj;
+        return (p.getUsername().equals(this.getUsername()));
+    }
 
 }

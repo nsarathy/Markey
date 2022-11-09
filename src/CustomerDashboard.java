@@ -21,14 +21,22 @@ public class CustomerDashboard {
     }
 
     public void displayCustomerStatistics() {
-
+        //first get all the elements of the customer's history from probably both
+        //customerStatistics.txt and PurchaseHistory.txt not sure yet, but need to
+        //format and display the total customer stats.
+        
     }
 
     public void sortProducts() {
-
+        //currently either looking at the full list of all total products sold
+        //and sorting by the amount sold. 
+        
     }
 
     public String[] readCustomerStats() throws FileNotFoundException, IOException {
+        //this method is not done yet, need to read more just don't know the format yet.
+        //need to read all the information and either add it to the string array or
+        //probably doing another way is more beneficial. Maybe getters and setters.
         List<String> customerStats = new ArrayList<String>();
         int count = 0;
 

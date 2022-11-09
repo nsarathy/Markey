@@ -1,3 +1,5 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -5,7 +7,7 @@ public class Seller extends Account{
     ArrayList<Store> stores;
     ArrayList<Product> products;
 
-    public  Seller (String username, String password, ArrayList<Store> stores, ArrayList<Product> products) {
+    public Seller (String username, String password, ArrayList<Store> stores, ArrayList<Product> products) {
         super(username, password);
         this.stores = stores;
         this.products = products;
@@ -27,10 +29,19 @@ public class Seller extends Account{
         return stores;
     }
 
-    public void createProduct(/* params */) {
+    public void createProduct(String name, Store store, int quantity, double price, String description) {
         // initialize a product
+        Product newProduct = new Product(name, store, quantity, price, description);
         // add created product to products
+        this.products.add((newProduct));
         // update Products.txt
+        try {
+            BufferedWriter bfw = new BufferedWriter(new FileWriter("Products.txt"));
+            bfw.write(this.getUsername() + ";" + newProduct.toString());
+            bfw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     public void createStore(/* params */) {
         // initialize a store

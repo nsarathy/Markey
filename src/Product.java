@@ -52,4 +52,10 @@ public class Product {
     public String getDescription() {
         return description;
     }
+    
+    public String toString() {
+        String return1 = this.name + "_" + this.store + "_" + 
+                this.quantity + "_" + this.price + "_" + this.description;
+        return return1;
+    }
 }

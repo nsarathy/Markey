@@ -45,6 +45,7 @@ public class SellerDashboard {
 
     public void readSellerStats() throws FileNotFoundException, IOException {
         ArrayList<String> index = new ArrayList<>();
+        ArrayList<String> strProducts = new ArrayList<>();
         ArrayList<Product> products = new ArrayList<>();
         ArrayList<String> customers = new ArrayList<>();
         ArrayList<String> sellers = new ArrayList<>();
@@ -56,7 +57,7 @@ public class SellerDashboard {
         //if true add customer and their products
         //check which product is from which store
         //list their name product and sales.
-        
+
         try {
             File f = new File("SellerStatistics.txt");
             FileReader fr = new FileReader(f);
@@ -75,9 +76,17 @@ public class SellerDashboard {
             }
 
             for (int i = 0; i < count; i++) {
-                ArrayList<String> sellerNames = new ArrayList<>(Arrays.asList(index.get(i).split(";")));
-                if (sellerNames.get(i).equals(sellerUsername)) {
-                    
+                ArrayList<String> format = new ArrayList<>(Arrays.asList(index.get(i).split(";")));
+                if (format.get(0).equals(sellerUsername)) {
+                    customers.add(format.get(2));
+                    strProducts.add(format.get(1));
+                }
+            }
+
+            for (int i = 0; i < count; i++){
+                ArrayList<String> format = new ArrayList<>(Arrays.asList(strProducts.get(i).split("___")));
+                for (int q = 0; q < format.size(); q++){
+                    Product product = new Product();
                 }
             }
 

@@ -75,4 +75,15 @@ public class Seller extends Account{
     }
 
     // TODO: equals() method checks only username
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if ( !(obj instanceof Seller)) {
+            return false;
+        }
+        Seller p = (Seller) obj;
+        return (p.getUsername().equals(this.getUsername()));
+    }
 }

@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class CreateAccount {
@@ -12,6 +14,7 @@ public class CreateAccount {
         //run if methods
         if (checkUser && checkPass && checkUserLength && isLetter) {
             Account newAccount = new Account(username, password);
+            writeAccount(username, password);
         } else if (!checkUserLength || !checkPass) {
             System.out.println("Username or Password cannot be empty!");
         } else if (!isLetter) {
@@ -68,6 +71,16 @@ public class CreateAccount {
             return false;
         } else {
             return true;
+        }
+    }
+
+    public void writeAccount(String username, String password) {
+        try {
+            BufferedWriter bfw = new BufferedWriter(new FileWriter("Accounts.txt", true));
+            bfw.write(username + ";" + password);
+            bfw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

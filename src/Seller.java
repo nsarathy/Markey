@@ -38,7 +38,7 @@ public class Seller extends Account{
         this.products.add((newProduct));
         // update Products.txt
         try {
-            BufferedWriter bfw = new BufferedWriter(new FileWriter("Products.txt"));
+            BufferedWriter bfw = new BufferedWriter(new FileWriter("Products.txt", true));
             bfw.write(this.getUsername() + ";" + newProduct.toString());
             bfw.close();
         } catch (Exception e) {
@@ -55,7 +55,7 @@ public class Seller extends Account{
         // Update Stores.txt
         try {
             BufferedReader bfr = new BufferedReader(new FileReader("Stores.txt"));
-            BufferedWriter bfw = new BufferedWriter(new FileWriter("Stores.txt"));
+            BufferedWriter bfw = new BufferedWriter(new FileWriter("Stores.txt", true));
             String line = "";
             while ((line = bfr.readLine()) != null) {
                 indexOf = line.indexOf(";");

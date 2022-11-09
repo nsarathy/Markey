@@ -17,15 +17,25 @@ public class MarketPlace {
     public static final String CART_LENGTH = "\nYou have %d items in your cart\n";
     public static final String CART_LENGTH_1 = "\nYou have %d item in your cart\n";
     public static final String SELLER_NOTHING = "You do not having anything for sale";
-    private String username;
+    public static final String OPEN_STORE = "Enter a name for your store";
+    public static final String MANDATORY_PRODUCT = "It is mandatory to have at least one product on sale when opening a new store";
+    public static final String PROD_NAME = "Enter name of product";
+    public static final String PROD_STORE = "Choose a store for your item";
+    public static final String PROD_QUANTITY = "Enter the quantity of this item available in stock";
+    public static final String PROD_PRICE = "Enter the price of this item";
+    public static final String PROD_DESCRIPTION = "Enter the description of this item";
+    public static final String
+    private final String username;
+    private final String password;
 
-    public MarketPlace(String username) {
+    public MarketPlace(String username, String password) {
         this.username = username;
+        this.password = password;
     }
 
     // TODO: psvm method for testing purposes only, delete later
     public static void main(String[] args) {
-        MarketPlace marketPlace = new MarketPlace("testUser");
+        MarketPlace marketPlace = new MarketPlace("testUser", "testPassword");
         marketPlace.main(true);
     }
 
@@ -36,6 +46,7 @@ public class MarketPlace {
      * todo: comment every implementation
      * todo: remove products from seller (reduce quantity by the amount purchased by customer)
      * todo: update CustomerStatistics.txt
+     * todo: dashboards
      */
 
     public void main(boolean customer) {
@@ -177,14 +188,45 @@ public class MarketPlace {
                         if (sellerUsername.equals(username)) {
                             listed = true;
                             products.add(listings.get(i));
+                            Store sellerStore = listings.get(i).getStore();
+                            if (!stores.contains(sellerStore)) {
+                                stores.add(sellerStore);
+                            }
                         }
                     }
+                    Seller seller;
                     if (listed) {
+                        seller = new Seller(username, password, stores, products);
                         try {
                             FileReader frSeller = new FileReader("Stores.txt");
                             BufferedReader brSeller = new BufferedReader(frSeller);
                             // read actions
-                            // TODO : after Yudon gets done with Seller
+                            if (action.equalsIgnoreCase(BUTTONS[5])) {
+                                System.out.println(OPEN_STORE);
+                                String storeName = scanner.nextLine();
+                                seller.createStore(storeName);
+                            } else if (action.equalsIgnoreCase(BUTTONS[6])) {
+                                System.out.println(PROD_NAME);
+                                String prodName = scanner.nextLine();
+                                System.out.println(PROD_STORE);
+                                for (int i = 0; i < stores.size(); i++) {
+                                    Store value = stores.get(i);
+                                    System.out.println((i + 1) + ". " + value.getName());
+                                }
+                                int
+                                System.out.println(PROD_QUANTITY);
+                                int prodQuantity = Integer.parseInt(scanner.nextLine());
+                                System.out.println(PROD_PRICE);
+                                double prodPrice = Double.parseDouble(scanner.nextLine());
+                                System.out.println(PROD_DESCRIPTION);
+                                String prodDescription = scanner.nextLine();
+                                seller = new Seller(username, password, stores, products);
+                                seller.createProduct(prodName, prodStore, prodQuantity, prodPrice, prodDescription);
+                            } else if (action.equalsIgnoreCase(BUTTONS[7])) {
+
+                            } else if (action.equalsIgnoreCase(BUTTONS[8])) {
+
+                            }
                             brSeller.close();
                             frSeller.close();
                         } catch (Exception e) {
@@ -194,9 +236,22 @@ public class MarketPlace {
                         System.out.println(SELLER_NOTHING);
                         // mandatory to have at least one product
                         // prompt to open store
-                        // TODO : After Yudon gets done with Seller
+                        System.out.println(OPEN_STORE);
+                        String storeName = scanner.nextLine();
+                        Store store = new Store(storeName);
+                        System.out.println(MANDATORY_PRODUCT);
+                        System.out.println(PROD_NAME);
+                        String prodName = scanner.nextLine();
+                        System.out.println(PROD_QUANTITY);
+                        int prodQuantity = Integer.parseInt(scanner.nextLine());
+                        System.out.println(PROD_PRICE);
+                        double prodPrice = Double.parseDouble(scanner.nextLine());
+                        System.out.println(PROD_DESCRIPTION);
+                        String prodDescription = scanner.nextLine();
+                        seller = new Seller(username, password, stores, products);
+                        seller.createStore(storeName);
+                        seller.createProduct(prodName, store, prodQuantity, prodPrice, prodDescription);
                     }
-                    // todo: instantiate Seller object and call methods according to actions
                 }
             }
             brProducts.close();
@@ -414,11 +469,5 @@ public class MarketPlace {
         }
     }
 
-    public String getUsername() {
-        return username;
-    }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 }

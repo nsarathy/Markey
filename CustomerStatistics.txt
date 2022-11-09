@@ -1,1 +1,1 @@
-sellerUsername
+sellerUsername;store1Name_intSales___

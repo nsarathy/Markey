@@ -3,24 +3,35 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.*;
 
 public class CreateAccount {
     // creates account and updates Accounts.txt
+    
+    private String accountType;
     public CreateAccount(String username, String password) {
+        Account newAccount = new Account(username, password);
+        writeAccount(newAccount);
+    }
+
+    public boolean checkingFields(String username, String password) {
         boolean checkUser = checkUsername(username);
         boolean checkUserLength = checkLength(username);
         boolean checkPass = checkPassword(password);
         boolean isLetter = checkIfLetter(username);
-        //run if methods
+
         if (checkUser && checkPass && checkUserLength && isLetter) {
-            Account newAccount = new Account(username, password);
-            writeAccount(username, password);
+            CreateAccount(String username, String password);
+            return true;
         } else if (!checkUserLength || !checkPass) {
             System.out.println("Username or Password cannot be empty!");
+            return false;
         } else if (!isLetter) {
             System.out.println("Username may only contain letters!");
+            return false;
         } else if (!checkUser) {
             System.out.println("Username already taken!");
+            return false;
         }
     }
 
@@ -74,13 +85,43 @@ public class CreateAccount {
         }
     }
 
-    public void writeAccount(String username, String password) {
+    public void writeAccount(Account newAccount) {
         try {
             BufferedWriter bfw = new BufferedWriter(new FileWriter("Accounts.txt", true));
-            bfw.write(username + ";" + password);
+            bfw.write(this.accountType + "_" + newAccount);
             bfw.close();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            while (true) {
+                System.out.println("Are you a seller or customer?\n1. Seller\n2. Customer");
+                String output = sc.nextLine();
+                if (output.equals("1")) {
+                    this.accountType = "seller";
+                    break;
+                } else if (output.equals("2")) {
+                    this.accountType = "customer";
+                    break;
+                } else {
+                    System.out.println("Enter valid input, 1 or 2!");
+                }
+            }
+            System.out.println("Enter desired username: ");
+            String username = sc.nextLine();
+            System.out.println("Enter desired password: ");
+            String password = sc.nextLine();
+            System.out.println("Checking validity: ");
+            if (checkingFields(username, password)) {
+                System.out.println("Account has been created!");
+                break;
+            } else {
+                System.out.println("Please re-enter required fields!");
+            }
         }
     }
 }

@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.PrintWriter;
+import java.util.*;
+
 public class Login {
     // TODO: login/create account interface
     // User will have option to create account, if chosen move to CreateAccount.java
@@ -7,4 +12,55 @@ public class Login {
     // username does not exist
     // wrong password
     // TODO: exit close program completely
+    private String accountType;
+    private boolean flag;
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Welcome to the Marketplace!");
+        System.out.println("Do you have an existing account?\n1. Yes\n2. No");
+        String check = sc.nextLine();
+        if (check.equals("2")) {
+            CreateAccount.main();
+        }
+        while (flag) {
+            System.out.println("\nLOGIN WINDOW:");
+            System.out.println("Enter Username:");
+            String username = sc.nextLine();
+            System.out.println("Enter Password:");
+            String password = sc.nextLine();
+            boolean exists = false;
+            try {
+                BufferedReader bfr = new BufferedReader(new FileReader("Accounts.txt"));
+                String line = "";
+                while ((line = bfr.readLine()) != null) {
+                    int indexOf = line.indexOf(";");
+                    if (line.contains("seller")) {
+                        this.accountType = "seller";
+                    } else if (line.contains("customer")) {
+                        this.accountType = "customer";
+                    }
+                    if (line.substring(0, indexOf).equals(username) && line.substring(indexOf).equals(password)) {
+                        exists = true;
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (exists) {
+                System.out.println("LOGIN SUCCESSFUL");
+                if (this.accountType.equals("seller")) {
+                    MarketPlace newMarket = new MarketPlace(username, password);
+                    newMarket.main(false);
+                    this.flag = false;
+                } else if (this.accountType.equals("customer") {
+                    MarketPlace newMarket = new MarketPlace(username, password);
+                    newMarket.main(true);
+                    this.flag = false;
+                }
+            } else {
+                System.out.println("Wrong username or password!");
+            }
+        }
+    }
 }

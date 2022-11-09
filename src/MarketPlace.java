@@ -34,6 +34,8 @@ public class MarketPlace {
      * TODO: Let customers proceed to checkout cart (uncomment)
      * TODO: Use methods from Seller.java to create, edit or remove products/stores
      * todo: comment every implementation
+     * todo: remove products from seller (reduce quantity by the amount purchased by customer)
+     * todo: update CustomerStatistics.txt
      */
 
     public void main(boolean customer) {
@@ -411,7 +413,6 @@ public class MarketPlace {
             throw new CartNotTrackableException("Unable to find cart");
         }
     }
-
 
     public String getUsername() {
         return username;

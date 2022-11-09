@@ -10,15 +10,29 @@ public class SellerDashboard {
      */
 
 
+    //read the sellerStats
+    //display for the specific seller user, all the customer usernames that have bought from them,
+    //number of items each customer has bought from the seller, list of products the customer has bought,
+    //number of sales for each product the seller has sold.
+
     //method used to display the interface the seller user can interact with and call the other method
+
+    private String userName;
+
+    public SellerDashboard(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public void sellerInterface() throws IOException {
-        SellerDashboard sd = new SellerDashboard();
-        String[] sellerNames = sd.readSellerStats();
-        int count = sellerNames.length;
-        for (int i = 0; i < count; i++) {
-            System.out.println("-------------------");
-            System.out.println(sellerNames[i]);
-        }
+
     }
 
     public void displaySellerStats() {
@@ -29,10 +43,20 @@ public class SellerDashboard {
 
     }
 
-    public String[] readSellerStats() throws FileNotFoundException, IOException {
-        List<String> sellerStats = new ArrayList<String>();
+    public void readSellerStats() throws FileNotFoundException, IOException {
+        ArrayList<String> index = new ArrayList<>();
+        ArrayList<Product> products = new ArrayList<>();
+        ArrayList<String> customers = new ArrayList<>();
+        ArrayList<String> sellers = new ArrayList<>();
+        ArrayList<Store> stores = new ArrayList<>();
+        String sellerUsername = userName;
         int count = 0;
 
+        //check if seller is the same as current user
+        //if true add customer and their products
+        //check which product is from which store
+        //list their name product and sales.
+        
         try {
             File f = new File("SellerStatistics.txt");
             FileReader fr = new FileReader(f);
@@ -46,22 +70,20 @@ public class SellerDashboard {
 
             while (line != null) {
                 count++;
-                sellerStats.add(line);
+                index.add(line);
                 line = bfr.readLine();
             }
-            String[] sellerStatsArr = new String[sellerStats.size()];
-            sellerStatsArr = sellerStats.toArray(sellerStatsArr);
-            String[] sellerNames = new String[count];
-            for (int i = 0; i < sellerNames.length; i++) {
-                ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(sellerStatsArr[i].split(";")));
-                sellerNames[i] = collectedData.get(0);
+
+            for (int i = 0; i < count; i++) {
+                ArrayList<String> sellerNames = new ArrayList<>(Arrays.asList(index.get(i).split(";")));
+                if (sellerNames.get(i).equals(sellerUsername)) {
+                    
+                }
             }
 
-            return sellerNames;
 
-        }catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-            return null;
         }
 
     }

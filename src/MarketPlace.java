@@ -25,8 +25,8 @@ public class MarketPlace {
 
     // TODO: psvm method for testing purposes only, delete later
     public static void main(String[] args) {
-        MarketPlace marketPlace = new MarketPlace("testUserSeller");
-        marketPlace.main(false);
+        MarketPlace marketPlace = new MarketPlace("testUser");
+        marketPlace.main(true);
     }
 
     /**

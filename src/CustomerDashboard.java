@@ -10,18 +10,23 @@ public class CustomerDashboard {
 	// Use Scanner to provide an interface for user to do any of the above
 
 	private String customerUsername;
-	private String[] stores;
 
+	public static void main(String[] args) throws FileNotFoundException, IOException {
+		CustomerDashboard cd = new CustomerDashboard("testUser");
+		cd.main();
+		
+	}
+	
 	//constructor
 	public CustomerDashboard(String customerUsername) {
 		this.customerUsername = customerUsername;
 	}
-
-
-	public void main() {
-		//this method will contain what the user can do with all these methods, displaying
-		//manipulating and sorting the products with the sort method
-
+	
+	public void setCustomerUsername(String customerUsername) {
+		this.customerUsername = customerUsername;
+	}
+	public String getCustomerUsername() {
+		return customerUsername;
 	}
 
 	public void customerInterface() throws IOException {
@@ -194,7 +199,24 @@ public class CustomerDashboard {
 
 			}
 		}
+				
 		return onlySales;
 		
 	}
+	
+	
+	
+	public void main() throws FileNotFoundException, IOException {
+		//this method will contain what the user can do with all these methods, displaying
+		//manipulating and sorting the products with the sort method
+		
+		int size = getOnlySales().size();
+		
+		for (int i = 0; i < size; i++) {
+			System.out.println(getOnlySales().get(i));
+		}
+		
+
+	}
+	
 }

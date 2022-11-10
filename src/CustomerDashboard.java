@@ -1,4 +1,3 @@
-
 import java.util.*;
 import java.io.*;
 
@@ -256,8 +255,11 @@ public class CustomerDashboard {
 					System.out.println("1. View All Stores");
 					System.out.println("2. View Purchased Stores");
 					System.out.println("3. Exit Customer Dashboard");
+					System.out.println();
+					System.out.print("Enter Option Here: ");
 					answer1 = input.nextInt();
 					input.nextLine();
+					System.out.println();
 
 					if (answer1 == 1) {
 						break;
@@ -271,6 +273,8 @@ public class CustomerDashboard {
 						System.out.println();
 					}
 				} catch (InputMismatchException e) {
+					System.out.println();
+
 					System.out.println("Please enter valid choice!");
 					System.out.println();
 					input.nextLine();

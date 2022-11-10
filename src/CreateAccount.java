@@ -7,7 +7,7 @@ import java.util.*;
 
 public class CreateAccount {
     // creates account and updates Accounts.txt
-    
+
     private String accountType;
     public CreateAccount(String username, String password) {
         Account newAccount = new Account(username, password);
@@ -21,7 +21,7 @@ public class CreateAccount {
         boolean isLetter = checkIfLetter(username);
 
         if (checkUser && checkPass && checkUserLength && isLetter) {
-            CreateAccount(String username, String password);
+            CreateAccount newAccount = new CreateAccount(username, password);
             return true;
         } else if (!checkUserLength || !checkPass) {
             System.out.println("Username or Password cannot be empty!");
@@ -32,6 +32,8 @@ public class CreateAccount {
         } else if (!checkUser) {
             System.out.println("Username already taken!");
             return false;
+        } else {
+            return false;
         }
     }
 
@@ -41,7 +43,7 @@ public class CreateAccount {
     public boolean checkUsername(String username) {
         ArrayList<String> usernames = new ArrayList<>();
         try {
-            BufferedReader bfr = new BufferedReader(new FileReader(filename));
+            BufferedReader bfr = new BufferedReader(new FileReader("Accounts.txt"));
             String line = "";
             while ((line = bfr.readLine()) != null) {
                 int indexOf = line.indexOf(";");

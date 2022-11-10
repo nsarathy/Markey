@@ -38,7 +38,7 @@ public class Seller extends Account {
         // update Products.txt
         try {
             BufferedWriter bfw = new BufferedWriter(new FileWriter("Products.txt", true));
-            bfw.write("\n" + this.getUsername() + ";" + newProduct.toString());
+            bfw.write(this.getUsername() + ";" + newProduct.toString() + "\n");
             bfw.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,12 +61,12 @@ public class Seller extends Account {
             while ((line = bfr.readLine()) != null) {
                 indexOf = line.indexOf(";");
                 if (sellerName.equals(line.substring(0, indexOf))) {
-                    bfw.write("\n" + line + "," + storeName);
+                    bfw.write(line + "," + storeName + "\n");
                     flag = true;
                 }
             }
             if (!flag) {
-                bfw.write("\n" + sellerName + ";" + storeName);
+                bfw.write(sellerName + ";" + storeName + "\n");
             }
             bfr.close();
             bfw.close();

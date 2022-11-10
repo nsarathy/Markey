@@ -88,7 +88,7 @@ public class CreateAccount {
     public void writeAccount(Account newAccount) {
         try {
             BufferedWriter bfw = new BufferedWriter(new FileWriter("Accounts.txt", true));
-            bfw.write(this.accountType + "_" + newAccount);
+            bfw.write("\n" + this.accountType + "_" + newAccount);
             bfw.close();
         } catch (Exception e) {
             e.printStackTrace();

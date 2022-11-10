@@ -25,11 +25,6 @@ public class CustomerDashboard {
     }
 
     public void customerInterface() throws IOException {
-        int count = customerNames.length;
-        for (int i = 0; i < count; i++) {
-            System.out.println("-------------------");
-            System.out.println(customerNames[i]);
-        }
     }
 
     public void displayCustomerStatistics() {
@@ -107,7 +102,13 @@ public class CustomerDashboard {
             //we should have two main array list by now
             // first we have seller name split with all stores
             // second we should have each store and their sales number together
+            //next we need to split again but some how make sure we know which seller it belongs to
 
+            //make a nested for loop, which loops until the seller changes
+            
+            
+            
+            
 
 
         } catch (FileNotFoundException e) {

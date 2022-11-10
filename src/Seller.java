@@ -61,7 +61,7 @@ public class Seller extends Account {
             while ((line = bfr.readLine()) != null) {
                 indexOf = line.indexOf(";");
                 if (sellerName.equals(line.substring(0, indexOf))) {
-                    bfw.write("\n" + line + "," + storeName);
+                    bfw.write(line + "," + storeName);
                     flag = true;
                 }
             }

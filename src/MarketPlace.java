@@ -7,7 +7,7 @@ public class MarketPlace {
     public static final String PRODUCT_DISPLAY = "\n%d.\t%s\tSold by: %s\tPrice: %.2f\n";
     public static final String SELECTED_PRODUCT_DISPLAY = "\n%s\tSold by: %s\tPrice: %.2f\nAvailable in stock: %d\nDescription: %s\n";
     public static final String CART_END = "\n\nTotal Price: %.2f\n\nEnter '$' to checkout\nEnter 2 to remove item number 2\nEnter '?' to exit cart\n";
-    public static final String[] BUTTONS = {"#", "<", ">", "<>", "?", "@", "++", "--", "*", "csv"};
+    public static final String[] BUTTONS = {"#", "<", ">", "<>", "?", "@", "++", "--", "*", "csv", "db"};
     public static final String BUTTONS_PROMPT = "\nEnter '%s' to %s";
     public static final String ADD_TO_CART = "\nEnter '2' to add item number 2 to your cart";
     public static final String QUANTITY_PROMPT = "Enter quantity for the selected item ('?' to exit)";
@@ -24,7 +24,6 @@ public class MarketPlace {
     public static final String PROD_QUANTITY = "Enter the quantity of this item available in stock";
     public static final String PROD_PRICE = "Enter the price of this item";
     public static final String PROD_DESCRIPTION = "Enter the description of this item";
-    public static final String
     private final String username;
     private final String password;
 
@@ -35,15 +34,16 @@ public class MarketPlace {
 
     // TODO: psvm method for testing purposes only, delete later
     public static void main(String[] args) {
-        MarketPlace marketPlace = new MarketPlace("testUser", "testPassword");
-        marketPlace.main(true);
+        //MarketPlace marketPlace = new MarketPlace("testUser", "testPassword");
+        MarketPlace marketPlace = new MarketPlace("testUserSeller", "testPassword");
+        //marketPlace.main(true);
+       marketPlace.main(false);
     }
 
     /**
      * TODO: view purchase history
      * TODO: Let customers proceed to checkout cart (uncomment)
      * TODO: Use methods from Seller.java to create, edit or remove products/stores
-     * todo: comment every implementation
      * todo: remove products from seller (reduce quantity by the amount purchased by customer)
      * todo: update CustomerStatistics.txt
      * todo: dashboards
@@ -80,6 +80,23 @@ public class MarketPlace {
             // main loop for the program
             listingDisplay:
             while (true) {
+                if (!customer) {
+                    FileReader frProducts2 = new FileReader("Products.txt");
+                    BufferedReader brProducts2 = new BufferedReader(frProducts2);
+                    listings = new ArrayList<>();
+                    sellerUsernames = new ArrayList<>();
+                    line = brProducts2.readLine();
+                    while (line != null) {
+                        String[] sellerAndProduct = line.split(";", 2);
+                        String[] productDetails = sellerAndProduct[1].split("_", -1);
+                        sellerUsernames.add(sellerAndProduct[0]);
+                        Store store = new Store(productDetails[1]);
+                        int quantity = Integer.parseInt(productDetails[2]);
+                        double price = Double.parseDouble(productDetails[3]);
+                        listings.add(new Product(productDetails[0], store, quantity, price, productDetails[4]));
+                        line = brProducts2.readLine();
+                    }
+                }
                 // Displaying listings
                 if (listings.isEmpty()) {
                     System.out.println(NO_LISTINGS);
@@ -117,11 +134,13 @@ public class MarketPlace {
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[8], "edit an item that's on sale");
                 }
                 System.out.printf(BUTTONS_PROMPT, BUTTONS[9], "get a csv file with data");
+                System.out.printf(BUTTONS_PROMPT, BUTTONS[10], "go to dashboard");
                 // todo : csv for both seller and buyer
                 System.out.printf(BUTTONS_PROMPT, BUTTONS[4], "exit");
                 System.out.println();
                 String action = scanner.nextLine();
                 // carrying out the actions
+                // todo dashboard
                 if (action.equalsIgnoreCase(BUTTONS[4])) {
                     break listingDisplay;
                 } else if (customer) {
@@ -189,7 +208,14 @@ public class MarketPlace {
                             listed = true;
                             products.add(listings.get(i));
                             Store sellerStore = listings.get(i).getStore();
-                            if (!stores.contains(sellerStore)) {
+                            boolean sameName = false;
+                            for (Store value : stores) {
+                                if (value.getName().equals(sellerStore.getName())) {
+                                    sameName = true;
+                                    break;
+                                }
+                            }
+                            if (!sameName) {
                                 stores.add(sellerStore);
                             }
                         }
@@ -204,28 +230,45 @@ public class MarketPlace {
                             if (action.equalsIgnoreCase(BUTTONS[5])) {
                                 System.out.println(OPEN_STORE);
                                 String storeName = scanner.nextLine();
+                                while (storeName.contains("_") || storeName.contains(";") || storeName.contains(",")) {
+                                    System.out.println("Store name cannot contain '_' or ';' or ','");
+                                    System.out.println(PROD_NAME);
+                                    storeName = scanner.nextLine();
+                                }
                                 seller.createStore(storeName);
                             } else if (action.equalsIgnoreCase(BUTTONS[6])) {
                                 System.out.println(PROD_NAME);
                                 String prodName = scanner.nextLine();
+                                while (prodName.contains("_") || prodName.contains(";")) {
+                                    System.out.println("Item name cannot contain '_' or ';'");
+                                    System.out.println(PROD_NAME);
+                                    prodName = scanner.nextLine();
+                                }
                                 System.out.println(PROD_STORE);
                                 for (int i = 0; i < stores.size(); i++) {
                                     Store value = stores.get(i);
                                     System.out.println((i + 1) + ". " + value.getName());
                                 }
-                                int
+                                int prodStoreChoose = Integer.parseInt(scanner.nextLine());
+                                prodStoreChoose = prodStoreChoose - 1;
+                                Store prodStore = stores.get(prodStoreChoose);
                                 System.out.println(PROD_QUANTITY);
                                 int prodQuantity = Integer.parseInt(scanner.nextLine());
                                 System.out.println(PROD_PRICE);
                                 double prodPrice = Double.parseDouble(scanner.nextLine());
                                 System.out.println(PROD_DESCRIPTION);
                                 String prodDescription = scanner.nextLine();
+                                while (prodDescription.contains("_") || prodDescription.contains(";")) {
+                                    System.out.println("Description cannot contain '_' or ';'");
+                                    System.out.println(PROD_NAME);
+                                    prodDescription = scanner.nextLine();
+                                }
                                 seller = new Seller(username, password, stores, products);
                                 seller.createProduct(prodName, prodStore, prodQuantity, prodPrice, prodDescription);
                             } else if (action.equalsIgnoreCase(BUTTONS[7])) {
-
+                                // todo delete
                             } else if (action.equalsIgnoreCase(BUTTONS[8])) {
-
+                                // todo edit
                             }
                             brSeller.close();
                             frSeller.close();
@@ -237,6 +280,7 @@ public class MarketPlace {
                         // mandatory to have at least one product
                         // prompt to open store
                         System.out.println(OPEN_STORE);
+                        // todo check spl characters
                         String storeName = scanner.nextLine();
                         Store store = new Store(storeName);
                         System.out.println(MANDATORY_PRODUCT);
@@ -284,6 +328,7 @@ public class MarketPlace {
         var cart = new Cart(proceedToCheckout, sellerUsernames, username);
         // todo: clear line in cart.txt
         // TODO: uncomment after testing
+        // todo customer stats
         /*
         cart.buy();
          */

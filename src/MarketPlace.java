@@ -28,6 +28,11 @@ public class MarketPlace {
     public static final String DELETE_FAIL = "Deletion failed :(";
     public static final String DELETE_SUCCESS = "Deletion successful :)";
     public static final String STORE_EXISTS = "You have already opened a store of the same name";
+    public static final String EDIT_PROMPT = "Enter 2 to edit 2nd item";
+    public static final String EDIT_FAIL = "Edit unsuccessful :(";
+    public static final String EDIT_SUCCESS = "Edit successful :)";
+    public static final String EDIT_WHAT = "\nEnter\n'1' to edit name\n'2' to edit price\n'3' to edit description\n'4' to edit availability in stock";
+    public static final int[] EDIT_THAT = {1, 2, 3, 4};
     private final String username;
     private final String password;
 
@@ -43,6 +48,7 @@ public class MarketPlace {
         //marketPlace.main(true);
         marketPlace.main(false);
     }
+// todo : if time permits loop and try catch number inputs
 
     /**
      * TODO: view purchase history
@@ -51,6 +57,7 @@ public class MarketPlace {
      * todo: remove products from seller (reduce quantity by the amount purchased by customer)
      * todo: update CustomerStatistics.txt
      * todo: dashboards
+     * todo: csv
      */
 
     public void main(boolean customer) {
@@ -365,13 +372,84 @@ public class MarketPlace {
                                 } catch (Exception e) {
                                     System.out.println(DELETE_FAIL);
                                 }
-                            } else if (action.equalsIgnoreCase(BUTTONS[8])) {
-                                // todo edit
+                            } else if (action.equalsIgnoreCase(BUTTONS[8])) { // edit
+                                for (int i = 0; i < products.size(); i++) {
+                                    displayProduct(products.get(i), i);
+                                }
+                                System.out.println(EDIT_PROMPT);
+                                int editIndex = Integer.parseInt(scanner.nextLine());
+                                editIndex = editIndex - 1;
+                                Product toEdit = products.get(editIndex);
+                                Product tempProd = new Product(toEdit.getName(), toEdit.getStore(), toEdit.getQuantity(), toEdit.getPrice(), toEdit.getDescription());
+                                ArrayList<String> afterEdit = new ArrayList<>();
+                                try {
+                                    FileReader frEdit = new FileReader("Products.txt");
+                                    BufferedReader brEdit = new BufferedReader(frEdit);
+                                    String eachLine = brEdit.readLine();
+                                    while (eachLine != null) {
+                                        afterEdit.add(eachLine);
+                                        eachLine = brEdit.readLine();
+                                    }
+                                    brEdit.close();
+                                    frEdit.close();
+                                    displaySelectedProduct(toEdit);
+                                    System.out.println(EDIT_WHAT);
+                                    int editWhat = Integer.parseInt(scanner.nextLine());
+                                    if (editWhat == EDIT_THAT[0]) {
+                                        System.out.println("Enter new name");
+                                        String prodName = scanner.nextLine();
+                                        while (prodName.contains("_") || prodName.contains(";")) {
+                                            System.out.println("Item name cannot contain '_' or ';'");
+                                            System.out.println(PROD_NAME);
+                                            prodName = scanner.nextLine();
+                                        }
+                                        toEdit.setName(prodName);
+                                    } else if (editWhat == EDIT_THAT[1]) {
+                                        System.out.println("Enter new price");
+                                        double newPrice = Double.parseDouble(scanner.nextLine());
+                                        toEdit.setPrice(newPrice);
+                                    } else if (editWhat == EDIT_THAT[2]) {
+                                        System.out.println("Enter new description");
+                                        String prodDescription = scanner.nextLine();
+                                        while (prodDescription.contains("_") || prodDescription.contains(";")) {
+                                            System.out.println("Description cannot contain '_' or ';'");
+                                            System.out.println(PROD_NAME);
+                                            prodDescription = scanner.nextLine();
+                                        }
+                                        toEdit.setDescription(prodDescription);
+                                    } else if (editWhat == EDIT_THAT[3]) {
+                                        System.out.println("Enter new quantity");
+                                        int newQuantity = Integer.parseInt(scanner.nextLine());
+                                        toEdit.setQuantity(newQuantity);
+                                    }
+                                    boolean edited = false;
+                                    for (int i = 0; i < afterEdit.size(); i++) {
+                                        String[] check0 = afterEdit.get(i).split(";", -1);
+                                        if (check0[1].equals(tempProd.toString())) {
+                                            edited = true;
+                                            afterEdit.set(i, username + ";" + toEdit.toString());
+                                        }
+                                    }
+                                    FileOutputStream fosEdit = new FileOutputStream("Products.txt");
+                                    PrintWriter pwEdit = new PrintWriter(fosEdit);
+                                    for (String value : afterEdit) {
+                                        pwEdit.println(value);
+                                    }
+                                    pwEdit.close();
+                                    fosEdit.close();
+                                    if (edited) {
+                                        System.out.println(EDIT_SUCCESS);
+                                    } else {
+                                        System.out.println(EDIT_FAIL);
+                                    }
+                                } catch (Exception e) {
+                                    System.out.println(EDIT_FAIL);
+                                }
                             }
                             brSeller.close();
                             frSeller.close();
                         } catch (Exception e) {
-                            System.out.println(e.getMessage());
+                            System.out.println("Something went wrong :(\nPlease try again later");
                         }
                     } else {
                         System.out.println(SELLER_NOTHING);
@@ -626,13 +704,3 @@ public class MarketPlace {
         }
     }
 }
-/*
-wantGorOwner;Metal Headband_WantGor_100_3.98_Metal headband for men and women
-jbl;JBL Vibe 200TWs_JBL_30_29.95_Black wireless earbuds
-steveJ;USB-C Wall Charger_INCORIC_200_9.27_iPhone 14 Charger Block 20W PD Power Adaptor
-proGamer69;Razer DeathAdder Essential Gaming Mouse_Razer_50_17.85_Gaming mouse - 5 programmable buttons - Mechanical switches - rubber side grips - Mercury white
-warrenBuffet;Guide to investing in your 20s_Puffin Books_600_12.99_Book about long term investing
-ysenser;Wool Socks 5 pairs_YSense_36_10.99_Thick Wool socks winter warm for men
-testUserSeller;nell_neel's Store_400_0.50_rice
-testUserSeller;gg_lewis'_2_2.00_2z
- */

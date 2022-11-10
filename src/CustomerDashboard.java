@@ -9,10 +9,22 @@ public class CustomerDashboard {
     // a list of stores by the products purchased by that particular customer. -> Call MarketPlace [viewPurchaseHistory()]
     // Use Scanner to provide an interface for user to do any of the above
 
+    private String customerUsername;
+    private String[] stores;
+
+    //constructor
+    public CustomerDashboard(String customerUsername) {
+        this.customerUsername = customerUsername;
+    }
+
+
+    public void main() {
+        //this method will contain what the user can do with all these methods, displaying
+        //manipulating and sorting the products with the sort method
+
+    }
 
     public void customerInterface() throws IOException {
-        CustomerDashboard sd = new CustomerDashboard();
-        String[] customerNames = sd.readCustomerStats();
         int count = customerNames.length;
         for (int i = 0; i < count; i++) {
             System.out.println("-------------------");
@@ -24,20 +36,20 @@ public class CustomerDashboard {
         //first get all the elements of the customer's history from probably both
         //customerStatistics.txt and PurchaseHistory.txt not sure yet, but need to
         //format and display the total customer stats.
-        
+
     }
 
     public void sortProducts() {
         //currently either looking at the full list of all total products sold
-        //and sorting by the amount sold. 
-        
+        //and sorting by the amount sold.
+
     }
 
-    public String[] readCustomerStats() throws FileNotFoundException, IOException {
+    public void readCustomerStats() throws FileNotFoundException, IOException {
         //this method is not done yet, need to read more just don't know the format yet.
         //need to read all the information and either add it to the string array or
         //probably doing another way is more beneficial. Maybe getters and setters.
-        List<String> customerStats = new ArrayList<String>();
+        List<String> sellerStoreInfo = new ArrayList<String>();
         int count = 0;
 
         try {
@@ -53,26 +65,54 @@ public class CustomerDashboard {
 
             while (line != null) {
                 count++;
-                customerStats.add(line);
+                sellerStoreInfo.add(line);
                 line = bfr.readLine();
             }
-            String[] customerStatsArr = new String[customerStats.size()];
-            customerStatsArr = customerStats.toArray(customerStatsArr);
-            String[] customerNames = new String[count];
-            for (int i = 0; i < customerNames.length; i++) {
-                ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(customerStatsArr[i].split(";")));
-                customerNames[i] = collectedData.get(0);
+
+            //first we make the extended sellerStoreInfo into the bite sized
+            //information that we want
+            String[] storeInfoStr = new String[sellerStoreInfo.size()];
+            storeInfoStr = sellerStoreInfo.toArray(storeInfoStr);
+            List<String> splitByType = new ArrayList<>();
+            String[] sellerNames = new String[count];
+
+            //first split is by the ";" where it splits the sellers names
+            //and their respective stores and their sales number
+            for (int i = 0; i < count; i++) {
+                ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(storeInfoStr[i].split(";")));
+                sellerNames[i] = collectedData.get(0);
+                splitByType.add(collectedData.get(1));
             }
 
-            return customerNames;
+            String[] specificStoreStr = new String[splitByType.size()];
+            specificStoreStr = splitByType.toArray(specificStoreStr);
+            List<String> splitByStore = new ArrayList<>();
 
-        }catch (FileNotFoundException e) {
+            //this next split, splits between each specific store
+            for (int i = 0; i < splitByType.size(); i++) {
+                ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(specificStoreStr[i].split("___")));
+                int storeNum = i + 1;
+                splitByStore.add("Store: " + storeNum);
+
+                //need to use this part to find out how many stores each seller has and then split them
+                int sizeOfTypes = splitByType.get(i).length() - splitByType.get(i).replaceAll("___","").length();
+                int wantedNum = sizeOfTypes / 3;
+
+                // this adds the each store into splitByStore
+                for (int q = 0; q < wantedNum + 1; q++) {
+                    splitByStore.add(collectedData.get(q));
+                }
+            }
+
+            //we should have two main array list by now
+            // first we have seller name split with all stores
+            // second we should have each store and their sales number together
+
+
+
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-            return null;
         }
 
     }
-
-
-
 }

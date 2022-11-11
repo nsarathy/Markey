@@ -40,16 +40,6 @@ public class CustomerDashboard {
 
     }
 
-    public void sortFullStoreList() {
-        //currently either looking at the full list of all total products sold
-        //and sorting by the amount sold.
-
-        //high to low sort
-
-        //low to high sort
-
-    }
-
     public void sortPurchaseHistoryList() {
 
     }
@@ -228,7 +218,125 @@ public class CustomerDashboard {
 
     }
 
-    public void displayStores() {
+    public void displaySortOptions(int givenSortID) {
+        int sortID = givenSortID;
+
+        System.out.println("Would you like to sort this List?");
+        if (sortID == 0) {
+            System.out.println("1: High to Low");
+            System.out.println("2: Low to High");
+            System.out.println("3: Exit");
+            System.out.println();
+            System.out.print("Enter Here: ");
+        }
+
+        if (sortID == 1) {
+            System.out.println("1: Low to High");
+            System.out.println("2: Revert List");
+            System.out.println("3: Exit");
+            System.out.println();
+            System.out.print("Enter Here: ");
+        }
+
+        if (sortID == 2) {
+            System.out.println("1: High to Low");
+            System.out.println("2: Revert List");
+            System.out.println("3: Exit");
+            System.out.println();
+            System.out.print("Enter Here: ");
+        }
+    }
+
+    //when sorting we can actually just change the way the list arrays are arranged instead of
+    //trying to change the way we place them
+    public void displayOriginalStores() throws IOException {
+        int update = 0;
+        String[] sellerNameList = getSellerNames();
+        List<String> originalStoreList = getOnlyStore();
+        List<String> originalSaleList = getOnlySales();
+        List<Integer> storeTotal = getStoreTotal();
+
+        //this is for view the stores
+        for (int i = 0; i < sellerNameList.length; i++) {
+            int count = 0;
+            System.out.println("--------------------");
+            System.out.println("Seller: " + sellerNameList[i]);
+            for (int q = 0; q < storeTotal.get(i); q++) {
+                System.out.print(originalStoreList.get(q + update) + ": ");
+                System.out.println(originalSaleList.get(q + update) + " Sales");
+                count++;
+            }
+            update += count;
+        }
+        System.out.println("--------------------");
+        System.out.println();
+
+
+    }
+
+    public List<String> splitStoreList() throws FileNotFoundException, IOException {
+        List<String> storeList = getOnlyStore();
+        List<Integer> storeTotal = getStoreTotal();
+
+        List<String> splitterList = new ArrayList<>();
+        int update = 0;
+        int count = 0;
+
+        for (int i = 0; i < storeTotal.size(); i++) {
+            count = 0;
+            for (int q = 0; q < storeTotal.get(i); q++) {
+                splitterList.add(storeList.get(q + update));
+                count++;
+            }
+            update += count;
+            splitterList.add("store end");
+        }
+
+        return splitterList;
+    }
+
+    public List<String> splitSaleList() throws FileNotFoundException, IOException {
+        List<String> saleList = getOnlySales();
+        List<Integer> storeTotal = getStoreTotal();
+
+        List<String> splitterList = new ArrayList<>();
+        int update = 0;
+        int count = 0;
+
+        for (int i = 0; i < storeTotal.size(); i++) {
+            count = 0;
+            for (int q = 0; q < storeTotal.get(i); q++) {
+                splitterList.add(saleList.get(q + update));
+                count++;
+            }
+            update += count;
+            splitterList.add("store end");
+        }
+
+        return splitterList;
+    }
+
+
+    //sorting the arraylist to be used in the displaySorted method
+    public void sortHighLow() throws FileNotFoundException, IOException {
+        List<String> originalStoreList = getOnlyStore();
+        List<String> originalSaleList = getOnlySales();
+        List<Integer> storeTotal = getStoreTotal();
+
+        List<String> htLStoreList = new ArrayList<>();
+        List<String> htLSalesList = new ArrayList<>();
+
+        //high to low sort
+
+
+    }
+
+    //sorting the arraylist to be used in the displaySorted method
+    public void sortLowHigh() {
+
+    }
+
+    public void displaySorted() {
 
     }
 
@@ -237,17 +345,17 @@ public class CustomerDashboard {
         //manipulating and sorting the products with the sort method
         Scanner input = new Scanner(System.in);
         boolean repeat = true;
+        int sortID = 0;
+        //sortID 0 = unsorted
+        //sortID 1 = high to low
+        //sortID 2 = low to high
         final String[] originalSellerNameList = getSellerNames();
         final List<String> originalStoreList = getOnlyStore();
         final List<String> originalSaleList = getOnlySales();
         final List<Integer> storeTotal = getStoreTotal();
 
-
         while (repeat) {
-
             int answer1 = 0;
-
-
             do {
                 try {
                     System.out.println("*CUSTOMER DASHBOARD*");
@@ -282,22 +390,19 @@ public class CustomerDashboard {
             } while (answer1 != 1 || answer1 != 2 || answer1 != 3);
 
             //first print unsorted original list
-            int update = 0;
             if (answer1 == 1) {
-                for (int i = 0; i < originalSellerNameList.length; i++) {
-                    int count = 0;
-                    System.out.println("--------------------");
-                    System.out.println("Seller: " + originalSellerNameList[i]);
-                    for (int q = 0; q < storeTotal.get(i); q++) {
-                        System.out.print(originalStoreList.get(q + update) + ": ");
-                        System.out.println(originalSaleList.get(q + update) + " Sales");
-                        count++;
-                    }
-                    update += count;
-                }
-                System.out.println("--------------------");
+                displayOriginalStores();
+                displaySortOptions(sortID);
+                int wantedSort = input.nextInt();
+                input.nextLine();
                 System.out.println();
             }
+
+
+            //need to implement sort feature, probably pull from a method.
+
+
         }
     }
+
 }

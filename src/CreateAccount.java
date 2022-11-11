@@ -9,9 +9,13 @@ public class CreateAccount {
     // creates account and updates Accounts.txt
 
     private String accountType;
+    private boolean accountSignal;
     public CreateAccount(String username, String password) {
-        Account newAccount = new Account(username, password);
-        writeAccount(newAccount);
+        if (username != null && password != null) {
+            System.out.println(isAccountSignal());
+            Account newAccount = new Account(username, password);
+            writeAccount(newAccount);
+        }
     }
 
     public boolean checkingFields(String username, String password) {
@@ -46,8 +50,11 @@ public class CreateAccount {
             BufferedReader bfr = new BufferedReader(new FileReader("Accounts.txt"));
             String line = "";
             while ((line = bfr.readLine()) != null) {
-                int indexOf = line.indexOf(";");
-                usernames.add(line.substring(0, indexOf));
+                if (!line.equals("")) {
+                    int indexOf1 = line.indexOf("_");
+                    int indexOf2 = line.indexOf(";");
+                    usernames.add(line.substring(indexOf1 + 1, indexOf2));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,27 +94,42 @@ public class CreateAccount {
         }
     }
 
+    public void setAccountSignal(boolean accountSignal) {
+        this.accountSignal = accountSignal;
+    }
+
+    public boolean isAccountSignal() {
+        return accountSignal;
+    }
+
     public void writeAccount(Account newAccount) {
         try {
             BufferedWriter bfw = new BufferedWriter(new FileWriter("Accounts.txt", true));
-            bfw.write("\n" + this.accountType + "_" + newAccount);
+            if (isAccountSignal()) {
+                bfw.write("\n" + "customer_" + newAccount);
+            } else {
+                bfw.write("\n" + "seller_" + newAccount);
+            }
             bfw.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void main(String[] args) {
+    public void main() {
         Scanner sc = new Scanner(System.in);
         while (true) {
             while (true) {
                 System.out.println("Are you a seller or customer?\n1. Seller\n2. Customer");
-                String output = sc.nextLine();
-                if (output.equals("1")) {
-                    this.accountType = "seller";
+                int output = sc.nextInt();
+                sc.nextLine();
+                if (output == 1) {
+                    accountType = "seller";
+                    setAccountSignal(false);
                     break;
-                } else if (output.equals("2")) {
-                    this.accountType = "customer";
+                } else if (output == 2) {
+                    accountType = "customer";
+                    setAccountSignal(true);
                     break;
                 } else {
                     System.out.println("Enter valid input, 1 or 2!");
@@ -117,7 +139,7 @@ public class CreateAccount {
             String username = sc.nextLine();
             System.out.println("Enter desired password: ");
             String password = sc.nextLine();
-            System.out.println("Checking validity: ");
+            System.out.println("Checking validity... ... ... ");
             if (checkingFields(username, password)) {
                 System.out.println("Account has been created!");
                 break;

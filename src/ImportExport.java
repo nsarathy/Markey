@@ -118,6 +118,7 @@ public class ImportExport {
                 );
                 line = br.readLine();
             }
+            System.out.println("Import successful");
         } catch (Exception e) {
             System.out.println("Something went wrong :(");
         }

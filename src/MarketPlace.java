@@ -42,19 +42,10 @@ public class MarketPlace {
         this.password = password;
     }
 
-    // TODO: psvm method for testing purposes only, delete later
-    public static void main(String[] args) {
-        //MarketPlace marketPlace = new MarketPlace("testUser", "testPassword");
-        MarketPlace marketPlace = new MarketPlace("testUserSeller", "testPassword");
-        //marketPlace.main(true);
-        marketPlace.main(false);
-    }
-// todo : if time permits loop and try catch number inputs
 
     /**
      * TODO: Let customers proceed to checkout cart (uncomment)
      * todo: dashboards
-     * todo: csv
      */
 
     public void main(boolean customer) {
@@ -88,6 +79,8 @@ public class MarketPlace {
             // main loop for the program
             listingDisplay:
             while (true) {
+                System.out.println("Markey");
+                System.out.println();
                 if (!customer) {
                     FileReader frProducts2 = new FileReader("Products.txt");
                     BufferedReader brProducts2 = new BufferedReader(frProducts2);

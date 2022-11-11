@@ -1,2 +1,4 @@
 seller_username;password
 customer_username;password
+seller_firstSeller;password
+customer_firstCustomer;password

@@ -33,34 +33,91 @@ public class SellerDashboard {
 
     //read the sellerstats file and return String list
     public List<String> readSellerStats() {
-        
+        List<String> fullList = new ArrayList<>();
+
+        try {
+            File f = new File("SellerStatistics.txt");
+            FileReader fr = new FileReader(f);
+            BufferedReader bfr = new BufferedReader(fr);
+
+            if (f == null || !(f.exists())) {
+                throw new FileNotFoundException();
+            }
+
+            String line = bfr.readLine();
+
+            while (line != null) {
+                fullList.add(line);
+                line = bfr.readLine();
+            }
+
+            return fullList;
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
-    
+
     //scan the array from method above and scan to see if seller username
     //matches and then make a new array which will only have the values if
     //seller name matches.
-    
-    //format without the seller name though because we don't need it anymore once
-    //its in the system.
+
     public List<String> matchedList() {
-        
+        String sellerName = userName;
+        List<String> fullList = readSellerStats();
+        List<String> scannedList = new ArrayList<>();
+
+        for (int i = 0; i < fullList.size(); i++) {
+            if (fullList.get(i).contains(sellerName)) {
+                scannedList.add(fullList.get(i));
+            }
+        }
+        return scannedList;
     }
-    
+
+
+    //format without the seller name though because we don't need it anymore once
+    //it's in the system.
+    public List<String> onlyProducts() {
+        List<String> scannedList = matchedList();
+        List<String> productList = new ArrayList<>();
+
+        for (int i = 0; i < scannedList.size(); i++) {
+            List<String> collectedData = new ArrayList<>(Arrays.asList(scannedList.get(i).split(";")));
+            productList.add(collectedData.get(1));
+        }
+        return productList;
+    }
+
+    public List<String> onlyCustomer() {
+        List<String> scannedList = matchedList();
+        List<String> customer = new ArrayList<>();
+
+        for (int i = 0; i < scannedList.size(); i++) {
+            List<String> collectedData = new ArrayList<>(Arrays.asList(scannedList.get(i).split(";")));
+            customer.add((collectedData.get(2)));
+        }
+        return customer;
+    }
+
     //this method will split the given string into the products and the customer
     //we then need to make a display showing the customer and their purchase
     public void displayPurchased() {
-        
+
     }
-    
+
     public void displaySellerDash() {
-        
+
     }
-    
-    
+
+
     public void main() {
-        
+
     }
-    
-    
-    
+
+
 }

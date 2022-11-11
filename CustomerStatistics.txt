@@ -1,6 +1,6 @@
 Lewis;Walmart_1___Target_2___Walgreens_3
 Andrew;Bestbuy_4___Amazon_5___E-Bay_6
-Jason;Kroroger_7___Saraga_8___Knight's Spot_9___Third Street Market_10
+Jason;Kroger_7___Saraga_8___Knight's Spot_9___Third Street Market_10
 Karen;Hello_20___BrewedLeaf_18
 James;HobbyLobby_123___Lowes_23
 Sarah;McDonalds_2000___Canes_20___Wendy's_32___5nBelow_233

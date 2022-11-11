@@ -99,7 +99,27 @@ public class ImportExport {
         }
     }
 
-    public void sellerImport() {
-        // todo this
+    public void sellerImport(Seller seller) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Make sure the csv file is in this format:");
+        System.out.println("storeName,itemName,price,quantity,description");
+        System.out.println("Make sure that no element has commas ','");
+        System.out.println("Enter file path to cs file");
+        String filePath = scanner.nextLine();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line = br.readLine();
+            while (line != null) {
+                String[] prod = line.split(",");
+                seller.createProduct(prod[1],
+                        new Store(prod[0]),
+                        Integer.parseInt(prod[3]),
+                        Double.parseDouble(prod[2]),
+                        prod[4]
+                );
+                line = br.readLine();
+            }
+        } catch (Exception e) {
+            System.out.println("Something went wrong :(");
+        }
     }
 }

@@ -489,7 +489,7 @@ public class MarketPlace {
                                 if (choice == 1) {
                                     importExport.sellerExport(seller);
                                 } else {
-                                    importExport.sellerImport();
+                                    importExport.sellerImport(seller);
                                 }
                             }
                             brSeller.close();

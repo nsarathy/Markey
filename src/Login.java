@@ -22,8 +22,7 @@ public class Login {
         System.out.println("Do you have an existing account?\n1. Yes\n2. No");
         String check = sc.nextLine();
         if (check.equals("2")) {
-            String blank = null;
-            CreateAccount newAcc = new CreateAccount(blank, blank);
+            CreateAccount newAcc = new CreateAccount(null, null, false);
             newAcc.main();
         }
         while (flag) {
@@ -61,7 +60,7 @@ public class Login {
                 if (accountType.equals("seller")) {
                     MarketPlace newMarket = new MarketPlace(username, password);
                     newMarket.main(false);
-                    this.flag = false;                    flag = false;
+                    flag = false;
                 } else if (accountType.equals("customer")) {
                     MarketPlace newMarket = new MarketPlace(username, password);
                     newMarket.main(true);

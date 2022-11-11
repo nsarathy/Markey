@@ -59,11 +59,12 @@ public class Login {
             if (exists) {
                 System.out.println("LOGIN SUCCESSFUL");
                 if (accountType.equals("seller")) {
-                    System.out.println("user is seller");
-                    flag = false;
+                    MarketPlace newMarket = new MarketPlace(username, password);
+                    newMarket.main(false);
+                    this.flag = false;                    flag = false;
                 } else if (accountType.equals("customer")) {
-                    System.out.println("user is customer");
-
+                    MarketPlace newMarket = new MarketPlace(username, password);
+                    newMarket.main(true);
                     flag = false;
                 }
             } else {

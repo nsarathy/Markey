@@ -33,6 +33,7 @@ public class MarketPlace {
     public static final String EDIT_SUCCESS = "Edit successful :)";
     public static final String EDIT_WHAT = "\nEnter\n'1' to edit name\n'2' to edit price\n'3' to edit description\n'4' to edit availability in stock";
     public static final int[] EDIT_THAT = {1, 2, 3, 4};
+    public static final String CART_REM = "An item was removed from your cart because it was out of stock";
     private final String username;
     private final String password;
 
@@ -43,17 +44,16 @@ public class MarketPlace {
 
     // TODO: psvm method for testing purposes only, delete later
     public static void main(String[] args) {
-        //MarketPlace marketPlace = new MarketPlace("testUser", "testPassword");
-        MarketPlace marketPlace = new MarketPlace("testUserSeller", "testPassword");
-        //marketPlace.main(true);
-        marketPlace.main(false);
+        MarketPlace marketPlace = new MarketPlace("testUser", "testPassword");
+        //MarketPlace marketPlace = new MarketPlace("testUserSeller", "testPassword");
+        marketPlace.main(true);
+        //marketPlace.main(false);
     }
 // todo : if time permits loop and try catch number inputs
 
     /**
      * TODO: view purchase history
      * TODO: Let customers proceed to checkout cart (uncomment)
-     * TODO: Use methods from Seller.java to create, edit or remove products/stores
      * todo: remove products from seller (reduce quantity by the amount purchased by customer)
      * todo: update CustomerStatistics.txt
      * todo: dashboards
@@ -126,6 +126,29 @@ public class MarketPlace {
                         Listing readCart = readCart();
                         cartItems = readCart.getProducts();
                         cartSellerUsernames = readCart.getSellers();
+                        ArrayList<Integer> toRemove = new ArrayList<>();
+                        for (int i = 0; i < cartItems.size(); i++) {
+                            Product cartProduct = cartItems.get(i);
+                            for (Product listProduct : listings) {
+                                boolean outOfStock = listProduct.getName().equals(cartProduct.getName());
+                                outOfStock = outOfStock && listProduct.getStore().getName().equals(cartProduct.getStore().getName());
+                                outOfStock = outOfStock && listProduct.getPrice() == cartProduct.getPrice();
+                                outOfStock = outOfStock && listProduct.getDescription().equals(cartProduct.getDescription());
+                                if (outOfStock && listProduct.getQuantity() < cartProduct.getQuantity()) {
+                                    toRemove.add(i);
+                                }
+                            }
+                        }
+                        boolean removed = false;
+                        for (int i : toRemove) {
+                            removed = true;
+                            cartItems.remove(i);
+                            cartSellerUsernames.remove(i);
+                            System.out.println(CART_REM);
+                        }
+                        if (removed) {
+                            storeCart(cartItems, cartSellerUsernames);
+                        }
                         if (cartItems.size() == 1) {
                             System.out.printf(CART_LENGTH_1, cartItems.size());
                         } else {
@@ -493,7 +516,7 @@ public class MarketPlace {
             // farewell message
             System.out.println("Thank you for using Markey! Have a nice day :)");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Something went wrong :(\nPlease try again later");
         }
     }
 
@@ -516,9 +539,109 @@ public class MarketPlace {
 
     public void checkout(ArrayList<Product> proceedToCheckout, ArrayList<String> sellerUsernames) {
         var cart = new Cart(proceedToCheckout, sellerUsernames, username);
-        // todo: clear line in cart.txt
+
+        // testing
+        for (Product product : proceedToCheckout) {
+            System.out.println(product.toString());
+        }
+        for (String value : sellerUsernames) {
+            System.out.println(value);
+        }
+
+        // clearing cart
+        try {
+            FileReader frCart = new FileReader("carts.txt");
+            BufferedReader brCart = new BufferedReader(frCart);
+            ArrayList<String> lines = new ArrayList<>();
+            String line = brCart.readLine();
+            while (line != null) {
+                lines.add(line);
+                line = brCart.readLine();
+            }
+            brCart.close();
+            frCart.close();
+            FileOutputStream fosCart = new FileOutputStream("carts.txt");
+            PrintWriter pwCart = new PrintWriter(fosCart);
+            for (String value : lines) {
+                String[] splitValue = value.split(";", -1);
+                if (splitValue[0].equals(username)) {
+                    pwCart.println(username + ";;");
+                } else {
+                    pwCart.println(value);
+                }
+            }
+            pwCart.close();
+            fosCart.close();
+        } catch (Exception e) {
+            System.out.println("Something went wrong :(");
+        }
+        // customer stats
+        // todo debug when store data already there
+        try {
+            FileReader frCustomer = new FileReader("CustomerStatistics.txt");
+            BufferedReader brCustomer = new BufferedReader(frCustomer);
+            ArrayList<String> lines = new ArrayList<>();
+            String line = brCustomer.readLine();
+            while (line != null) {
+                lines.add(line);
+                line = brCustomer.readLine();
+            }
+            brCustomer.close();
+            frCustomer.close();
+            int i = 0;
+            for (String sellerUsername : sellerUsernames) {
+                boolean changed = false;
+                int j = 0;
+                inner:
+                for (String eachLine : lines) {
+                    String[] splitEachLine = eachLine.split(";", -1);
+                    String finalLine = splitEachLine[0] + ";";
+                    if (splitEachLine[0].equals(sellerUsername)) {
+                        String storeName = proceedToCheckout.get(i).getStore().getName();
+                        String[] storeAndSales = splitEachLine[1].split("___");
+                        for (String eachStore : storeAndSales) {
+                            String[] storeAndSale = eachStore.split("_", -1);
+                            if (storeAndSale[0].equals(storeName)) {
+                                int oldQuantity = Integer.parseInt(storeAndSale[1]);
+                                int newQuantity = oldQuantity + proceedToCheckout.get(i).getQuantity();
+                                finalLine = finalLine + storeAndSale[0] + "_" + newQuantity + "___";
+                                changed = true;
+                            } else {
+                                finalLine = finalLine + eachStore + "___";
+                            }
+                        }
+                        if (!changed) {
+                            finalLine = finalLine + proceedToCheckout.get(i).getStore().getName() + "_" + proceedToCheckout.get(i).getQuantity() + "___";
+                            changed = true;
+                        }
+                    }
+                    if (finalLine.endsWith("___")) {
+                        finalLine = finalLine.substring(0, finalLine.length() - 3);
+                    }
+                    if (changed) {
+                        lines.set(j, finalLine);
+                        break inner;
+                    }
+                    j++;
+                }
+                if (!changed) {
+                    lines.add(sellerUsername + ";" + proceedToCheckout.get(i).getStore().getName() + "_" + proceedToCheckout.get(i).getQuantity());
+                }
+                i++;
+            }
+            FileOutputStream fosCustomer = new FileOutputStream("CustomerStatistics.txt");
+            PrintWriter pwCustomer = new PrintWriter(fosCustomer);
+            for (String eachLine : lines) {
+                pwCustomer.println(eachLine);
+            }
+            pwCustomer.close();
+            fosCustomer.close();
+        } catch (Exception e) {
+            System.out.println("Something went wrong :(");
+            e.printStackTrace();
+        }
+        // todo: remove quantities from Products.txt
         // TODO: uncomment after testing
-        // todo customer stats
         /*
         cart.buy();
          */
@@ -620,14 +743,14 @@ public class MarketPlace {
             finalLine = finalLine + product.toString() + "___";
         }
         if (finalLine.endsWith("___")) {
-            finalLine = finalLine.substring(0, finalLine.length() - 2);
+            finalLine = finalLine.substring(0, finalLine.length() - 3);
         }
         finalLine = finalLine + ";";
         for (String seller : currentSellers) {
             finalLine = finalLine + seller + "___";
         }
         if (finalLine.endsWith("___")) {
-            finalLine = finalLine.substring(0, finalLine.length() - 2);
+            finalLine = finalLine.substring(0, finalLine.length() - 3);
         }
         try {
             ArrayList<String> toAppend = new ArrayList<>();

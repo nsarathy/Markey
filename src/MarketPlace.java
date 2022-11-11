@@ -194,6 +194,9 @@ public class MarketPlace {
                         sellerUsernames = originalSellerUsernames;
                     } else if (action.equalsIgnoreCase(BUTTONS[5])) {
                         viewPurchaseHistory();
+                    } else if (action.equalsIgnoreCase(BUTTONS[9])) {
+                        var export = new ImportExport(username, password);
+                        export.customerExport();
                     } else {
                         try {
                             int itemNumber = Integer.parseInt(action);
@@ -329,8 +332,8 @@ public class MarketPlace {
                                 double prodPrice = Double.parseDouble(scanner.nextLine());
                                 System.out.println(PROD_DESCRIPTION);
                                 String prodDescription = scanner.nextLine();
-                                while (prodDescription.contains("_") || prodDescription.contains(";")) {
-                                    System.out.println("Description cannot contain '_' or ';'");
+                                while (prodDescription.contains("_") || prodDescription.contains(";") || prodDescription.contains("$")) {
+                                    System.out.println("Description cannot contain '_' or ';' or '$'");
                                     System.out.println(PROD_NAME);
                                     prodDescription = scanner.nextLine();
                                 }
@@ -435,8 +438,8 @@ public class MarketPlace {
                                     } else if (editWhat == EDIT_THAT[2]) {
                                         System.out.println("Enter new description");
                                         String prodDescription = scanner.nextLine();
-                                        while (prodDescription.contains("_") || prodDescription.contains(";")) {
-                                            System.out.println("Description cannot contain '_' or ';'");
+                                        while (prodDescription.contains("_") || prodDescription.contains(";")|| prodDescription.contains("$")) {
+                                            System.out.println("Description cannot contain '_' or ';' or '$'");
                                             System.out.println(PROD_NAME);
                                             prodDescription = scanner.nextLine();
                                         }

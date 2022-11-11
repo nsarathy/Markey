@@ -1,6 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -35,14 +35,31 @@ public class ImportExport {
                 if (checkUser[0].equals(username)) {
                     exists = true;
                     String[] products = checkUser[1].split("___", -1);
-                    for (String val : products) {
-                        String[] product = val.split("_", -1);
-                        productList.add(new Product(product[0],
-                                new Store(product[1]),
-                                Integer.parseInt(product[2]),
-                                Double.parseDouble(product[3]),
-                                product[4].split("\\$", -1)[0]
-                        ));
+                    try (PrintWriter writer = new PrintWriter(filePath)) {
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("Item");
+                        sb.append(',');
+                        sb.append("Store");
+                        sb.append(',');
+                        sb.append("Quantity");
+                        sb.append(',');
+                        sb.append("Price");
+                        sb.append(',');
+                        sb.append("Description");
+                        sb.append(',');
+                        sb.append('\n');
+                        for (String val : products) {
+                            String[] product = val.split("_", -1);
+                            product[4] = product[4].split("\\$", -1)[0];
+                            for (String eachValue : product) {
+                                sb.append(eachValue);
+                                sb.append(',');
+                            }
+                            sb.append('\n');
+                        }
+                        writer.write(sb.toString());
+                    } catch (Exception e) {
+                        System.out.println("Something went wrong :(");
                     }
                 }
             }
@@ -52,12 +69,7 @@ public class ImportExport {
         if (!exists) {
             System.out.println("You have not made any purchases yet");
         } else {
-            try {
-                FileWriter fw = new FileWriter(filePath);
-                CSVWriter cw = new CSVWriter(fw);
-            } catch (Exception e) {
-                System.out.println("Something went wrong :(");
-            }
+            System.out.println("File saved");
         }
     }
 }

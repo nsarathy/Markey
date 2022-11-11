@@ -1,2 +1,2 @@
 customerUsername;product1.toString$sellerUsrename___product2.toString$seller___product3.toString
-testUser;nell_neel's Store_2_0.50_rice$testUserSeller___a_b_1_2.0_c
+testUser;nell_neel's Store_2_0.50_rice$testUserSeller___a_b_1_2.0_c$testUserSeller

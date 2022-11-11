@@ -30,15 +30,89 @@ public class CustomerDashboard {
 		return customerUsername;
 	}
 
-	public void customerInterface() throws IOException {
+
+
+	public List<String> readPurchaseHistory() throws IOException {
+		//first method will be to get which lines belong to the customer
+		List<String> historyList = new ArrayList<String>();
+		int count = 0;
+
+		try {
+			File f = new File("CustomerPurchaseHistory.txt");
+			FileReader fr = new FileReader(f);
+			BufferedReader bfr = new BufferedReader(fr);
+
+			if (f == null || !(f.exists())) {
+				throw new FileNotFoundException();
+			}
+
+			String line = bfr.readLine();
+
+			while (line != null) {
+				count++;
+				historyList.add(line);
+				line = bfr.readLine();
+			}
+
+			return historyList;
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
-	public void displayCustomerStatistics() {
+	public List<String> matchCustomerName() throws IOException {
+		String customerUser = customerUsername;
+		List<String> fullList = readPurchaseHistory();
+		List<String> wantedList = new ArrayList<>();
+
+		for (int i = 0; i < fullList.size(); i++) {
+			if (fullList.get(i).contains(customerUser)) {
+				ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(fullList.get(i).split(";")));
+				wantedList.add(collectedData.get(1));
+			}
+		}
+
+		return wantedList;
+	}
+
+	public List<String> splitByProduct() throws IOException {
+		List<String> wantedList = matchCustomerName();
+		List<String> byProduct = new ArrayList<>();
+
+
+		for (int i = 0; i < wantedList.size(); i++) {
+			ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(wantedList.get(i).split("___")));
+			for (int q = 0; q < collectedData.size(); q++) {
+				byProduct.add(collectedData.get(q));
+			}
+		}
+
+		return byProduct;
+	}
+
+	public void displayCustomerStatistics() throws IOException {
 		//first get all the elements of the customer's history from probably both
 		//customerStatistics.txt and PurchaseHistory.txt not sure yet, but need to
 		//format and display the total customer stats.
+		List<String> wantedList = splitByProduct();
 
+		System.out.println("********************");
+		System.out.println("YOUR PURCHASE HISTORY");
+		System.out.println("--------------------");
+
+
+		for (int i = 0; i < wantedList.size(); i++) {
+			ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(wantedList.get(i).split("_")));
+			System.out.println("Store: " + collectedData.get(1));
+			System.out.println("Item: " + collectedData.get(0));
+			System.out.println("Purchased Amount: " + collectedData.get(2));
+			System.out.println("Price: " + collectedData.get(3));
+			System.out.println("--------------------");
+		}
 	}
+
 
 	public void sortPurchaseHistoryList() {
 
@@ -360,7 +434,7 @@ public class CustomerDashboard {
 
 		return htLSalesList;
 	}
-	
+
 	public List<String> sortStoreHighLow() throws FileNotFoundException, IOException {
 		List<String> originalStoreAndSaleList = byStoreSplitter();
 		List<String> originalSaleList = getOnlySales();
@@ -377,30 +451,21 @@ public class CustomerDashboard {
 		int update = 0;
 		int count = 0;
 		for (int i = 0; i < storeLength.size(); i++) {
-			List<Integer> sorting = new ArrayList<>();
 			List<String> storeSorting = new ArrayList<>();
+			List<Integer> storesBySales = new ArrayList<>();
 
 			count = 0;
 			for (int q = 0; q < storeLength.get(i); q++) {
-				sorting.add(saleListToInt.get(q + update));
 				storeSorting.add(originalStoreAndSaleList.get(q + update));
 				count++;
 			}
-			Collections.sort(sorting, Collections.reverseOrder());
+
 			for (int q = 0; q < storeLength.get(i); q++) {
-				htLSalesList.add(sorting.get(q));
-				System.out.println("q value");
-				System.out.println(q);
-				
-				for (int j = 0; j < storeLength.get(i); j++) { 
-					if (storeSorting.get(j).contains(Integer.toString(sorting.get(q)))) {
-						htLStoreList.add(storeSorting.get(j));
-						System.out.println("store length");
-						System.out.println(storeLength.get(i));
-					}
-				}
+
+
+
 			}
-			sorting.clear();
+
 			storeSorting.clear();
 
 			update += count;
@@ -432,18 +497,8 @@ public class CustomerDashboard {
 		final List<String> originalStoreList = getOnlyStore();
 		final List<String> originalSaleList = getOnlySales();
 		final List<Integer> storeTotal = getStoreTotal();
-		List<Integer> htLSort = sortSaleHighLow();
-		List<String> htLSort2 = sortStoreHighLow();
 
-		for (int i = 0; i < htLSort.size(); i++) {
-			System.out.println(htLSort.get(i));
-		}
 		
-		for (int i = 0; i < htLSort2.size(); i++) {
-			System.out.println(htLSort2.get(i));
-		}
-
-
 		while (repeat) {
 			int answer1 = 0;
 			do {
@@ -482,6 +537,12 @@ public class CustomerDashboard {
 			//first print unsorted original list
 			if (answer1 == 1) {
 				displayOriginalStores();
+				displaySortOptions(sortID);
+				int wantedSort = input.nextInt();
+				input.nextLine();
+				System.out.println();
+			} else if (answer1 == 2) {
+				displayCustomerStatistics();
 				displaySortOptions(sortID);
 				int wantedSort = input.nextInt();
 				input.nextLine();

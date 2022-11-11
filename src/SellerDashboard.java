@@ -31,69 +31,36 @@ public class SellerDashboard {
         this.userName = userName;
     }
 
-    public void sellerInterface() throws IOException {
-
+    //read the sellerstats file and return String list
+    public List<String> readSellerStats() {
+        
     }
-
-    public void displaySellerStats() {
-
+    
+    //scan the array from method above and scan to see if seller username
+    //matches and then make a new array which will only have the values if
+    //seller name matches.
+    
+    //format without the seller name though because we don't need it anymore once
+    //its in the system.
+    public List<String> matchedList() {
+        
     }
-
-    public void sortProducts() {
-
+    
+    //this method will split the given string into the products and the customer
+    //we then need to make a display showing the customer and their purchase
+    public void displayPurchased() {
+        
     }
-
-    public void readSellerStats() throws FileNotFoundException, IOException {
-        ArrayList<String> index = new ArrayList<>();
-        ArrayList<String> strProducts = new ArrayList<>();
-        ArrayList<Product> products = new ArrayList<>();
-        ArrayList<String> customers = new ArrayList<>();
-        ArrayList<String> sellers = new ArrayList<>();
-        ArrayList<Store> stores = new ArrayList<>();
-        String sellerUsername = userName;
-        int count = 0;
-
-        //check if seller is the same as current user
-        //if true add customer and their products
-        //check which product is from which store
-        //list their name product and sales.
-
-        try {
-            File f = new File("SellerStatistics.txt");
-            FileReader fr = new FileReader(f);
-            BufferedReader bfr = new BufferedReader(fr);
-
-            if (f == null || !(f.exists())) {
-                throw new FileNotFoundException();
-            }
-
-            String line = bfr.readLine();
-
-            while (line != null) {
-                count++;
-                index.add(line);
-                line = bfr.readLine();
-            }
-
-            for (int i = 0; i < count; i++) {
-                ArrayList<String> format = new ArrayList<>(Arrays.asList(index.get(i).split(";")));
-                if (format.get(0).equals(sellerUsername)) {
-                    customers.add(format.get(2));
-                    strProducts.add(format.get(1));
-                }
-            }
-
-            for (int i = 0; i < count; i++){
-                ArrayList<String> format = new ArrayList<>(Arrays.asList(strProducts.get(i).split("___")));
-                for (int q = 0; q < format.size(); q++){
-                    Product product = new Product();
-                }
-            }
-
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
+    
+    public void displaySellerDash() {
+        
     }
+    
+    
+    public void main() {
+        
+    }
+    
+    
+    
 }

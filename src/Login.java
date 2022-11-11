@@ -36,17 +36,22 @@ public class Login {
             try {
                 BufferedReader bfr = new BufferedReader(new FileReader("Accounts.txt"));
                 String line = "";
-                while ((line = bfr.readLine()) != null) {
-                    int indexOf = line.indexOf(";");
-                    if (line.contains("seller")) {
-                        accountType = "seller";
-                    } else if (line.contains("customer")) {
-                        accountType = "customer";
+                while ((line =
+                        bfr.readLine()) != null) {
+                    int indexOf1 = line.indexOf("_");
+                    int indexOf2 = line.indexOf(";");
+                    if (!line.equals("")) {
+                        if (line.substring(indexOf1 + 1, indexOf2).equals(username) &&
+                                line.substring(indexOf2 + 1).equals(password)) {
+                            exists = true;
+                            if (line.contains("seller")) {
+                                accountType = "seller";
+                            } else if (line.contains("customer")) {
+                                accountType = "customer";
+                            }
+                        }
                     }
-                    if (line.substring(0, indexOf).equals(username) &&
-                            line.substring(indexOf).equals(password)) {
-                        exists = true;
-                    }
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -54,12 +59,11 @@ public class Login {
             if (exists) {
                 System.out.println("LOGIN SUCCESSFUL");
                 if (accountType.equals("seller")) {
-                    MarketPlace newMarket = new MarketPlace(username, password);
-                    newMarket.main(false);
+                    System.out.println("user is seller");
                     flag = false;
                 } else if (accountType.equals("customer")) {
-                    MarketPlace newMarket = new MarketPlace(username, password);
-                    newMarket.main(true);
+                    System.out.println("user is customer");
+
                     flag = false;
                 }
             } else {

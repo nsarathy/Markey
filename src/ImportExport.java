@@ -72,4 +72,34 @@ public class ImportExport {
             System.out.println("File saved");
         }
     }
+
+    public void sellerExport(Seller seller) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter file path for csv file");
+        String filePath = scanner.nextLine();
+        ArrayList<Product> products = seller.getProducts();
+        try (PrintWriter writer = new PrintWriter(filePath)) {
+            StringBuilder sb = new StringBuilder();
+            for (Product product : products) {
+                sb.append(product.getStore().getName());
+                sb.append(',');
+                sb.append(product.getName());
+                sb.append(',');
+                sb.append(product.getPrice());
+                sb.append(',');
+                sb.append(product.getQuantity());
+                sb.append(',');
+                sb.append(product.getDescription());
+                sb.append('\n');
+            }
+            writer.write(sb.toString());
+            System.out.println("File saved");
+        } catch (Exception e) {
+            System.out.println("Something went wrong :(");
+        }
+    }
+
+    public void sellerImport() {
+        // todo this
+    }
 }

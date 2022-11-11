@@ -44,15 +44,14 @@ public class MarketPlace {
 
     // TODO: psvm method for testing purposes only, delete later
     public static void main(String[] args) {
-        MarketPlace marketPlace = new MarketPlace("testUser", "testPassword");
-        //MarketPlace marketPlace = new MarketPlace("testUserSeller", "testPassword");
-        marketPlace.main(true);
-        //marketPlace.main(false);
+        //MarketPlace marketPlace = new MarketPlace("testUser", "testPassword");
+        MarketPlace marketPlace = new MarketPlace("testUserSeller", "testPassword");
+        //marketPlace.main(true);
+        marketPlace.main(false);
     }
 // todo : if time permits loop and try catch number inputs
 
     /**
-     * TODO: view purchase history
      * TODO: Let customers proceed to checkout cart (uncomment)
      * todo: dashboards
      * todo: csv
@@ -438,7 +437,7 @@ public class MarketPlace {
                                     } else if (editWhat == EDIT_THAT[2]) {
                                         System.out.println("Enter new description");
                                         String prodDescription = scanner.nextLine();
-                                        while (prodDescription.contains("_") || prodDescription.contains(";")|| prodDescription.contains("$")) {
+                                        while (prodDescription.contains("_") || prodDescription.contains(";") || prodDescription.contains("$")) {
                                             System.out.println("Description cannot contain '_' or ';' or '$'");
                                             System.out.println(PROD_NAME);
                                             prodDescription = scanner.nextLine();
@@ -471,6 +470,26 @@ public class MarketPlace {
                                     }
                                 } catch (Exception e) {
                                     System.out.println(EDIT_FAIL);
+                                }
+                            } else if (action.equalsIgnoreCase(BUTTONS[9])) {
+                                System.out.println("Enter\n'1' to export\n'2' to import");
+                                int choice = 0;
+                                while (true) {
+                                    try {
+                                        choice = Integer.parseInt(scanner.nextLine());
+                                        if (choice != 1 && choice != 2) {
+                                            throw new Exception();
+                                        }
+                                        break;
+                                    } catch (Exception e) {
+                                        System.out.println("Enter 1 or 2");
+                                    }
+                                }
+                                var importExport = new ImportExport(username, password);
+                                if (choice == 1) {
+                                    importExport.sellerExport(seller);
+                                } else {
+                                    importExport.sellerImport();
                                 }
                             }
                             brSeller.close();

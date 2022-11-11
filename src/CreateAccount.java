@@ -10,22 +10,21 @@ public class CreateAccount {
 
     private String accountType;
     private boolean accountSignal;
-    public CreateAccount(String username, String password) {
+    public CreateAccount(String username, String password, boolean check) {
         if (username != null && password != null) {
-            System.out.println(isAccountSignal());
             Account newAccount = new Account(username, password);
-            writeAccount(newAccount);
+            writeAccount(newAccount, check);
         }
     }
 
-    public boolean checkingFields(String username, String password) {
+    public boolean checkingFields(String username, String password, boolean check) {
         boolean checkUser = checkUsername(username);
         boolean checkUserLength = checkLength(username);
         boolean checkPass = checkPassword(password);
         boolean isLetter = checkIfLetter(username);
 
         if (checkUser && checkPass && checkUserLength && isLetter) {
-            CreateAccount newAccount = new CreateAccount(username, password);
+            CreateAccount newAccount = new CreateAccount(username, password, check);
             return true;
         } else if (!checkUserLength || !checkPass) {
             System.out.println("Username or Password cannot be empty!");
@@ -102,10 +101,10 @@ public class CreateAccount {
         return accountSignal;
     }
 
-    public void writeAccount(Account newAccount) {
+    public void writeAccount(Account newAccount, boolean check) {
         try {
             BufferedWriter bfw = new BufferedWriter(new FileWriter("Accounts.txt", true));
-            if (isAccountSignal()) {
+            if (check) {
                 bfw.write("\n" + "customer_" + newAccount);
             } else {
                 bfw.write("\n" + "seller_" + newAccount);
@@ -140,7 +139,7 @@ public class CreateAccount {
             System.out.println("Enter desired password: ");
             String password = sc.nextLine();
             System.out.println("Checking validity... ... ... ");
-            if (checkingFields(username, password)) {
+            if (checkingFields(username, password, isAccountSignal())) {
                 System.out.println("Account has been created!");
                 break;
             } else {

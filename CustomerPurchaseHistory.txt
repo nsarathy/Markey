@@ -1,4 +1,4 @@
-customerUsername;product1.toString$sellerUsername___product2.toString$seller___product3.toString
+testUser;wantGorOwner Metal Headband_WantGor_2_3.98_Metal headband for men and women___JBL Vibe 200TWs_JBL_1_29.95_Black wireless earbuds
+testuser1;USB-C Wall Charger_INCORIC_1_9.27_iPhone 14 Charger Block 20W PD Power Adaptor___Razer DeathAdder Essential Gaming Mouse_Razer_1_17.85_Gaming mouse - 5 programmable buttons - Mechanical switches - rubber side grips - Mercury white
 
-//this is the format for looking at purchase history
-customerUsername;product1$sellerUsername___product2$sellerUsername___product3$sellerUsername
+//this txt is used for testing Customer Dashboard

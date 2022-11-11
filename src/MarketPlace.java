@@ -169,7 +169,6 @@ public class MarketPlace {
                 }
                 System.out.printf(BUTTONS_PROMPT, BUTTONS[9], "get a csv file with data");
                 System.out.printf(BUTTONS_PROMPT, BUTTONS[10], "go to dashboard");
-                // todo : csv for both seller and buyer
                 System.out.printf(BUTTONS_PROMPT, BUTTONS[4], "exit");
                 System.out.println();
                 String action = scanner.nextLine();
@@ -210,6 +209,10 @@ public class MarketPlace {
                                 } else {
                                     try {
                                         int quantity = Integer.parseInt(cartAction);
+                                        if (quantity <= 0) {
+                                            System.out.println("Quantity cannot be 0 or negative");
+                                            continue listingDisplay;
+                                        }
                                         if (quantity > product.getQuantity()) {
                                             throw new NotInStockException("Item not in stock :(");
                                         } else {
@@ -296,8 +299,18 @@ public class MarketPlace {
                                     }
                                     System.out.println(PROD_QUANTITY);
                                     int prodQuantity = Integer.parseInt(scanner.nextLine());
+                                    while (prodQuantity <= 0) {
+                                        System.out.println("Quantity cannot be 0 or negative");
+                                        System.out.println(PROD_QUANTITY);
+                                        prodQuantity = Integer.parseInt(scanner.nextLine());
+                                    }
                                     System.out.println(PROD_PRICE);
                                     double prodPrice = Double.parseDouble(scanner.nextLine());
+                                    while (prodPrice <= 0) {
+                                        System.out.println("Price cannot be 0 or negative");
+                                        System.out.println(PROD_PRICE);
+                                        prodPrice = Double.parseDouble(scanner.nextLine());
+                                    }
                                     System.out.println(PROD_DESCRIPTION);
                                     String prodDescription = scanner.nextLine();
                                     while (prodDescription.contains("_") || prodDescription.contains(";")) {
@@ -327,8 +340,18 @@ public class MarketPlace {
                                 Store prodStore = stores.get(prodStoreChoose);
                                 System.out.println(PROD_QUANTITY);
                                 int prodQuantity = Integer.parseInt(scanner.nextLine());
+                                while (prodQuantity <= 0) {
+                                    System.out.println("Quantity cannot be 0 or negative");
+                                    System.out.println(PROD_QUANTITY);
+                                    prodQuantity = Integer.parseInt(scanner.nextLine());
+                                }
                                 System.out.println(PROD_PRICE);
                                 double prodPrice = Double.parseDouble(scanner.nextLine());
+                                while (prodPrice <= 0) {
+                                    System.out.println("Price cannot be 0 or negative");
+                                    System.out.println(PROD_PRICE);
+                                    prodPrice = Double.parseDouble(scanner.nextLine());
+                                }
                                 System.out.println(PROD_DESCRIPTION);
                                 String prodDescription = scanner.nextLine();
                                 while (prodDescription.contains("_") || prodDescription.contains(";") || prodDescription.contains("$")) {
@@ -433,6 +456,11 @@ public class MarketPlace {
                                     } else if (editWhat == EDIT_THAT[1]) {
                                         System.out.println("Enter new price");
                                         double newPrice = Double.parseDouble(scanner.nextLine());
+                                        while (newPrice <= 0) {
+                                            System.out.println("Price cannot be 0 or negative");
+                                            System.out.println("Enter new price");
+                                            newPrice = Double.parseDouble(scanner.nextLine());
+                                        }
                                         toEdit.setPrice(newPrice);
                                     } else if (editWhat == EDIT_THAT[2]) {
                                         System.out.println("Enter new description");
@@ -446,6 +474,11 @@ public class MarketPlace {
                                     } else if (editWhat == EDIT_THAT[3]) {
                                         System.out.println("Enter new quantity");
                                         int newQuantity = Integer.parseInt(scanner.nextLine());
+                                        while (newQuantity <= 0) {
+                                            System.out.println("Quantity cannot be 0 or negative");
+                                            System.out.println("Enter new quantity");
+                                            newQuantity = Integer.parseInt(scanner.nextLine());
+                                        }
                                         toEdit.setQuantity(newQuantity);
                                     }
                                     boolean edited = false;
@@ -519,8 +552,18 @@ public class MarketPlace {
                         }
                         System.out.println(PROD_QUANTITY);
                         int prodQuantity = Integer.parseInt(scanner.nextLine());
+                        while (prodQuantity <= 0) {
+                            System.out.println("Quantity cannot be 0 or negative");
+                            System.out.println(PROD_QUANTITY);
+                            prodQuantity = Integer.parseInt(scanner.nextLine());
+                        }
                         System.out.println(PROD_PRICE);
                         double prodPrice = Double.parseDouble(scanner.nextLine());
+                        while (prodPrice <= 0) {
+                            System.out.println("Price cannot be 0 or negative");
+                            System.out.println(PROD_PRICE);
+                            prodPrice = Double.parseDouble(scanner.nextLine());
+                        }
                         System.out.println(PROD_DESCRIPTION);
                         String prodDescription = scanner.nextLine();
                         while (prodDescription.contains("_") || prodDescription.contains(";")) {

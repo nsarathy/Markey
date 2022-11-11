@@ -12,7 +12,7 @@ public class Cart {
     // buy() method
     /*
     add purchased items to customer history
-    create a Purchase object for each product and call updateSellerStatistics & updateCustomerStatistics
+    create a Purchase object for each product and call updateSellerStatistics
     Product of index i in productsToBuy, has the seller username at index i in sellerUsernames
      */
 }

@@ -540,14 +540,6 @@ public class MarketPlace {
     public void checkout(ArrayList<Product> proceedToCheckout, ArrayList<String> sellerUsernames) {
         var cart = new Cart(proceedToCheckout, sellerUsernames, username);
 
-        // testing
-        for (Product product : proceedToCheckout) {
-            System.out.println(product.toString());
-        }
-        for (String value : sellerUsernames) {
-            System.out.println(value);
-        }
-
         // clearing cart
         try {
             FileReader frCart = new FileReader("carts.txt");
@@ -638,9 +630,48 @@ public class MarketPlace {
             fosCustomer.close();
         } catch (Exception e) {
             System.out.println("Something went wrong :(");
-            e.printStackTrace();
         }
-        // todo: remove quantities from Products.txt
+        // updating Products.txt
+        try {
+            FileReader frProducts = new FileReader("Products.txt");
+            BufferedReader brProducts = new BufferedReader(frProducts);
+            ArrayList<String> lines = new ArrayList<>();
+            String line = brProducts.readLine();
+            while (line != null) {
+                for (int i = 0; i < proceedToCheckout.size(); i++) {
+                    Product product = proceedToCheckout.get(i);
+                    String seller = sellerUsernames.get(i);
+                    String[] sellerAndProduct = line.split(";", -1);
+                    boolean same = sellerAndProduct[0].equals(seller);
+                    String[] productString = sellerAndProduct[1].split("_", -1);
+                    Product newProduct = new Product(productString[0], new Store(productString[1]), Integer.parseInt(productString[2]), Double.parseDouble(productString[3]), productString[4]);
+                    same = same && product.getName().equals(newProduct.getName());
+                    same = same && product.getStore().getName().equals(newProduct.getStore().getName());
+                    same = same && product.getPrice() == newProduct.getPrice();
+                    same = same && product.getDescription().equals(newProduct.getDescription());
+                    if (same) {
+                        newProduct.setQuantity(newProduct.getQuantity() - product.getQuantity());
+                        if (newProduct.getQuantity() > 0) {
+                            lines.add(seller + ";" + newProduct.toString());
+                        }
+                    } else {
+                        lines.add(line);
+                    }
+                }
+                line = brProducts.readLine();
+            }
+            brProducts.close();
+            frProducts.close();
+            FileOutputStream fosProducts = new FileOutputStream("Products.txt");
+            PrintWriter pwProducts = new PrintWriter(fosProducts);
+            for (String eachLine : lines) {
+                pwProducts.println(eachLine);
+            }
+            pwProducts.close();
+            fosProducts.close();
+        } catch (Exception e) {
+            System.out.println("Something went wrong :(");
+        }
         // TODO: uncomment after testing
         /*
         cart.buy();

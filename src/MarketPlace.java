@@ -54,8 +54,6 @@ public class MarketPlace {
     /**
      * TODO: view purchase history
      * TODO: Let customers proceed to checkout cart (uncomment)
-     * todo: remove products from seller (reduce quantity by the amount purchased by customer)
-     * todo: update CustomerStatistics.txt
      * todo: dashboards
      * todo: csv
      */
@@ -163,6 +161,7 @@ public class MarketPlace {
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[1], "sort listings by cost (low to high)");
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[2], "sort listings by cost (high to low)");
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[3], "de-sort");
+                    System.out.printf(BUTTONS_PROMPT, BUTTONS[5], "view your purchase history");
                 } else {
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[5], "open a new Store");
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[6], "list a new item for sale");
@@ -193,6 +192,8 @@ public class MarketPlace {
                     } else if (action.equalsIgnoreCase(BUTTONS[3])) {
                         listings = originalListings;
                         sellerUsernames = originalSellerUsernames;
+                    } else if (action.equalsIgnoreCase(BUTTONS[5])) {
+                        viewPurchaseHistory();
                     } else {
                         try {
                             int itemNumber = Integer.parseInt(action);
@@ -763,8 +764,46 @@ public class MarketPlace {
     }
 
     public void viewPurchaseHistory() {
-        // TODO: after Oh gets done with Cart and Purchase
+        System.out.println("Your purchases:");
         // Use Customer.displayPurchases
+        boolean exists = false;
+        ArrayList<Product> productList = new ArrayList<>();
+        try {
+            FileReader frHistory = new FileReader("CustomerPurchaseHistory.txt");
+            BufferedReader brHistory = new BufferedReader(frHistory);
+            ArrayList<String> lines = new ArrayList<>();
+            String line = brHistory.readLine();
+            while (line != null) {
+                lines.add(line);
+                line = brHistory.readLine();
+            }
+            brHistory.close();
+            frHistory.close();
+            for (String value : lines) {
+                String[] checkUser = value.split(";", -1);
+                if (checkUser[0].equals(username)) {
+                    exists = true;
+                    String[] products = checkUser[1].split("___", -1);
+                    for (String val : products) {
+                        String[] product = val.split("_", -1);
+                        productList.add(new Product(product[0],
+                                new Store(product[1]),
+                                Integer.parseInt(product[2]),
+                                Double.parseDouble(product[3]),
+                                product[4].split("\\$", -1)[0]
+                        ));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Something went wrong :(");
+        }
+        if (!exists) {
+            System.out.println("You have not made any purchases yet");
+        } else {
+            Customer customer = new Customer(username, password, productList.toArray(productList.toArray(new Product[0])));
+            customer.displayPurchases();
+        }
     }
 
     // Writing user's cart to a txt file

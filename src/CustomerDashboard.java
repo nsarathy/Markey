@@ -662,8 +662,7 @@ public class CustomerDashboard implements Shared {
                     System.out.println("3. Exit Customer Dashboard");
                     System.out.println();
                     System.out.print("Enter Option Here: ");
-                    answer1 = scanner.nextInt();
-                    scanner.nextLine();
+                    answer1 = Integer.parseInt(scanner.nextLine());
                     System.out.println();
 
                     if (answer1 == 1) {
@@ -695,19 +694,16 @@ public class CustomerDashboard implements Shared {
                     if (sortID == 0) {
                         displayOriginalStores();
                         displaySortOptions(sortID);
-                        wantedSort = scanner.nextInt();
-                        scanner.nextLine();
+                        wantedSort = Integer.parseInt(scanner.nextLine());
                         System.out.println();
                     } else if (sortID == 1) {
                         displayHighLowStores();
                         displaySortOptions(sortID);
-                        wantedSort = scanner.nextInt();
-                        scanner.nextLine();
+                        wantedSort = Integer.parseInt(scanner.nextLine());
                     } else if (sortID == 2) {
                         displayLowHighStores();
                         displaySortOptions(sortID);
-                        wantedSort = scanner.nextInt();
-                        scanner.nextLine();
+                        wantedSort = Integer.parseInt(scanner.nextLine());
                     }
 
 
@@ -753,20 +749,17 @@ public class CustomerDashboard implements Shared {
                     if (sortID == 0) {
                         displayOriginalCustomerStatistics();
                         displaySortOptions(sortID);
-                        wantedSort = scanner.nextInt();
-                        scanner.nextLine();
+                        wantedSort = Integer.parseInt(scanner.nextLine());
                         System.out.println();
                     } else if (sortID == 1) {
                         displayPurchaseHistoryHighLow();
                         displaySortOptions(sortID);
-                        wantedSort = scanner.nextInt();
-                        scanner.nextLine();
+                        wantedSort = Integer.parseInt(scanner.nextLine());
                         System.out.println();
                     } else if (sortID == 2) {
                         displayPurchaseHistoryLowHigh();
                         displaySortOptions(sortID);
-                        wantedSort = scanner.nextInt();
-                        scanner.nextLine();
+                        wantedSort = Integer.parseInt(scanner.nextLine());
                         System.out.println();
                     }
 

@@ -2,9 +2,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class ImportExport {
+public class ImportExport implements Shared {
     private String username;
     private String password;
 
@@ -14,11 +13,9 @@ public class ImportExport {
     }
 
     public void customerExport() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter file path for the csv file");
         String filePath = scanner.nextLine();
         boolean exists = false;
-        ArrayList<Product> productList = new ArrayList<>();
         try {
             FileReader frHistory = new FileReader("CustomerPurchaseHistory.txt");
             BufferedReader brHistory = new BufferedReader(frHistory);
@@ -74,7 +71,6 @@ public class ImportExport {
     }
 
     public void sellerExport(Seller seller) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter file path for csv file");
         String filePath = scanner.nextLine();
         ArrayList<Product> products = seller.getProducts();
@@ -100,7 +96,6 @@ public class ImportExport {
     }
 
     public void sellerImport(Seller seller) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Make sure the csv file is in this format:");
         System.out.println("storeName,itemName,price,quantity,description");
         System.out.println("Make sure that no element has commas ','");

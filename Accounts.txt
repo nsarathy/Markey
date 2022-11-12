@@ -1,2 +1,3 @@
 seller_firstSeller;password
 customer_firstCustomer;password
+seller_secondSeller;password

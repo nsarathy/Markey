@@ -187,6 +187,9 @@ public class MarketPlace implements Shared {
                     } else if (action.equalsIgnoreCase(BUTTONS[9])) {
                         var export = new ImportExport(username, password);
                         export.customerExport();
+                    } else if (action.equalsIgnoreCase(BUTTONS[10])) {
+                        var db = new CustomerDashboard(username);
+                        db.main();
                     } else {
                         try {
                             int itemNumber = Integer.parseInt(action);

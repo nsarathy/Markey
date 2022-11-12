@@ -1,9 +1,11 @@
-import java.util.*;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.InputMismatchException;
+import java.util.List;
 
 
-public class CustomerDashboard {
-    // TODO: Just display CustomerStatistics.txt
+public class CustomerDashboard implements Shared {
     // CustomerStatistics: Data will include a list of stores by number of products sold
     // Let customer sort by most products sold to the least products sold and vice versa
     // a list of stores by the products purchased by that particular customer. -> Call MarketPlace [viewPurchaseHistory()]
@@ -11,18 +13,8 @@ public class CustomerDashboard {
 
     private String customerUsername;
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
-        CustomerDashboard cd = new CustomerDashboard("testUser");
-        cd.main();
-
-    }
-
     //constructor
     public CustomerDashboard(String customerUsername) {
-        this.customerUsername = customerUsername;
-    }
-
-    public void setCustomerUsername(String customerUsername) {
         this.customerUsername = customerUsername;
     }
 
@@ -30,7 +22,9 @@ public class CustomerDashboard {
         return customerUsername;
     }
 
-
+    public void setCustomerUsername(String customerUsername) {
+        this.customerUsername = customerUsername;
+    }
 
     public List<String> readPurchaseHistory() throws IOException {
         //first method will be to get which lines belong to the customer
@@ -67,9 +61,9 @@ public class CustomerDashboard {
         List<String> fullList = readPurchaseHistory();
         List<String> wantedList = new ArrayList<>();
 
-        for (String s : fullList) {
-            if (s.contains(customerUser)) {
-                ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(s.split(";")));
+        for (int i = 0; i < fullList.size(); i++) {
+            if (fullList.get(i).contains(customerUser)) {
+                ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(fullList.get(i).split(";")));
                 wantedList.add(collectedData.get(1));
             }
         }
@@ -388,7 +382,6 @@ public class CustomerDashboard {
     }
 
 
-
     //when sorting we can actually just change the way the list arrays are arranged instead of
     //trying to change the way we place them
     public void displayOriginalStores() throws IOException {
@@ -644,14 +637,13 @@ public class CustomerDashboard {
         return new StoreAndSales(htLSalesList, htLStoreList);
     }
 
-    public void displaySorted(){
+    public void displaySorted() {
 
     }
 
     public void main() throws FileNotFoundException, IOException {
         //this method will contain what the user can do with all these methods, displaying
         //manipulating and sorting the products with the sort method
-        Scanner input = new Scanner(System.in);
         boolean repeat = true;
         int sortID = 0;
         //sortID 0 = unsorted
@@ -670,8 +662,8 @@ public class CustomerDashboard {
                     System.out.println("3. Exit Customer Dashboard");
                     System.out.println();
                     System.out.print("Enter Option Here: ");
-                    answer1 = input.nextInt();
-                    input.nextLine();
+                    answer1 = scanner.nextInt();
+                    scanner.nextLine();
                     System.out.println();
 
                     if (answer1 == 1) {
@@ -690,7 +682,7 @@ public class CustomerDashboard {
 
                     System.out.println("Please enter valid choice!");
                     System.out.println();
-                    input.nextLine();
+                    scanner.nextLine();
                 }
             } while (answer1 != 1 || answer1 != 2 || answer1 != 3);
 
@@ -703,19 +695,19 @@ public class CustomerDashboard {
                     if (sortID == 0) {
                         displayOriginalStores();
                         displaySortOptions(sortID);
-                        wantedSort = input.nextInt();
-                        input.nextLine();
+                        wantedSort = scanner.nextInt();
+                        scanner.nextLine();
                         System.out.println();
                     } else if (sortID == 1) {
                         displayHighLowStores();
                         displaySortOptions(sortID);
-                        wantedSort = input.nextInt();
-                        input.nextLine();
+                        wantedSort = scanner.nextInt();
+                        scanner.nextLine();
                     } else if (sortID == 2) {
                         displayLowHighStores();
                         displaySortOptions(sortID);
-                        wantedSort = input.nextInt();
-                        input.nextLine();
+                        wantedSort = scanner.nextInt();
+                        scanner.nextLine();
                     }
 
 
@@ -746,7 +738,7 @@ public class CustomerDashboard {
                         } else if (wantedSort == 2) {
                             sortID = 0;
 
-                        }else if (wantedSort == 3) {
+                        } else if (wantedSort == 3) {
                             System.out.println();
                             break;
                         }
@@ -761,20 +753,20 @@ public class CustomerDashboard {
                     if (sortID == 0) {
                         displayOriginalCustomerStatistics();
                         displaySortOptions(sortID);
-                        wantedSort = input.nextInt();
-                        input.nextLine();
+                        wantedSort = scanner.nextInt();
+                        scanner.nextLine();
                         System.out.println();
                     } else if (sortID == 1) {
                         displayPurchaseHistoryHighLow();
                         displaySortOptions(sortID);
-                        wantedSort = input.nextInt();
-                        input.nextLine();
+                        wantedSort = scanner.nextInt();
+                        scanner.nextLine();
                         System.out.println();
                     } else if (sortID == 2) {
                         displayPurchaseHistoryLowHigh();
                         displaySortOptions(sortID);
-                        wantedSort = input.nextInt();
-                        input.nextLine();
+                        wantedSort = scanner.nextInt();
+                        scanner.nextLine();
                         System.out.println();
                     }
 
@@ -805,7 +797,7 @@ public class CustomerDashboard {
                         } else if (wantedSort == 2) {
                             sortID = 0;
 
-                        }else if (wantedSort == 3) {
+                        } else if (wantedSort == 3) {
                             System.out.println();
                             break;
                         }
@@ -816,7 +808,7 @@ public class CustomerDashboard {
     }
 
 
-
+    //need to implement sort feature, probably pull from a method.
 
 
 }

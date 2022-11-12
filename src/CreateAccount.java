@@ -118,8 +118,7 @@ public class CreateAccount implements Shared {
         while (true) {
             while (true) {
                 System.out.println("Are you a seller or customer?\n1. Seller\n2. Customer");
-                int output = scanner.nextInt();
-                scanner.nextLine();
+                int output = Integer.parseInt(scanner.nextLine());
                 if (output == 1) {
                     accountType = "seller";
                     setAccountSignal(false);

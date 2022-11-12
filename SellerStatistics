@@ -1,1 +1,7 @@
-username;
+sellerUsername;product.toString___product2.toString___product3.toString...;customerUsername
+
+//use this
+sellerUsername;product1___product2___product3...;customerUsername
+
+sellerUsername;productName_storeName_quanity_price_description___product2Name_store2Name_quantity_price_description;customerUsername
+

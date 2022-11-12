@@ -3,9 +3,9 @@
 ## Option 3 Marketplace
 Selections: Files, Statistics, Shopping Cart
 # Compiling and Running
-```
-Login.java
-```
+
+## Login.java
+
 Is where everything starts. 
 - Compile and run Login.java
 - You will be prompted to enter whetehr or not you have an account
@@ -49,6 +49,7 @@ It's methods update data once a customer checks out their cart
 This exception is thrown when there's an error while trying read or write changes to a customer's cart
 
 ## CreateAccount implements Shared
+To create a new account on Markey
 - Instance variables:
   - private String accountType : seller or buyer type
   - private boolean accountSignal : chose to be seller or customer (true if customer)
@@ -63,3 +64,119 @@ This exception is thrown when there's an error while trying read or write change
 - public void main() : prompts user to input details to create account
   
 ## Customer extends Account
+Blueprint of a customer account
+- Instance variables :
+  - Product[] purchases : array of purchases made by customer
+- Parameterized constructor that calls super
+- getter and seter for instance variable
+- public boolean equals(Object obj) : checks if an object is a particular customer
+
+## CustomerDashboard implements Shared
+A customer's dashboard
+- Instance variable
+  - private String customerUsername : username of customer
+- Parameterized cosntructor
+- getter and setter for instance variable
+- public List<String> readPurchaseHistory() : reads purchase history of customer
+- public List<String> matchCustomerName() throws IOException : to check if customer matches with obtained data
+- public List<String> splitByProduct() throws IOException : splits a line to get every product sold
+- public void displayOriginalCustomerStatistics() throws IOException : displays data
+- public StoreAndSales sortPurchaseHistoryLowHigh() throws IOException : sorts customer's purchases from lowest in quantities bought to highest
+- public void displayPurchaseHistoryLowHigh() throws IOException : formats and displays result from previous method
+- public StoreAndSales sortPurchaseHistoryHighLow() throws IOException : sorts customer's purchases from highest in quantities bought to lowest
+-  public void displayPurchaseHistoryHighLow() throws IOException : formats and displays the result of previous method
+- public List<String> readCustomerStats() throws FileNotFoundException, IOException : reads data
+- public List<String> typeSplitter() throws FileNotFoundException, IOException : splits a line to get seller and store details
+- public String[] getSellerNames() throws FileNotFoundException, IOException : gets seller names
+- public List<String> byStoreSplitter() throws FileNotFoundException, IOException : to split a line and get store details
+- public List<String> getOnlyStore() throws FileNotFoundException, IOException : get stores that have sold something
+- public List<String> getOnlySales() throws FileNotFoundException, IOException : get sales of stores that have sold something
+- public List<Integer> getStoreTotal() throws FileNotFoundException, IOException : get a list of the number of stores under each seller
+- public void displaySortOptions(int givenSortID) : displays options to sort
+- public void displayOriginalStores() throws IOException : display unsorted data
+- public void displayHighLowStores() throws IOException : display high to low on sales sorted stores for each seller
+- public void displayLowHighStores() throws IOException : display low to high on sales sorted stores for each seller
+- public StoreAndSales sortHighLow() throws FileNotFoundException, IOException : sorts the stores of each seller from high to low on sales
+- public StoreAndSales sortLowHigh() throws FileNotFoundException, IOException : sorts the stores of each seller from low to high on sales
+- public void main() throws FileNotFoundException, IOException : prompts user to input to perform actions
+
+## ImportExport
+- Instance variables :
+  - private String username : username
+  - private String password : password
+- Parameterized constructor
+- public void customerExport() : exports customer's purchase history to a csv file
+- public void sellerExport(Seller seller) : exports seller's products that are on sale to a csv file
+- public void sellerImport(Seller seller) : imports products to Markey from a csv file by seller
+
+## Listing
+- Instance variables:
+  - private ArrayList<Product> products : list of products
+  - private ArrayList<String> sellers : list of seller usernames corresponding to products
+- Parameterized constructor
+- Getters and setters for instance variables
+
+## Login implements Shared
+To login
+- public static void main(String[] args) : prompts user to login or create account, executes MarketPlace when logged in
+
+## MarketPlace implements Shared
+Where almost every action by user is carried out and outsourced
+- Instance variables :
+  - private final String username : username
+  - private final String password : password
+- Parameterized constructor
+- public void main(boolean customer) : prompts user for inputs to perform various actions based on whether the user is a customer or seller
+- public void displayProduct(Product product, int index) : formats and displays a product
+- public void displaySelectedProduct(Product product) : formats and displays the product page of a product
+- public void checkout(ArrayList<Product> proceedToCheckout, ArrayList<String> sellerUsernames) : when user checks out cart, updates data accordingly
+- public void viewCart(ArrayList<Product> currentCart, ArrayList<String> currentCartSellers, Scanner scanner) : lets user view items on cart and proceed to checkout or exit
+- public Listing sortLowToHigh(ArrayList<Product> list, ArrayList<String> sellers) : sorts products on sale from low to high on price
+- public Listing sortHighToLow(ArrayList<Product> list, ArrayList<String> sellers) : sorts products on sale from high to low on price
+- public void viewPurchaseHistory() : lets customer view their purchase history
+- public void storeCart(ArrayList<Product> currentCart, ArrayList<String> currentSellers) throws CartNotTrackableException : stores cart of a user, so that it remains the same when user logs out and logs back in
+- public Listing readCart() throws CartNotTrackableException : reads stored cart
+  
+## NotInStockException extends Exception :
+Thrown when a customer tries to add a quantity of items more than available on stock
+
+## Product
+Blueprint of a product that is sold
+- Instance variables :
+  - private String name : name of product
+  - private Store store : store where product is sold
+  - private int quantity : quantity available in stock / quantity purchased by customer
+  - private double price : price per each
+  - private String description : description of product
+- Parameterized constructor
+- getters and setters for instance variables
+- public String toString() : returns in format name_storeName_quantity_price_description
+
+## Seller
+Blueprint of a seller account
+- Instance variable:
+  - ArrayList<Store> stores : list of stores that are open owned by seller (A store that does not have anything on sale will be closed and deleted)
+  - ArrayList<Product> products : products on sale by seller
+- Parameterized constructor
+- getters and setters
+- public void createProduct(String name, Store store, int quantity, double price, String description) : creates a new product listing for sale on Markey
+- public void createStore(String storeName) : opens a new store on Markey
+- public void deleteProduct(int index) : deletes a product
+- public boolean equals(Object obj) : checks if an object is a particular seller
+
+## Shared
+An interface with Scanner scanner = new Scanner(System.in) for every class that needs to read input to use
+
+## Store
+Blueprint of a store owned by a seller on Markey
+- Instance variable :
+  - private String name
+- Parameterized constructor
+- getter and setter for instance variable
+
+## StoreAndSales
+- Instance variables :
+  - private final List<Integer> sales : list of integers
+  - private final List<String> stores : list of strings
+- Parameterized constructor
+- getters 

@@ -1,5 +1,5 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 
 public class CustomerDashboard {
@@ -11,24 +11,26 @@ public class CustomerDashboard {
 
     private String customerUsername;
 
-    //constructor
-    public CustomerDashboard(String customerUsername) {
-        this.customerUsername = customerUsername;
-    }
-
     public static void main(String[] args) throws FileNotFoundException, IOException {
         CustomerDashboard cd = new CustomerDashboard("testUser");
         cd.main();
 
     }
 
-    public String getCustomerUsername() {
-        return customerUsername;
+    //constructor
+    public CustomerDashboard(String customerUsername) {
+        this.customerUsername = customerUsername;
     }
 
     public void setCustomerUsername(String customerUsername) {
         this.customerUsername = customerUsername;
     }
+
+    public String getCustomerUsername() {
+        return customerUsername;
+    }
+
+
 
     public List<String> readPurchaseHistory() throws IOException {
         //first method will be to get which lines belong to the customer
@@ -65,9 +67,9 @@ public class CustomerDashboard {
         List<String> fullList = readPurchaseHistory();
         List<String> wantedList = new ArrayList<>();
 
-        for (int i = 0; i < fullList.size(); i++) {
-            if (fullList.get(i).contains(customerUser)) {
-                ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(fullList.get(i).split(";")));
+        for (String s : fullList) {
+            if (s.contains(customerUser)) {
+                ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(s.split(";")));
                 wantedList.add(collectedData.get(1));
             }
         }
@@ -90,15 +92,11 @@ public class CustomerDashboard {
         return byProduct;
     }
 
-    public void displayCustomerStatistics() throws IOException {
+    public void displayOriginalCustomerStatistics() throws IOException {
         //first get all the elements of the customer's history from probably both
         //customerStatistics.txt and PurchaseHistory.txt not sure yet, but need to
         //format and display the total customer stats.
         List<String> wantedList = splitByProduct();
-
-        System.out.println("********************");
-        System.out.println("YOUR PURCHASE HISTORY");
-        System.out.println("--------------------");
 
 
         for (int i = 0; i < wantedList.size(); i++) {
@@ -110,7 +108,6 @@ public class CustomerDashboard {
             System.out.println("--------------------");
         }
     }
-
 
     public StoreAndSales sortPurchaseHistoryLowHigh() throws IOException {
         List<String> wantedList = splitByProduct();
@@ -182,6 +179,11 @@ public class CustomerDashboard {
             System.out.println("Price: " + collectedData.get(3));
             System.out.println("--------------------");
         }
+    }
+
+
+    public void sortPurchaseHistoryList() {
+
     }
 
     public List<String> readCustomerStats() throws FileNotFoundException, IOException {
@@ -384,6 +386,7 @@ public class CustomerDashboard {
             System.out.print("Enter Here: ");
         }
     }
+
 
 
     //when sorting we can actually just change the way the list arrays are arranged instead of
@@ -641,7 +644,7 @@ public class CustomerDashboard {
         return new StoreAndSales(htLSalesList, htLStoreList);
     }
 
-    public void displaySorted() {
+    public void displaySorted(){
 
     }
 
@@ -663,7 +666,7 @@ public class CustomerDashboard {
                     System.out.println("*CUSTOMER DASHBOARD*");
                     System.out.println();
                     System.out.println("1. View All Stores");
-                    System.out.println("2. View Purchased Stores");
+                    System.out.println("2. View Stores Purchased From");
                     System.out.println("3. Exit Customer Dashboard");
                     System.out.println();
                     System.out.print("Enter Option Here: ");
@@ -692,9 +695,11 @@ public class CustomerDashboard {
             } while (answer1 != 1 || answer1 != 2 || answer1 != 3);
 
             //first print unsorted original list
-            int wantedSort = 0;
-            while (true) {
-                if (answer1 == 1) {
+            if (answer1 == 1) {
+                System.out.println("********************");
+                System.out.println("STORE INFORMATION");
+                int wantedSort = 0;
+                while (true) {
                     if (sortID == 0) {
                         displayOriginalStores();
                         displaySortOptions(sortID);
@@ -741,25 +746,78 @@ public class CustomerDashboard {
                         } else if (wantedSort == 2) {
                             sortID = 0;
 
-                        } else if (wantedSort == 3) {
+                        }else if (wantedSort == 3) {
                             System.out.println();
                             break;
                         }
                     }
-                } else if (answer1 == 2) {
-                    displayCustomerStatistics();
-                    displaySortOptions(sortID);
-                    wantedSort = input.nextInt();
-                    input.nextLine();
-                    System.out.println();
+                }
+            } else if (answer1 == 2) {
+                int wantedSort = 0;
+                System.out.println("********************");
+                System.out.println("YOUR PURCHASE HISTORY");
+                System.out.println("--------------------");
+                while (true) {
+                    if (sortID == 0) {
+                        displayOriginalCustomerStatistics();
+                        displaySortOptions(sortID);
+                        wantedSort = input.nextInt();
+                        input.nextLine();
+                        System.out.println();
+                    } else if (sortID == 1) {
+                        displayPurchaseHistoryHighLow();
+                        displaySortOptions(sortID);
+                        wantedSort = input.nextInt();
+                        input.nextLine();
+                        System.out.println();
+                    } else if (sortID == 2) {
+                        displayPurchaseHistoryLowHigh();
+                        displaySortOptions(sortID);
+                        wantedSort = input.nextInt();
+                        input.nextLine();
+                        System.out.println();
+                    }
+
+                    if (sortID == 0) {
+                        if (wantedSort == 1) {
+                            sortID = 1;
+
+                        } else if (wantedSort == 2) {
+                            sortID = 2;
+
+                        } else if (wantedSort == 3) {
+                            System.out.println();
+                            break;
+                        }
+                    } else if (sortID == 1) {
+                        if (wantedSort == 1) {
+                            sortID = 2;
+                        } else if (wantedSort == 2) {
+                            sortID = 0;
+
+                        } else if (wantedSort == 3) {
+                            System.out.println();
+                            break;
+                        }
+                    } else if (sortID == 2) {
+                        if (wantedSort == 1) {
+                            sortID = 1;
+                        } else if (wantedSort == 2) {
+                            sortID = 0;
+
+                        }else if (wantedSort == 3) {
+                            System.out.println();
+                            break;
+                        }
+                    }
                 }
             }
-
-
-            //need to implement sort feature, probably pull from a method.
-
-
         }
     }
 
+
+
+
+
 }
+

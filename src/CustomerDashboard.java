@@ -348,6 +348,76 @@ public class CustomerDashboard {
 
 	}
 
+	public void displayHighLowStores() throws IOException {
+		int update = 0;
+
+		StoreAndSales alteredStores = sortHighLow();
+		String[] sellerNameList = getSellerNames();
+		List<String> justStores = new ArrayList<>();
+		List<String> highLowStores = alteredStores.getStores();
+		List<Integer> highLowSales = alteredStores.getSales();
+		List<Integer> storeTotal = getStoreTotal();
+
+		for (int j = 0; j < highLowStores.size(); j++) {
+			List<String> dataCollected = new ArrayList<>(Arrays.asList(highLowStores.get(j).split("_")));
+			justStores.add(dataCollected.get(0));
+		}
+
+		for (int i = 0; i < sellerNameList.length; i++) {
+			int count = 0;
+			System.out.println("--------------------");
+			System.out.println("Seller: " + sellerNameList[i]);
+
+			for (int q = 0; q < storeTotal.get(i); q++) {
+				System.out.print(justStores.get(q + update) + ": ");
+				System.out.println(highLowSales.get(q + update) + " Sales");
+				count++;
+
+			}
+			update += count;
+
+		}
+
+		System.out.println("--------------------");
+		System.out.println();
+
+	}
+	
+	public void displayLowHighStores() throws IOException {
+		int update = 0;
+
+		StoreAndSales alteredStores = sortLowHigh();
+		String[] sellerNameList = getSellerNames();
+		List<String> justStores = new ArrayList<>();
+		List<String> lowHighStores = alteredStores.getStores();
+		List<Integer> lowHighSales = alteredStores.getSales();
+		List<Integer> storeTotal = getStoreTotal();
+
+		for (int j = 0; j < lowHighStores.size(); j++) {
+			List<String> dataCollected = new ArrayList<>(Arrays.asList(lowHighStores.get(j).split("_")));
+			justStores.add(dataCollected.get(0));
+		}
+
+		for (int i = 0; i < sellerNameList.length; i++) {
+			int count = 0;
+			System.out.println("--------------------");
+			System.out.println("Seller: " + sellerNameList[i]);
+
+			for (int q = 0; q < storeTotal.get(i); q++) {
+				System.out.print(justStores.get(q + update) + ": ");
+				System.out.println(lowHighSales.get(q + update) + " Sales");
+				count++;
+
+			}
+			update += count;
+
+		}
+
+		System.out.println("--------------------");
+		System.out.println();
+
+	}
+
 	public List<String> splitStoreList() throws FileNotFoundException, IOException {
 		List<String> storeList = getOnlyStore();
 		List<Integer> storeTotal = getStoreTotal();
@@ -391,7 +461,7 @@ public class CustomerDashboard {
 	}
 
 
-	public List<Integer> sortSaleHighLow() throws FileNotFoundException, IOException {
+	public StoreAndSales sortHighLow() throws FileNotFoundException, IOException {
 		List<String> originalStoreAndSaleList = byStoreSplitter();
 		List<String> originalSaleList = getOnlySales();
 		List<Integer> saleListToInt = new ArrayList<>();
@@ -416,15 +486,28 @@ public class CustomerDashboard {
 				storeSorting.add(originalStoreAndSaleList.get(q + update));
 				count++;
 			}
-			Collections.sort(sorting, Collections.reverseOrder());
-			for (int q = 0; q < storeLength.get(i); q++) {
-				htLSalesList.add(sorting.get(q));
+			// Collections.sort(sorting, Collections.reverseOrder());
+			// sorting using bubble sort
+			for (int g = 0; g < sorting.size(); g++) {
+				for (int h = 0; h < sorting.size() - g - 1; h++) {
+					if (sorting.get(h) < sorting.get(h + 1)) {
+						// swapping sales
+						int temp = sorting.get(h);
+						sorting.set(h, sorting.get(h + 1));
+						sorting.set(h + 1, temp);
 
-				for (int j = 0; j < storeLength.get(i); j++) { 
-					if (storeSorting.get(j).contains(Integer.toString(sorting.get(q)))) {
-						htLStoreList.add(storeSorting.get(j));
+						// swapping stores
+						String tempString = storeSorting.get(h);
+						storeSorting.set(h, storeSorting.get(h + 1));
+						storeSorting.set(h + 1, tempString);
 					}
 				}
+			}
+			for (int q = 0; q < storeLength.get(i); q++) {
+				htLSalesList.add(sorting.get(q));
+			}
+			for (int j = 0; j < storeLength.get(i); j++) {
+				htLStoreList.add(storeSorting.get(j));
 			}
 			sorting.clear();
 			storeSorting.clear();
@@ -432,53 +515,66 @@ public class CustomerDashboard {
 			update += count;
 		}
 
-		return htLSalesList;
-	}
-
-	public List<String> sortStoreHighLow() throws FileNotFoundException, IOException {
-		List<String> originalStoreAndSaleList = byStoreSplitter();
-		List<String> originalSaleList = getOnlySales();
-		List<Integer> saleListToInt = new ArrayList<>();
-		List<Integer> storeLength = getStoreTotal();
-
-		for (int i = 0; i < originalSaleList.size(); i++) {
-			saleListToInt.add(Integer.parseInt(originalSaleList.get(i)));
-		}
-
-		List<String> htLStoreList = new ArrayList<>();
-		List<Integer> htLSalesList = new ArrayList<>();
-
-		int update = 0;
-		int count = 0;
-		for (int i = 0; i < storeLength.size(); i++) {
-			List<String> storeSorting = new ArrayList<>();
-			List<Integer> storesBySales = new ArrayList<>();
-
-			count = 0;
-			for (int q = 0; q < storeLength.get(i); q++) {
-				storeSorting.add(originalStoreAndSaleList.get(q + update));
-				count++;
-			}
-
-			for (int q = 0; q < storeLength.get(i); q++) {
-
-
-
-			}
-
-			storeSorting.clear();
-
-			update += count;
-		}
-
-		return htLStoreList;
+		return new StoreAndSales(htLSalesList, htLStoreList);
 	}
 
 
 	//sorting the arraylist to be used in the displaySorted method
-	public void sortLowHigh() {
+	 public StoreAndSales sortLowHigh() throws FileNotFoundException, IOException {
+	        List<String> originalStoreAndSaleList = byStoreSplitter();
+	        List<String> originalSaleList = getOnlySales();
+	        List<Integer> saleListToInt = new ArrayList<>();
+	        List<Integer> storeLength = getStoreTotal();
 
-	}
+	        for (String s : originalSaleList) {
+	            saleListToInt.add(Integer.parseInt(s));
+	        }
+
+	        List<String> htLStoreList = new ArrayList<>();
+	        List<Integer> htLSalesList = new ArrayList<>();
+
+	        int update = 0;
+	        int count = 0;
+	        for (Integer integer : storeLength) {
+	            List<Integer> sorting = new ArrayList<>();
+	            List<String> storeSorting = new ArrayList<>();
+
+	            count = 0;
+	            for (int q = 0; q < integer; q++) {
+	                sorting.add(saleListToInt.get(q + update));
+	                storeSorting.add(originalStoreAndSaleList.get(q + update));
+	                count++;
+	            }
+	            // sorting using bubble sort
+	            for (int g = 0; g < sorting.size(); g++) {
+	                for (int h = 0; h < sorting.size() - g - 1; h++) {
+	                    if (sorting.get(h) > sorting.get(h + 1)) {
+	                        // swapping sales
+	                        int temp = sorting.get(h);
+	                        sorting.set(h, sorting.get(h + 1));
+	                        sorting.set(h + 1, temp);
+
+	                        // swapping stores
+	                        String tempString = storeSorting.get(h);
+	                        storeSorting.set(h, storeSorting.get(h + 1));
+	                        storeSorting.set(h + 1, tempString);
+	                    }
+	                }
+	            }
+	            for (int q = 0; q < integer; q++) {
+	                htLSalesList.add(sorting.get(q));
+	            }
+	            for (int j = 0; j < integer; j++) {
+	                htLStoreList.add(storeSorting.get(j));
+	            }
+	            sorting.clear();
+	            storeSorting.clear();
+
+	            update += count;
+	        }
+
+	        return new StoreAndSales(htLSalesList, htLStoreList);
+	    }
 
 	public void displaySorted(){
 
@@ -493,12 +589,8 @@ public class CustomerDashboard {
 		//sortID 0 = unsorted
 		//sortID 1 = high to low
 		//sortID 2 = low to high
-		final String[] originalSellerNameList = getSellerNames();
-		final List<String> originalStoreList = getOnlyStore();
-		final List<String> originalSaleList = getOnlySales();
-		final List<Integer> storeTotal = getStoreTotal();
 
-		
+
 		while (repeat) {
 			int answer1 = 0;
 			do {
@@ -535,18 +627,67 @@ public class CustomerDashboard {
 			} while (answer1 != 1 || answer1 != 2 || answer1 != 3);
 
 			//first print unsorted original list
-			if (answer1 == 1) {
-				displayOriginalStores();
-				displaySortOptions(sortID);
-				int wantedSort = input.nextInt();
-				input.nextLine();
-				System.out.println();
-			} else if (answer1 == 2) {
-				displayCustomerStatistics();
-				displaySortOptions(sortID);
-				int wantedSort = input.nextInt();
-				input.nextLine();
-				System.out.println();
+			int wantedSort = 0;
+			while (true) {
+				if (answer1 == 1) {
+					if (sortID == 0) {
+						displayOriginalStores();
+						displaySortOptions(sortID);
+						wantedSort = input.nextInt();
+						input.nextLine();
+						System.out.println();
+					} else if (sortID == 1) {
+						displayHighLowStores();
+						displaySortOptions(sortID);
+						wantedSort = input.nextInt();
+						input.nextLine();
+					} else if (sortID == 2) {
+						displayLowHighStores();
+						displaySortOptions(sortID);
+						wantedSort = input.nextInt();
+						input.nextLine();
+					}
+
+					
+					if (sortID == 0) {
+						if (wantedSort == 1) {
+							sortID = 1;
+
+						} else if (wantedSort == 2) {
+							sortID = 2;
+
+						} else if (wantedSort == 3) {
+							System.out.println();
+							break;
+						}
+					} else if (sortID == 1) {
+						if (wantedSort == 1) {
+							sortID = 2;
+						} else if (wantedSort == 2) {
+							sortID = 0;
+
+						} else if (wantedSort == 3) {
+							System.out.println();
+							break;
+						}
+					} else if (sortID == 2) {
+						if (wantedSort == 1) {
+							sortID = 1;
+						} else if (wantedSort == 2) {
+							sortID = 0;
+
+						}else if (wantedSort == 3) {
+							System.out.println();
+							break;
+						}
+					}
+				} else if (answer1 == 2) {
+					displayCustomerStatistics();
+					displaySortOptions(sortID);
+					wantedSort = input.nextInt();
+					input.nextLine();
+					System.out.println();
+				}
 			}
 
 

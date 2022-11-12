@@ -53,6 +53,10 @@ public class Cart {
                 list.add(line);
             }
 
+            if (list.size() == 0) { 
+                list.add("seller;description;customer");
+            }
+
             String sellerName;
             String customerName;
             String result = "";
@@ -63,8 +67,13 @@ public class Cart {
                 if (sellerName.equals(sellerUsernames.get(i)) && customerName.equals(customerUsername)) {
                     result = result + list.get(i).substring(0, list.get(i).lastIndexOf(";"));
                     result = result + productsToBuy.get(i).toString() + "___;" + customerUsername;
+                    list.set(i, result);
                 } else {
-                    list.add(sellerUsernames.get(i) + ";" + productsToBuy.get(i).toString() + "___;" + customerUsername);
+                    if (i == 0 && sellerName.equals("seller") && customerName.equals("customer")) { 
+                        list.set(0, sellerUsernames.get(i) + ";" + productsToBuy.get(i).toString() + "___;" + customerUsername);
+                    } else {
+                        list.add(sellerUsernames.get(i) + ";" + productsToBuy.get(i).toString() + "___;" + customerUsername);
+                    }
                 }
             }
 

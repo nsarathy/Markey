@@ -723,11 +723,6 @@ public class MarketPlace implements Shared {
                             break;
                         }
                     }
-                    // debug
-                    for (String value : lines) {
-                        System.out.println(value);
-                    }
-                    System.out.println();
                 }
                 if (!added) {
                     lines.add(line);
@@ -746,11 +741,11 @@ public class MarketPlace implements Shared {
         } catch (Exception e) {
             System.out.println("Something went wrong :(");
         }
-        /*
+
         var cart = new Cart(proceedToCheckout, sellerUsernames, username);
         cart.updateCustomerPurchaseHistory();
         cart.updateSellerStatistics();
-         */
+
 
     }
 

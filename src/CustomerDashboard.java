@@ -394,8 +394,8 @@ public class CustomerDashboard {
         List<Integer> saleListToInt = new ArrayList<>();
         List<Integer> storeLength = getStoreTotal();
 
-        for (int i = 0; i < originalSaleList.size(); i++) {
-            saleListToInt.add(Integer.parseInt(originalSaleList.get(i)));
+        for (String s : originalSaleList) {
+            saleListToInt.add(Integer.parseInt(s));
         }
 
         List<String> htLStoreList = new ArrayList<>();
@@ -403,17 +403,16 @@ public class CustomerDashboard {
 
         int update = 0;
         int count = 0;
-        for (int i = 0; i < storeLength.size(); i++) {
+        for (Integer integer : storeLength) {
             List<Integer> sorting = new ArrayList<>();
             List<String> storeSorting = new ArrayList<>();
 
             count = 0;
-            for (int q = 0; q < storeLength.get(i); q++) {
+            for (int q = 0; q < integer; q++) {
                 sorting.add(saleListToInt.get(q + update));
                 storeSorting.add(originalStoreAndSaleList.get(q + update));
                 count++;
             }
-            // Collections.sort(sorting, Collections.reverseOrder());
             // sorting using bubble sort
             for (int g = 0; g < sorting.size(); g++) {
                 for (int h = 0; h < sorting.size() - g - 1; h++) {
@@ -430,10 +429,10 @@ public class CustomerDashboard {
                     }
                 }
             }
-            for (int q = 0; q < storeLength.get(i); q++) {
+            for (int q = 0; q < integer; q++) {
                 htLSalesList.add(sorting.get(q));
             }
-            for (int j = 0; j < storeLength.get(i); j++) {
+            for (int j = 0; j < integer; j++) {
                 htLStoreList.add(storeSorting.get(j));
             }
             sorting.clear();
@@ -446,8 +445,60 @@ public class CustomerDashboard {
     }
 
     //sorting the arraylist to be used in the displaySorted method
-    public void sortLowHigh() {
+    public StoreAndSales sortLowHigh() throws FileNotFoundException, IOException {
+        List<String> originalStoreAndSaleList = byStoreSplitter();
+        List<String> originalSaleList = getOnlySales();
+        List<Integer> saleListToInt = new ArrayList<>();
+        List<Integer> storeLength = getStoreTotal();
 
+        for (String s : originalSaleList) {
+            saleListToInt.add(Integer.parseInt(s));
+        }
+
+        List<String> htLStoreList = new ArrayList<>();
+        List<Integer> htLSalesList = new ArrayList<>();
+
+        int update = 0;
+        int count = 0;
+        for (Integer integer : storeLength) {
+            List<Integer> sorting = new ArrayList<>();
+            List<String> storeSorting = new ArrayList<>();
+
+            count = 0;
+            for (int q = 0; q < integer; q++) {
+                sorting.add(saleListToInt.get(q + update));
+                storeSorting.add(originalStoreAndSaleList.get(q + update));
+                count++;
+            }
+            // sorting using bubble sort
+            for (int g = 0; g < sorting.size(); g++) {
+                for (int h = 0; h < sorting.size() - g - 1; h++) {
+                    if (sorting.get(h) > sorting.get(h + 1)) {
+                        // swapping sales
+                        int temp = sorting.get(h);
+                        sorting.set(h, sorting.get(h + 1));
+                        sorting.set(h + 1, temp);
+
+                        // swapping stores
+                        String tempString = storeSorting.get(h);
+                        storeSorting.set(h, storeSorting.get(h + 1));
+                        storeSorting.set(h + 1, tempString);
+                    }
+                }
+            }
+            for (int q = 0; q < integer; q++) {
+                htLSalesList.add(sorting.get(q));
+            }
+            for (int j = 0; j < integer; j++) {
+                htLStoreList.add(storeSorting.get(j));
+            }
+            sorting.clear();
+            storeSorting.clear();
+
+            update += count;
+        }
+
+        return new StoreAndSales(htLSalesList, htLStoreList);
     }
 
     public void displaySorted() {
@@ -521,11 +572,11 @@ public class CustomerDashboard {
 
 
             //need to implement sort feature, probably pull from a method.
-            /*
-            StoreAndSales sorted = sortHighToLow();
+
+            StoreAndSales sorted = sortHighLow();
             List<Integer> sales = sorted.getSales();
             List<String> stores = sorted.getStores();
-             */
+
 
         }
     }

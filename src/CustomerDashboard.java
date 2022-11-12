@@ -92,15 +92,11 @@ public class CustomerDashboard {
 		return byProduct;
 	}
 
-	public void displayCustomerStatistics() throws IOException {
+	public void displayOriginalCustomerStatistics() throws IOException {
 		//first get all the elements of the customer's history from probably both
 		//customerStatistics.txt and PurchaseHistory.txt not sure yet, but need to
 		//format and display the total customer stats.
 		List<String> wantedList = splitByProduct();
-
-		System.out.println("********************");
-		System.out.println("YOUR PURCHASE HISTORY");
-		System.out.println("--------------------");
 
 
 		for (int i = 0; i < wantedList.size(); i++) {
@@ -112,6 +108,78 @@ public class CustomerDashboard {
 			System.out.println("--------------------");
 		}
 	}
+	
+	 public StoreAndSales sortPurchaseHistoryLowHigh() throws IOException {
+	        List<String> wantedList = splitByProduct();
+	        List<Integer> amounts = new ArrayList<>();
+	        for (String s : wantedList) {
+	            ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(s.split("_")));
+	            amounts.add(Integer.valueOf(collectedData.get(2)));
+	        }
+	        for (int i = 0; i < amounts.size(); i++) {
+	            for (int j = 0; j < amounts.size() - i - 1; j++) {
+	                if (amounts.get(j) > amounts.get(j + 1)) {
+	                    int temp = amounts.get(j);
+	                    amounts.set(j, amounts.get(j + 1));
+	                    amounts.set(j + 1, temp);
+
+	                    String tempString = wantedList.get(j);
+	                    wantedList.set(j, wantedList.get(j + 1));
+	                    wantedList.set(j + 1, tempString);
+	                }
+	            }
+	        }
+	        return new StoreAndSales(amounts, wantedList);
+	    }
+
+	    public void displayPurchaseHistoryLowHigh() throws IOException {
+	        StoreAndSales sorted = sortPurchaseHistoryLowHigh();
+	        List<String> wantedList = sorted.getStores();
+	        for (String s : wantedList) {
+	            ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(s.split("_")));
+	            System.out.println("Store: " + collectedData.get(1));
+	            System.out.println("Item: " + collectedData.get(0));
+	            System.out.println("Purchased Amount: " + collectedData.get(2));
+	            System.out.println("Price: " + collectedData.get(3));
+	            System.out.println("--------------------");
+	        }
+	    }
+
+	    public StoreAndSales sortPurchaseHistoryHighLow() throws IOException {
+	        List<String> wantedList = splitByProduct();
+	        List<Integer> amounts = new ArrayList<>();
+	        for (String s : wantedList) {
+	            ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(s.split("_")));
+	            amounts.add(Integer.valueOf(collectedData.get(2)));
+	        }
+	        for (int i = 0; i < amounts.size(); i++) {
+	            for (int j = 0; j < amounts.size() - i - 1; j++) {
+	                if (amounts.get(j) > amounts.get(j + 1)) {
+	                    int temp = amounts.get(j);
+	                    amounts.set(j, amounts.get(j + 1));
+	                    amounts.set(j + 1, temp);
+
+	                    String tempString = wantedList.get(j);
+	                    wantedList.set(j, wantedList.get(j + 1));
+	                    wantedList.set(j + 1, tempString);
+	                }
+	            }
+	        }
+	        return new StoreAndSales(amounts, wantedList);
+	    }
+
+	    public void displayPurchaseHistoryHighLow() throws IOException {
+	        StoreAndSales sorted = sortPurchaseHistoryHighLow();
+	        List<String> wantedList = sorted.getStores();
+	        for (String s : wantedList) {
+	            ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(s.split("_")));
+	            System.out.println("Store: " + collectedData.get(1));
+	            System.out.println("Item: " + collectedData.get(0));
+	            System.out.println("Purchased Amount: " + collectedData.get(2));
+	            System.out.println("Price: " + collectedData.get(3));
+	            System.out.println("--------------------");
+	        }
+	    }
 
 
 	public void sortPurchaseHistoryList() {
@@ -382,7 +450,7 @@ public class CustomerDashboard {
 		System.out.println();
 
 	}
-	
+
 	public void displayLowHighStores() throws IOException {
 		int update = 0;
 
@@ -520,61 +588,61 @@ public class CustomerDashboard {
 
 
 	//sorting the arraylist to be used in the displaySorted method
-	 public StoreAndSales sortLowHigh() throws FileNotFoundException, IOException {
-	        List<String> originalStoreAndSaleList = byStoreSplitter();
-	        List<String> originalSaleList = getOnlySales();
-	        List<Integer> saleListToInt = new ArrayList<>();
-	        List<Integer> storeLength = getStoreTotal();
+	public StoreAndSales sortLowHigh() throws FileNotFoundException, IOException {
+		List<String> originalStoreAndSaleList = byStoreSplitter();
+		List<String> originalSaleList = getOnlySales();
+		List<Integer> saleListToInt = new ArrayList<>();
+		List<Integer> storeLength = getStoreTotal();
 
-	        for (String s : originalSaleList) {
-	            saleListToInt.add(Integer.parseInt(s));
-	        }
+		for (String s : originalSaleList) {
+			saleListToInt.add(Integer.parseInt(s));
+		}
 
-	        List<String> htLStoreList = new ArrayList<>();
-	        List<Integer> htLSalesList = new ArrayList<>();
+		List<String> htLStoreList = new ArrayList<>();
+		List<Integer> htLSalesList = new ArrayList<>();
 
-	        int update = 0;
-	        int count = 0;
-	        for (Integer integer : storeLength) {
-	            List<Integer> sorting = new ArrayList<>();
-	            List<String> storeSorting = new ArrayList<>();
+		int update = 0;
+		int count = 0;
+		for (Integer integer : storeLength) {
+			List<Integer> sorting = new ArrayList<>();
+			List<String> storeSorting = new ArrayList<>();
 
-	            count = 0;
-	            for (int q = 0; q < integer; q++) {
-	                sorting.add(saleListToInt.get(q + update));
-	                storeSorting.add(originalStoreAndSaleList.get(q + update));
-	                count++;
-	            }
-	            // sorting using bubble sort
-	            for (int g = 0; g < sorting.size(); g++) {
-	                for (int h = 0; h < sorting.size() - g - 1; h++) {
-	                    if (sorting.get(h) > sorting.get(h + 1)) {
-	                        // swapping sales
-	                        int temp = sorting.get(h);
-	                        sorting.set(h, sorting.get(h + 1));
-	                        sorting.set(h + 1, temp);
+			count = 0;
+			for (int q = 0; q < integer; q++) {
+				sorting.add(saleListToInt.get(q + update));
+				storeSorting.add(originalStoreAndSaleList.get(q + update));
+				count++;
+			}
+			// sorting using bubble sort
+			for (int g = 0; g < sorting.size(); g++) {
+				for (int h = 0; h < sorting.size() - g - 1; h++) {
+					if (sorting.get(h) > sorting.get(h + 1)) {
+						// swapping sales
+						int temp = sorting.get(h);
+						sorting.set(h, sorting.get(h + 1));
+						sorting.set(h + 1, temp);
 
-	                        // swapping stores
-	                        String tempString = storeSorting.get(h);
-	                        storeSorting.set(h, storeSorting.get(h + 1));
-	                        storeSorting.set(h + 1, tempString);
-	                    }
-	                }
-	            }
-	            for (int q = 0; q < integer; q++) {
-	                htLSalesList.add(sorting.get(q));
-	            }
-	            for (int j = 0; j < integer; j++) {
-	                htLStoreList.add(storeSorting.get(j));
-	            }
-	            sorting.clear();
-	            storeSorting.clear();
+						// swapping stores
+						String tempString = storeSorting.get(h);
+						storeSorting.set(h, storeSorting.get(h + 1));
+						storeSorting.set(h + 1, tempString);
+					}
+				}
+			}
+			for (int q = 0; q < integer; q++) {
+				htLSalesList.add(sorting.get(q));
+			}
+			for (int j = 0; j < integer; j++) {
+				htLStoreList.add(storeSorting.get(j));
+			}
+			sorting.clear();
+			storeSorting.clear();
 
-	            update += count;
-	        }
+			update += count;
+		}
 
-	        return new StoreAndSales(htLSalesList, htLStoreList);
-	    }
+		return new StoreAndSales(htLSalesList, htLStoreList);
+	}
 
 	public void displaySorted(){
 
@@ -598,7 +666,7 @@ public class CustomerDashboard {
 					System.out.println("*CUSTOMER DASHBOARD*");
 					System.out.println();
 					System.out.println("1. View All Stores");
-					System.out.println("2. View Purchased Stores");
+					System.out.println("2. View Stores Purchased From");
 					System.out.println("3. Exit Customer Dashboard");
 					System.out.println();
 					System.out.print("Enter Option Here: ");
@@ -627,9 +695,11 @@ public class CustomerDashboard {
 			} while (answer1 != 1 || answer1 != 2 || answer1 != 3);
 
 			//first print unsorted original list
-			int wantedSort = 0;
-			while (true) {
-				if (answer1 == 1) {
+			if (answer1 == 1) {
+				System.out.println("********************");
+				System.out.println("STORE INFORMATION");
+				int wantedSort = 0;
+				while (true) {
 					if (sortID == 0) {
 						displayOriginalStores();
 						displaySortOptions(sortID);
@@ -648,7 +718,7 @@ public class CustomerDashboard {
 						input.nextLine();
 					}
 
-					
+
 					if (sortID == 0) {
 						if (wantedSort == 1) {
 							sortID = 1;
@@ -681,20 +751,75 @@ public class CustomerDashboard {
 							break;
 						}
 					}
-				} else if (answer1 == 2) {
-					displayCustomerStatistics();
-					displaySortOptions(sortID);
-					wantedSort = input.nextInt();
-					input.nextLine();
-					System.out.println();
+				}
+			} else if (answer1 == 2) {
+				int wantedSort = 0;
+				System.out.println("********************");
+				System.out.println("YOUR PURCHASE HISTORY");
+				System.out.println("--------------------");
+				while (true) {
+					if (sortID == 0) {
+						displayOriginalCustomerStatistics();
+						displaySortOptions(sortID);
+						wantedSort = input.nextInt();
+						input.nextLine();
+						System.out.println();
+					} else if (sortID == 1) {
+						displayPurchaseHistoryHighLow();
+						displaySortOptions(sortID);
+						wantedSort = input.nextInt();
+						input.nextLine();
+						System.out.println();
+					} else if (sortID == 2) {
+						displayPurchaseHistoryLowHigh();
+						displaySortOptions(sortID);
+						wantedSort = input.nextInt();
+						input.nextLine();
+						System.out.println();
+					}
+
+					if (sortID == 0) {
+						if (wantedSort == 1) {
+							sortID = 1;
+
+						} else if (wantedSort == 2) {
+							sortID = 2;
+
+						} else if (wantedSort == 3) {
+							System.out.println();
+							break;
+						}
+					} else if (sortID == 1) {
+						if (wantedSort == 1) {
+							sortID = 2;
+						} else if (wantedSort == 2) {
+							sortID = 0;
+
+						} else if (wantedSort == 3) {
+							System.out.println();
+							break;
+						}
+					} else if (sortID == 2) {
+						if (wantedSort == 1) {
+							sortID = 1;
+						} else if (wantedSort == 2) {
+							sortID = 0;
+
+						}else if (wantedSort == 3) {
+							System.out.println();
+							break;
+						}
+					}
 				}
 			}
-
-
-			//need to implement sort feature, probably pull from a method.
-
-
 		}
 	}
 
+
+
+	//need to implement sort feature, probably pull from a method.
+
+
 }
+
+

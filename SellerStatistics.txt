@@ -1,1 +1,0 @@
-usernameSeller;product.toString___product2.toString___product3.toString...;customerUsername

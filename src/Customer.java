@@ -28,7 +28,6 @@ public class Customer extends Account {
         System.out.println();
     }
 
-    // TODO: equals() checks only
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

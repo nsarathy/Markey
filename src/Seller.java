@@ -79,7 +79,6 @@ public class Seller extends Account {
         this.products.remove(index);
     }
 
-    // TODO: equals() method checks only username
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

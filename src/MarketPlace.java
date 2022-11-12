@@ -597,7 +597,6 @@ public class MarketPlace {
     }
 
     public void checkout(ArrayList<Product> proceedToCheckout, ArrayList<String> sellerUsernames) {
-        var cart = new Cart(proceedToCheckout, sellerUsernames, username);
 
         // clearing cart
         try {
@@ -697,13 +696,19 @@ public class MarketPlace {
             ArrayList<String> lines = new ArrayList<>();
             String line = brProducts.readLine();
             while (line != null) {
+                boolean added = false;
                 for (int i = 0; i < proceedToCheckout.size(); i++) {
                     Product product = proceedToCheckout.get(i);
                     String seller = sellerUsernames.get(i);
                     String[] sellerAndProduct = line.split(";", -1);
                     boolean same = sellerAndProduct[0].equals(seller);
                     String[] productString = sellerAndProduct[1].split("_", -1);
-                    Product newProduct = new Product(productString[0], new Store(productString[1]), Integer.parseInt(productString[2]), Double.parseDouble(productString[3]), productString[4]);
+                    Product newProduct = new Product(productString[0],
+                            new Store(productString[1]),
+                            Integer.parseInt(productString[2]),
+                            Double.parseDouble(productString[3]),
+                            productString[4]
+                    );
                     same = same && product.getName().equals(newProduct.getName());
                     same = same && product.getStore().getName().equals(newProduct.getStore().getName());
                     same = same && product.getPrice() == newProduct.getPrice();
@@ -712,10 +717,18 @@ public class MarketPlace {
                         newProduct.setQuantity(newProduct.getQuantity() - product.getQuantity());
                         if (newProduct.getQuantity() > 0) {
                             lines.add(seller + ";" + newProduct.toString());
+                            added = true;
+                            break;
                         }
-                    } else {
-                        lines.add(line);
                     }
+                    // debug
+                    for (String value : lines) {
+                        System.out.println(value);
+                    }
+                    System.out.println();
+                }
+                if (!added) {
+                    lines.add(line);
                 }
                 line = brProducts.readLine();
             }
@@ -731,10 +744,12 @@ public class MarketPlace {
         } catch (Exception e) {
             System.out.println("Something went wrong :(");
         }
-        // TODO: uncomment after testing
         /*
-        cart.buy();
+        var cart = new Cart(proceedToCheckout, sellerUsernames, username);
+        cart.updateCustomerPurchaseHistory();
+        cart.updateSellerStatistics();
          */
+
     }
 
     // Displaying cart

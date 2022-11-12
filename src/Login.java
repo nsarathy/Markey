@@ -1,18 +1,15 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.PrintWriter;
-import java.util.*;
 
-public class Login {
+public class Login implements Shared {
 
     public static void main(String[] args) {
         boolean flag = true;
         String accountType = "";
 
-        Scanner sc = new Scanner(System.in);
         System.out.println("Welcome to the Marketplace!");
         System.out.println("Do you have an existing account?\n1. Yes\n2. No");
-        String check = sc.nextLine();
+        String check = scanner.nextLine();
         if (check.equals("2")) {
             CreateAccount newAcc = new CreateAccount(null, null, false);
             newAcc.main();
@@ -20,9 +17,9 @@ public class Login {
         while (flag) {
             System.out.println("\nLOGIN WINDOW:");
             System.out.println("Enter Username:");
-            String username = sc.nextLine();
+            String username = scanner.nextLine();
             System.out.println("Enter Password:");
-            String password = sc.nextLine();
+            String password = scanner.nextLine();
             boolean exists = false;
             try {
                 BufferedReader bfr = new BufferedReader(new FileReader("Accounts.txt"));

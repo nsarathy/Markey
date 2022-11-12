@@ -3,13 +3,13 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.*;
 
-public class CreateAccount {
+public class CreateAccount implements Shared {
     // creates account and updates Accounts.txt
 
     private String accountType;
     private boolean accountSignal;
+
     public CreateAccount(String username, String password, boolean check) {
         if (username != null && password != null) {
             Account newAccount = new Account(username, password);
@@ -92,12 +92,12 @@ public class CreateAccount {
         }
     }
 
-    public void setAccountSignal(boolean accountSignal) {
-        this.accountSignal = accountSignal;
-    }
-
     public boolean isAccountSignal() {
         return accountSignal;
+    }
+
+    public void setAccountSignal(boolean accountSignal) {
+        this.accountSignal = accountSignal;
     }
 
     public void writeAccount(Account newAccount, boolean check) {
@@ -115,12 +115,11 @@ public class CreateAccount {
     }
 
     public void main() {
-        Scanner sc = new Scanner(System.in);
         while (true) {
             while (true) {
                 System.out.println("Are you a seller or customer?\n1. Seller\n2. Customer");
-                int output = sc.nextInt();
-                sc.nextLine();
+                int output = scanner.nextInt();
+                scanner.nextLine();
                 if (output == 1) {
                     accountType = "seller";
                     setAccountSignal(false);
@@ -134,9 +133,9 @@ public class CreateAccount {
                 }
             }
             System.out.println("Enter desired username: ");
-            String username = sc.nextLine();
+            String username = scanner.nextLine();
             System.out.println("Enter desired password: ");
-            String password = sc.nextLine();
+            String password = scanner.nextLine();
             System.out.println("Checking validity... ... ... ");
             if (checkingFields(username, password, isAccountSignal())) {
                 System.out.println("Account has been created!");

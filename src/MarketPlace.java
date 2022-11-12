@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class MarketPlace {
+public class MarketPlace implements Shared {
     public static final String PRODUCT_DISPLAY = "\n%d.\t%s\t\tSold by: %s\t\tPrice: %.2f\n";
     public static final String SELECTED_PRODUCT_DISPLAY = "\n%s\t\tSold by: %s\t\tPrice: %.2f\nAvailable in stock: %d\nDescription: %s\n";
     public static final String CART_END = "\n\nTotal Price: %.2f\n\nEnter '$' to checkout\nEnter 2 to remove item number 2\nEnter '?' to exit cart\n";
@@ -51,7 +51,6 @@ public class MarketPlace {
     public void main(boolean customer) {
         // if @param customer is false, don't let user do first 4 todos
         // Let user do those if @param customer is true
-        Scanner scanner = new Scanner(System.in);
         ArrayList<Product> cartItems = new ArrayList<>();
         ArrayList<String> cartSellerUsernames = new ArrayList<>();
         try {

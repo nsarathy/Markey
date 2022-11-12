@@ -170,6 +170,7 @@ public class CustomerDashboard {
         }
         return new StoreAndSales(amounts, wantedList);
     }
+
     public void displayPurchaseHistoryHighLow() throws IOException {
         StoreAndSales sorted = sortPurchaseHistoryHighLow();
         List<String> wantedList = sorted.getStores();

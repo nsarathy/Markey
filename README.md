@@ -59,5 +59,7 @@ This exception is thrown when there's an error while trying read or write change
 - public boolean checkLength(String username) : checks if username is empty
 - public boolean checkIfLetter(String username) : cheks if username has valid characters
 - public boolean checkPassword(String password) : checks if password is empty
-- 
+- public void writeAccount(Account newAccount, boolean check) : updates data with user details
+- public void main() : prompts user to input details to create account
   
+## Customer extends Account

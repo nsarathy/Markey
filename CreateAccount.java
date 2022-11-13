@@ -4,6 +4,17 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+/**
+ * Create Account
+ * 
+ * create account class is called when a user chooses to create an account, it checks for valid username and password fields 
+ * and passes them if they are cleared
+ * 
+ * @author Yudon Shin, lab sec L-24
+ * 
+ * @version November 13, 2022
+ */
+
 public class CreateAccount implements Shared {
     // creates account and updates Accounts.txt
 
@@ -92,7 +103,7 @@ public class CreateAccount implements Shared {
     public void writeAccount(Account newAccount, boolean check) {
         try {
             BufferedWriter bfw = new BufferedWriter(
-                new FileWriter("Accounts.txt", true)
+                    new FileWriter("Accounts.txt", true)
             );
             if (check) {
                 bfw.write("\n" + "customer_" + newAccount);

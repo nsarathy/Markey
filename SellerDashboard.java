@@ -3,6 +3,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
+/**
+ *
+ *  This class is used display, sort, and read the data
+ *  given by the SellerStatistics.txt
+ *  The methods within this class read and divide the given text into
+ *  readable bits of information and later displays an interface for the
+ *  user to interact with.
+ *
+ *
+ * @author Lewis Park, lab sec L-24
+ * @version November 11th, 2022
+ *
+ *
+ */
 
 
 public class SellerDashboard implements Shared {

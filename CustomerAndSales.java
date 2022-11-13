@@ -7,7 +7,7 @@ import java.util.List;
  *  making change to the order of list (sorting).
  * 
  * 
- * @author Lewis Park
+ * @author Lewis Park, lab sec L-24
  * @version November 11th, 2022
  * 
  * 

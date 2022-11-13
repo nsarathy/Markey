@@ -1,5 +1,4 @@
 seller_firstSeller;password
 customer_firstCustomer;password
-seller_secondSeller;password
-customer_scannerTester;password
-seller_neelSarathy;password2
+
+seller_sellerUser;password

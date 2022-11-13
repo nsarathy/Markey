@@ -5,6 +5,8 @@ import java.util.InputMismatchException;
 import java.util.List;
 /**
  *
+ *  Seller Dashboard
+ *
  *  This class is used display, sort, and read the data
  *  given by the SellerStatistics.txt
  *  The methods within this class read and divide the given text into
@@ -13,7 +15,7 @@ import java.util.List;
  *
  *
  * @author Lewis Park, lab sec L-24
- * @version November 11th, 2022
+ * @version November 13th, 2022
  *
  *
  */

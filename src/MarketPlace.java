@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class MarketPlace implements Shared {
     public static final String PRODUCT_DISPLAY = "\n%d.\t%s\t\tSold by: %s\t\tPrice: %.2f\n";
@@ -169,7 +168,7 @@ public class MarketPlace implements Shared {
                     break listingDisplay;
                 } else if (customer) {
                     if (action.equalsIgnoreCase(BUTTONS[0])) {
-                        viewCart(cartItems, cartSellerUsernames, scanner);
+                        viewCart(cartItems, cartSellerUsernames);
                     } else if (action.equalsIgnoreCase(BUTTONS[1])) {
                         Listing listing = sortLowToHigh(listings, sellerUsernames);
                         listings = listing.getProducts();
@@ -751,7 +750,7 @@ public class MarketPlace implements Shared {
 
     // Displaying cart
     // Actions : remove item, exit cart, proceed to checkout
-    public void viewCart(ArrayList<Product> currentCart, ArrayList<String> currentCartSellers, Scanner scanner) {
+    public void viewCart(ArrayList<Product> currentCart, ArrayList<String> currentCartSellers) {
         boolean stepFound = false;
         while (!stepFound) {
             if (currentCart.size() == 0) {

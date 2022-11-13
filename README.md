@@ -6,7 +6,7 @@
 Selections: Files, Statistics, Shopping Cart
 # Compiling and Running
 
-## Run Login.java
+## Run Login.java (Markey.zip file if you want to run in intellij)
 
 - You will be prompted to enter whether or not you have an account
 - If you do not have an account you will be prompted to create one. If you do have an account you will be prompted to login

@@ -1,3 +1,13 @@
+/**
+ * Account 
+ * 
+ * Program with basic methods to get usernames and passwords of each user in the account, extended by customer and seller
+ * 
+ * 
+ * @author Yudon Shin, lab sec L-24
+ * 
+ * @version November 13, 2022
+ */
 public class Account {
     private String username;
     private String password;

@@ -4,10 +4,8 @@
 Selections: Files, Statistics, Shopping Cart
 # Compiling and Running
 
-## Login.java
+## Run the `public static void main(String[] args)` method in Login.java
 
-Is where everything starts. 
-- Compile and run Login.java
 - You will be prompted to enter whetehr or not you have an account
 - If you do not have an account you will be prompted to create one. If you do have an account you will be prompted to login
 - While creating account you will have to provide a username consisitng only of letter, a password, and if you're a seller or a buyer. Once you create an account you will move back to login.
@@ -22,7 +20,50 @@ Based on what you type and enter according to prompts on screen:
 - Seller Dashboard and Customer Dashboard include everything mentioned in the handout for these dashboards. Prompts on screen will guide you to do various things like viewing and sorting the data.
 
 ## Inputs:
+```
+Welcome to the Marketplace!
+Do you have an existing account?
+1. Yes
+2. No
+```
+Enter '1' or '2' accordingly
+- 2 (creating account) :
+```
+Are you a seller or customer?
+1. Seller
+2. Customer
+```
+
+```
+Enter desired username: 
+```
+
+```
+Enter desired password: 
+```
+
+```
+Checking validity... ... ... 
+Account has been created!
+```
+
+- 1 (login)
+```
+LOGIN WINDOW:
+Enter Username:
+```
+
+```
+Enter Password:
+```
+
+Now logged in
+
+Once you log in :
+
 - Customer
+```
+```
 - Seller
 
 

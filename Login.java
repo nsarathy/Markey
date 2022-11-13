@@ -1,6 +1,16 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+/**
+ * Login 
+ * 
+ * The Login class starts the program, prompts the user to create an account or login to an existing one, then sets up to send 
+ * to the Marketplace
+ * 
+ * @author Yudon Shin, lab sec L-24
+ * 
+ * @version November 13, 2022
+ */
 public class Login implements Shared {
 
     public static void main(String[] args) {
@@ -25,12 +35,12 @@ public class Login implements Shared {
                 BufferedReader bfr = new BufferedReader(new FileReader("Accounts.txt"));
                 String line = "";
                 while ((line =
-                    bfr.readLine()) != null) {
+                        bfr.readLine()) != null) {
                     int indexOf1 = line.indexOf("_");
                     int indexOf2 = line.indexOf(";");
                     if (!line.equals("")) {
                         if (line.substring(indexOf1 + 1, indexOf2).equals(username) &&
-                            line.substring(indexOf2 + 1).equals(password)) {
+                                line.substring(indexOf2 + 1).equals(password)) {
                             exists = true;
                             if (line.contains("seller")) {
                                 accountType = "seller";

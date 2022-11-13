@@ -44,8 +44,8 @@ public class MarketPlace implements Shared {
 
 
     /**
-     * TODO: Let customers proceed to checkout cart (uncomment)
      * todo: dashboards
+     * todo: include seller db in readme
      */
 
     public void main(boolean customer) {
@@ -627,8 +627,6 @@ public class MarketPlace implements Shared {
         } catch (Exception e) {
             System.out.println("Something went wrong :(");
         }
-        // customer stats
-        // todo debug when store data already there
         try {
             FileReader frCustomer = new FileReader("CustomerStatistics.txt");
             BufferedReader brCustomer = new BufferedReader(frCustomer);

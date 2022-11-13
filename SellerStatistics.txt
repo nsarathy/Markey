@@ -1,2 +1,5 @@
 firstSeller;Arnav_Dunsmore_1_0.69_weriufheiu uwueth riut___Colten_Oh_1_0.69_si instructor___gg_Dunsmore_5_5.00_ekwbgew;firstCustomer
 ysenser;Wool Socks 5 pairs_YSense_5_10.99_Thick Wool socks winter warm for men;firstCustomer
+wantGorOwner;Metal Headband_WantGor_5_3.98_Metal headband for men and women;firstCustomer
+steveJ;USB-C Wall Charger_INCORIC_5_9.27_iPhone 14 Charger Block 20W PD Power Adaptor;firstCustomer
+firstSeller;Colten_Oh_8_10.20_si instructor;scannerTester

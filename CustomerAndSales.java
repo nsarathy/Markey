@@ -1,6 +1,8 @@
 import java.util.List;
 /**
  * 
+ *  Customer And Sales
+ *
  *  This class is used to store data from SellerDashboard.java
  *  and stores the values of the customer's names and sales from
  *  that particular customer. This is mainly used to call from after
@@ -8,7 +10,7 @@ import java.util.List;
  * 
  * 
  * @author Lewis Park, lab sec L-24
- * @version November 11th, 2022
+ * @version November 13th, 2022
  * 
  * 
  */

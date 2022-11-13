@@ -6,7 +6,7 @@ Selections: Files, Statistics, Shopping Cart
 
 ## Run the `public static void main(String[] args)` method in Login.java
 
-- You will be prompted to enter whetehr or not you have an account
+- You will be prompted to enter whether or not you have an account
 - If you do not have an account you will be prompted to create one. If you do have an account you will be prompted to login
 - While creating account you will have to provide a username consisitng only of letter, a password, and if you're a seller or a buyer. Once you create an account you will move back to login.
 - While logging in you will e prompted to enter your username and your password. If they match, you will be logged in.

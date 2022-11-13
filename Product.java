@@ -1,3 +1,12 @@
+/**
+ * Product
+ * 
+ * the class of a product, holding its name, storetype, quantity, price, and description accordingly
+ * 
+ * @author Yudon Shin, lab sec L-24
+ * 
+ * @version November 13, 2022
+ */
 public class Product {
     private String name;
     private Store store;

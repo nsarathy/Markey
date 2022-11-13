@@ -2,6 +2,16 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+/**
+ * Seller 
+ * 
+ * class that extends account, similar to customer with different specified fields such as a list of stores and products 
+ * for each seller
+ * 
+ * @author Yudon Shin, lab sec L-24
+ * 
+ * @version November 13, 2022
+ */
 public class Seller extends Account {
     ArrayList<Store> stores;
     ArrayList<Product> products;

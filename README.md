@@ -60,11 +60,57 @@ Enter Password:
 Now logged in
 
 Once you log in :
+```Markey
+
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+2.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+3.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+5.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+8.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+9.	Colten		Sold by: Oh		Price: 0.69
+
+
+```
 
 - Customer
 ```
+You have 0 items in your cart
+
+Enter '2' to add item number 2 to your cart
+
+Enter '#' to view your cart
+Enter '<' to sort listings by cost (low to high)
+Enter '>' to sort listings by cost (high to low)
+Enter '<>' to de-sort
+Enter '@' to view your purchase history
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+
 ```
 - Seller
+```
+Enter '@' to open a new Store
+Enter '++' to list a new item for sale
+Enter '--' to remove an item from sale
+Enter '*' to edit an item that's on sale
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+
+```
 
 
 ## Account

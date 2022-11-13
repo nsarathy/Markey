@@ -1,7 +1,11 @@
 # Markey
+
 ## CS18000 L24 Group 3: Yudon Shin, Lewis Park, Teju Nalagundla, Sehyeong Oh, Neel Sarathy
+
 ## Option 3 Marketplace
+
 Selections: Files, Statistics, Shopping Cart
+
 # Compiling and Running
 
 ## Run the `public static void main(String[] args)` method in Login.java
@@ -20,14 +24,18 @@ Based on what you type and enter according to prompts on screen:
 - Seller Dashboard and Customer Dashboard include everything mentioned in the handout for these dashboards. Prompts on screen will guide you to do various things like viewing and sorting the data.
 
 ## Inputs:
+
 ```
 Welcome to the Marketplace!
 Do you have an existing account?
 1. Yes
 2. No
 ```
+
 Enter '1' or '2' accordingly
+
 - 2 (creating account) :
+
 ```
 Are you a seller or customer?
 1. Seller
@@ -35,19 +43,20 @@ Are you a seller or customer?
 ```
 
 ```
-Enter desired username: 
+Enter desired username:
 ```
 
 ```
-Enter desired password: 
+Enter desired password:
 ```
 
 ```
-Checking validity... ... ... 
+Checking validity... ... ...
 Account has been created!
 ```
 
 - 1 (login)
+
 ```
 LOGIN WINDOW:
 Enter Username:
@@ -60,6 +69,7 @@ Enter Password:
 Now logged in
 
 Once you log in :
+
 ```
 Markey
 
@@ -86,6 +96,7 @@ Markey
 ```
 
 - Customer
+
 ```
 You have 0 items in your cart
 
@@ -101,7 +112,9 @@ Enter 'db' to go to dashboard
 Enter '?' to exit
 
 ```
+
 - Seller
+
 ```
 Enter '@' to open a new Store
 Enter '++' to list a new item for sale
@@ -113,9 +126,12 @@ Enter '?' to exit
 
 ```
 
+# .java Files
 
 ## Account
+
 A class that's a blueprint for an account in Markey
+
 - Instance variables
   - private String username : username of user
   - private String password : password of user
@@ -124,20 +140,25 @@ A class that's a blueprint for an account in Markey
 - public void toString() : returns Account with format "username;password"
 
 ## Cart
+
 It's methods update data once a customer checks out their cart
--Instance variables: 
-  - private ArrayList<Product> productsToBuy : list of products customer is buying
-  - private ArrayList<String> sellerUsernames : list of sellers corresponding to each product in productsToBuy
-  - private String customerUsername : username of custoemr who is checking out their cart
-  - parameterized constructor
-  - public void updateCustomerPurchaseHistory() : updates customer purchase history
-  - public void updateSellerStatistics() : updates data for seller dashboard
+-Instance variables:
+
+- private ArrayList<Product> productsToBuy : list of products customer is buying
+- private ArrayList<String> sellerUsernames : list of sellers corresponding to each product in productsToBuy
+- private String customerUsername : username of custoemr who is checking out their cart
+- parameterized constructor
+- public void updateCustomerPurchaseHistory() : updates customer purchase history
+- public void updateSellerStatistics() : updates data for seller dashboard
 
 ## CartNotTrackableException
+
 This exception is thrown when there's an error while trying read or write changes to a customer's cart
 
 ## CreateAccount implements Shared
+
 To create a new account on Markey
+
 - Instance variables:
   - private String accountType : seller or buyer type
   - private boolean accountSignal : chose to be seller or customer (true if customer)
@@ -150,9 +171,11 @@ To create a new account on Markey
 - public boolean checkPassword(String password) : checks if password is empty
 - public void writeAccount(Account newAccount, boolean check) : updates data with user details
 - public void main() : prompts user to input details to create account
-  
+
 ## Customer extends Account
+
 Blueprint of a customer account
+
 - Instance variables :
   - Product[] purchases : array of purchases made by customer
 - Parameterized constructor that calls super
@@ -160,6 +183,7 @@ Blueprint of a customer account
 - public boolean equals(Object obj) : checks if an object is a particular customer
 
 ## CustomerAndSales
+
 - Instance variables :
   - private final List<Integer> sales : list of integers
   - private final List<String> customer : lst of strings
@@ -167,7 +191,9 @@ Blueprint of a customer account
 - getters
 
 ## CustomerDashboard implements Shared
+
 A customer's dashboard
+
 - Instance variable
   - private String customerUsername : username of customer
 - Parameterized cosntructor
@@ -179,7 +205,7 @@ A customer's dashboard
 - public StoreAndSales sortPurchaseHistoryLowHigh() throws IOException : sorts customer's purchases from lowest in quantities bought to highest
 - public void displayPurchaseHistoryLowHigh() throws IOException : formats and displays result from previous method
 - public StoreAndSales sortPurchaseHistoryHighLow() throws IOException : sorts customer's purchases from highest in quantities bought to lowest
--  public void displayPurchaseHistoryHighLow() throws IOException : formats and displays the result of previous method
+- public void displayPurchaseHistoryHighLow() throws IOException : formats and displays the result of previous method
 - public List<String> readCustomerStats() throws FileNotFoundException, IOException : reads data
 - public List<String> typeSplitter() throws FileNotFoundException, IOException : splits a line to get seller and store details
 - public String[] getSellerNames() throws FileNotFoundException, IOException : gets seller names
@@ -196,6 +222,7 @@ A customer's dashboard
 - public void main() throws FileNotFoundException, IOException : prompts user to input to perform actions
 
 ## ImportExport
+
 - Instance variables :
   - private String username : username
   - private String password : password
@@ -205,6 +232,7 @@ A customer's dashboard
 - public void sellerImport(Seller seller) : imports products to Markey from a csv file by seller
 
 ## Listing
+
 - Instance variables:
   - private ArrayList<Product> products : list of products
   - private ArrayList<String> sellers : list of seller usernames corresponding to products
@@ -212,11 +240,15 @@ A customer's dashboard
 - Getters and setters for instance variables
 
 ## Login implements Shared
+
 To login
+
 - public static void main(String[] args) : prompts user to login or create account, executes MarketPlace when logged in
 
 ## MarketPlace implements Shared
+
 Where almost every action by user is carried out and outsourced
+
 - Instance variables :
   - private final String username : username
   - private final String password : password
@@ -231,12 +263,15 @@ Where almost every action by user is carried out and outsourced
 - public void viewPurchaseHistory() : lets customer view their purchase history
 - public void storeCart(ArrayList<Product> currentCart, ArrayList<String> currentSellers) throws CartNotTrackableException : stores cart of a user, so that it remains the same when user logs out and logs back in
 - public Listing readCart() throws CartNotTrackableException : reads stored cart
-  
+
 ## NotInStockException extends Exception :
+
 Thrown when a customer tries to add a quantity of items more than available on stock
 
 ## Product
+
 Blueprint of a product that is sold
+
 - Instance variables :
   - private String name : name of product
   - private Store store : store where product is sold
@@ -248,7 +283,9 @@ Blueprint of a product that is sold
 - public String toString() : returns in format name_storeName_quantity_price_description
 
 ## Seller
+
 Blueprint of a seller account
+
 - Instance variable:
   - ArrayList<Store> stores : list of stores that are open owned by seller (A store that does not have anything on sale will be closed and deleted)
   - ArrayList<Product> products : products on sale by seller
@@ -260,7 +297,9 @@ Blueprint of a seller account
 - public boolean equals(Object obj) : checks if an object is a particular seller
 
 ## SellerDashboard
+
 Dashboard for sellers
+
 - Instance variables :
   - private String userName : username
 - Parameterized constructor
@@ -280,18 +319,48 @@ Dashboard for sellers
 - public void main() : prompts user for inputs to perform actions
 
 ## Shared
+
 An interface with Scanner scanner = new Scanner(System.in) for every class that needs to read input to use
 
 ## Store
+
 Blueprint of a store owned by a seller on Markey
+
 - Instance variable :
   - private String name
 - Parameterized constructor
 - getter and setter for instance variable
 
 ## StoreAndSales
+
 - Instance variables :
   - private final List<Integer> sales : list of integers
   - private final List<String> stores : list of strings
 - Parameterized constructor
-- getters 
+- getters
+
+# .txt Files
+
+## Accounts
+
+Account details of all users of Markey
+
+## carts
+
+Carts of customers
+
+## CustomerPurchaseHistory
+
+Purchase histories of customers
+
+## CustomerStatistics
+
+Data for customer dashboard
+
+## Products
+
+Everything that's on sale
+
+## SellerStatistics
+
+Data for seller dashboard

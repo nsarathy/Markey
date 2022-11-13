@@ -192,7 +192,7 @@ public class SellerDashboard {
 
         List<String> customerList = new ArrayList<>();
         List<Integer> salesList = new ArrayList<>();
-        customerList.addAll(originalSaleList);
+        customerList.addAll(formatCustomerAndSales());
         salesList.addAll(saleListToInt);
 
         for (int i = 0; i < salesList.size(); i++) {
@@ -250,7 +250,7 @@ public class SellerDashboard {
 
         List<String> customerList = new ArrayList<>();
         List<Integer> salesList = new ArrayList<>();
-        customerList.addAll(originalSaleList);
+        customerList.addAll(formatCustomerAndSales());
         salesList.addAll(saleListToInt);
 
         for (int i = 0; i < salesList.size(); i++) {

@@ -1,14 +1,16 @@
 import java.util.List;
 /**
  *
+ *  Store and Sales
+ *
  *  This class is used to store data from CustomerDashboard.java
  *  and stores the values of the store's names and sales from
  *  that particular store. This is mainly used to call from after
  *  making change to the order of list (sorting).
  *
  *
- * @author Lewis Park
- * @version November 11th, 2022
+ * @author Lewis Park, lab sec L-24
+ * @version November 13th, 2022
  *
  *
  */

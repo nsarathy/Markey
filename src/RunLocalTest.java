@@ -43,6 +43,7 @@ public class RunLocalTest {
             System.setOut(new PrintStream(testOut));
             // read and write
             FileOutputStream fos = null;
+            FileOutputStream fs = null;
             try {
                 fos = new FileOutputStream("Products.txt",false);
             } catch (FileNotFoundException e) {
@@ -60,6 +61,17 @@ public class RunLocalTest {
             pw.println("firstSeller;Colten_Oh_98_10.20_si instructor");
 
             pw.close();
+
+            try {
+                fs = new FileOutputStream("Accounts.txt", false);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            PrintWriter pw1 = new PrintWriter(fs);
+            pw1.println("seller_firstSeller;password");
+            pw1.println("customer_firstCustomer;password");
+
+            pw1.close();
 
         }
 
@@ -218,6 +230,17 @@ public class RunLocalTest {
 
 
         }
+
+
+
+
+
+
+
+    }
+
+}
+
 
 
 

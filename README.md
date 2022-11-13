@@ -159,6 +159,13 @@ Blueprint of a customer account
 - getter and seter for instance variable
 - public boolean equals(Object obj) : checks if an object is a particular customer
 
+## CustomerAndSales
+- Instance variables :
+  - private final List<Integer> sales : list of integers
+  - private final List<String> customer : lst of strings
+- Parameterized constructor
+- getters
+
 ## CustomerDashboard implements Shared
 A customer's dashboard
 - Instance variable
@@ -251,6 +258,26 @@ Blueprint of a seller account
 - public void createStore(String storeName) : opens a new store on Markey
 - public void deleteProduct(int index) : deletes a product
 - public boolean equals(Object obj) : checks if an object is a particular seller
+
+## SellerDashboard
+Dashboard for sellers
+- Instance variables :
+  - private String userName : username
+- Parameterized constructor
+- getter and setter
+- public List<String> readSellerStats() : reads data
+- public List<String> matchedList() : matches lines from data with seller
+- public List<String> onlyProducts() : returns a list of products
+- public List<String> customerAndSales() : gets a list of customer and sales
+- public void displayOriginalCustomerList() : displays original data
+- public List<String> formatCustomerAndSales() : formats data for display
+- public List<String> formatSales() : formats sales
+- public CustomerAndSales sortCustomerListHighLow() : sorts customers based on most purchases to least purchases
+- public void displayCustomerListHighLow() : displays result of previous method
+- public CustomerAndSales sortCustomerListLowHigh() : sorts customers based on least purchases to most purchases
+- public void displayCustomerListLowHigh() : displays result of previous method
+- public void displaySortOptions(int givenSortID) : displays options for sorting
+- public void main() : prompts user for inputs to perform actions
 
 ## Shared
 An interface with Scanner scanner = new Scanner(System.in) for every class that needs to read input to use

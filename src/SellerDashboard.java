@@ -1,13 +1,11 @@
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.InputMismatchException;
+import java.util.List;
 
 
-public class SellerDashboard {
-    /**
-     * TODO: A method to Display SellerStatistics.txt : Data will include a list of customers with the number of items that they have purchased and a list of products with the number of sales.
-     * TODO: Let seller sort items based on most sold to least sold
-     * TODO: Display stores and products and use Scanner to provide an interface for user to do any of the above
-     */
+public class SellerDashboard implements Shared {
 
 
     //read the sellerStats
@@ -23,10 +21,6 @@ public class SellerDashboard {
         this.userName = userName;
     }
 
-    public static void main(String[] args) {
-        SellerDashboard sd = new SellerDashboard("firstSeller");
-        sd.main();
-    }
 
     public String getUserName() {
         return userName;
@@ -35,6 +29,10 @@ public class SellerDashboard {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    //scan the array from method above and scan to see if seller username
+    //matches and then make a new array which will only have the values if
+    //seller name matches.
 
     //read the sellerstats file and return String list
     public List<String> readSellerStats() {
@@ -67,10 +65,6 @@ public class SellerDashboard {
 
     }
 
-    //scan the array from method above and scan to see if seller username
-    //matches and then make a new array which will only have the values if
-    //seller name matches.
-
     public List<String> matchedList() {
         String sellerName = userName;
         List<String> fullList = readSellerStats();
@@ -83,7 +77,6 @@ public class SellerDashboard {
         }
         return scannedList;
     }
-
 
     //format without the seller name though because we don't need it anymore once
     //it's in the system.
@@ -172,6 +165,20 @@ public class SellerDashboard {
         return newFormat;
     }
 
+    public List<String> formatCustomers() {
+        List<String> customerAndSales = customerAndSales();
+        List<String> newFormat = new ArrayList<>();
+        int count = 0;
+        for (int i = 0; i < customerAndSales.size(); i++) {
+            count = i;
+            if ((count ^ 1) == i + 1) {
+                newFormat.add(customerAndSales.get(i));
+            }
+        }
+
+        return newFormat;
+    }
+
     public List<Integer> formatListLength() {
         List<String> customerAndSales = formatCustomerAndSales();
         List<Integer> newFormat = new ArrayList<>();
@@ -183,6 +190,7 @@ public class SellerDashboard {
 
     public CustomerAndSales sortCustomerListHighLow() {
         List<String> originalSaleList = formatSales();
+        List<String> originalCustomerList = formatCustomers();
         List<Integer> saleListToInt = new ArrayList<>();
 
 
@@ -192,12 +200,42 @@ public class SellerDashboard {
 
         List<String> customerList = new ArrayList<>();
         List<Integer> salesList = new ArrayList<>();
-        customerList.addAll(formatCustomerAndSales());
+        customerList.addAll(originalCustomerList);
         salesList.addAll(saleListToInt);
 
         for (int i = 0; i < salesList.size(); i++) {
             for (int j = 0; j < salesList.size() - i - 1; j++) {
                 if (salesList.get(j) < salesList.get(j + 1)) {
+                    int temp = salesList.get(j);
+                    salesList.set(j, salesList.get(j + 1));
+                    salesList.set(j + 1, temp);
+                    String tempString = customerList.get(j);
+                    customerList.set(j, customerList.get(j + 1));
+                    customerList.set(j + 1, tempString);
+                }
+            }
+        }
+
+        return new CustomerAndSales(customerList, salesList);
+    }
+
+    public CustomerAndSales sortCustomerListLowHigh() {
+        List<String> originalSaleList = formatSales();
+        List<Integer> saleListToInt = new ArrayList<>();
+
+
+        for (String s : originalSaleList) {
+            saleListToInt.add(Integer.parseInt(s));
+        }
+
+        List<String> customerList = new ArrayList<>();
+        List<Integer> salesList = new ArrayList<>();
+        customerList.addAll(formatCustomers());
+        salesList.addAll(saleListToInt);
+
+        for (int i = 0; i < salesList.size(); i++) {
+            for (int j = 0; j < salesList.size() - i - 1; j++) {
+                if (salesList.get(j) > salesList.get(j + 1)) {
                     int temp = salesList.get(j);
                     salesList.set(j, salesList.get(j + 1));
                     salesList.set(j + 1, temp);
@@ -224,7 +262,6 @@ public class SellerDashboard {
         }
 
         for (int i = 0; i < highLowStores.size(); i++) {
-            int count = 0;
             System.out.println("--------------------");
             System.out.println("Customer: " + justStores.get(i));
 
@@ -237,66 +274,33 @@ public class SellerDashboard {
 
         System.out.println("--------------------");
         System.out.println();
-    }
-
-    public CustomerAndSales sortCustomerListLowHigh() {
-        List<String> originalSaleList = formatSales();
-        List<Integer> saleListToInt = new ArrayList<>();
-
-
-        for (String s : originalSaleList) {
-            saleListToInt.add(Integer.parseInt(s));
-        }
-
-        List<String> customerList = new ArrayList<>();
-        List<Integer> salesList = new ArrayList<>();
-        customerList.addAll(formatCustomerAndSales());
-        salesList.addAll(saleListToInt);
-
-        for (int i = 0; i < salesList.size(); i++) {
-            for (int j = 0; j < salesList.size() - i - 1; j++) {
-                if (salesList.get(j) > salesList.get(j + 1)) {
-                    int temp = salesList.get(j);
-                    salesList.set(j, salesList.get(j + 1));
-                    salesList.set(j + 1, temp);
-                    String tempString = customerList.get(j);
-                    customerList.set(j, customerList.get(j + 1));
-                    customerList.set(j + 1, tempString);
-                }
-            }
-        }
-
-        return new CustomerAndSales(customerList, salesList);
     }
 
     public void displayCustomerListLowHigh() {
 
         CustomerAndSales alteredStores = sortCustomerListLowHigh();
         List<String> justStores = new ArrayList<>();
-        List<String> highLowStores = alteredStores.getCustomer();
-        List<Integer> highLowSales = alteredStores.getSales();
+        List<String> lowHighStores = alteredStores.getCustomer();
+        List<Integer> lowHighSales = alteredStores.getSales();
 
-        for (int j = 0; j < highLowStores.size(); j++) {
-            List<String> dataCollected = new ArrayList<>(Arrays.asList(highLowStores.get(j).split("_")));
+        for (String lowHighStore : lowHighStores) {
+            List<String> dataCollected = new ArrayList<>(Arrays.asList(lowHighStore.split("_")));
             justStores.add(dataCollected.get(0));
         }
 
-        for (int i = 0; i < highLowStores.size(); i++) {
+        for (int i = 0; i < lowHighStores.size(); i++) {
             int count = 0;
             System.out.println("--------------------");
             System.out.println("Customer: " + justStores.get(i));
 
 
             System.out.print(justStores.get(i) + ": ");
-            System.out.println(highLowSales.get(i) + " Sales");
-
-
+            System.out.println(lowHighSales.get(i) + " Sales");
         }
 
         System.out.println("--------------------");
         System.out.println();
     }
-
 
     public void displaySortOptions(int givenSortID) {
         int sortID = givenSortID;
@@ -327,16 +331,20 @@ public class SellerDashboard {
         }
     }
 
-
     public void main() {
-        Scanner input = new Scanner(System.in);
         boolean repeat = true;
         int sortID = 0;
+
+        CustomerAndSales cs = sortCustomerListLowHigh();
+        List<String> customers = cs.getCustomer();
+        List<Integer> sales = cs.getSales();
+
 
         while (repeat) {
             int answer1 = 0;
             do {
                 try {
+                    sortID = 0;
                     System.out.println("*SELLER DASHBOARD*");
                     System.out.println();
                     System.out.println("1. View Customer List");
@@ -344,8 +352,8 @@ public class SellerDashboard {
                     System.out.println("3. Exit Customer Dashboard");
                     System.out.println();
                     System.out.print("Enter Option Here: ");
-                    answer1 = input.nextInt();
-                    input.nextLine();
+                    answer1 = scanner.nextInt();
+                    scanner.nextLine();
                     System.out.println();
 
                     if (answer1 == 1) {
@@ -364,7 +372,7 @@ public class SellerDashboard {
 
                     System.out.println("Please enter valid choice!");
                     System.out.println();
-                    input.nextLine();
+                    scanner.nextLine();
                 }
             } while (answer1 != 1 || answer1 != 2 || answer1 != 3);
 
@@ -374,20 +382,24 @@ public class SellerDashboard {
                 System.out.println("Customer List");
                 System.out.println("--------------------");
                 while (true) {
-                    if (wantedSort == 0) {
+                    if (sortID == 0) {
                         displayOriginalCustomerList();
                         displaySortOptions(sortID);
-                        wantedSort = input.nextInt();
-                        input.nextLine();
+                        wantedSort = scanner.nextInt();
+                        scanner.nextLine();
                         System.out.println();
-                    } else if (wantedSort == 1) {
+                    } else if (sortID == 1) {
                         displayCustomerListHighLow();
                         displaySortOptions(sortID);
-                        wantedSort = input.nextInt();
-                        input.nextLine();
+                        wantedSort = scanner.nextInt();
+                        scanner.nextLine();
                         System.out.println();
-                    } else if (wantedSort == 2) {
-
+                    } else if (sortID == 2) {
+                        displayCustomerListLowHigh();
+                        displaySortOptions(sortID);
+                        wantedSort = scanner.nextInt();
+                        scanner.nextLine();
+                        System.out.println();
                     }
 
                     if (sortID == 0) {
@@ -425,9 +437,55 @@ public class SellerDashboard {
                 }
 
             } else if (answer1 == 2) {
-
-
+                List<String> products = onlyProducts();
+                ArrayList<Product> products1 = new ArrayList<>();
+                for (String value : products) {
+                    String[] products2 = value.split("___");
+                    for (String each : products2) {
+                        String[] productDetails = each.split("_");
+                        products1.add(new Product(
+                                productDetails[0],
+                                new Store(productDetails[1]),
+                                Integer.parseInt(productDetails[2]),
+                                Double.parseDouble(productDetails[3]),
+                                productDetails[4]
+                        ));
+                    }
+                }
+                System.out.println("********************");
+                System.out.println("Product List");
+                System.out.println("--------------------");
+                displayProducts(products1);
+                // if time permits sort
             }
+        }
+    }
+
+    public void displayProducts(ArrayList<Product> products1) {
+        for (int i = 0; i < products1.size(); i++) {
+            Product product0 = products1.get(i);
+            for (int j = i + 1; j < products1.size(); j++) {
+                Product product01 = products1.get(j);
+                if (product01 != null && product01.getName().equals(product0.getName()) &&
+                        product01.getStore().getName().equals(product0.getStore().getName())) {
+                    int q = product01.getQuantity() + product0.getQuantity();
+                    product0.setQuantity(q);
+                    products1.set(i, product0);
+                    products1.set(j, null);
+                }
+            }
+        }
+        for (int i = 0; i < products1.size(); i++) {
+            if (products1.get(i) == null) {
+                products1.remove(i);
+                i--;
+            }
+        }
+        for (Product product : products1) {
+            System.out.println("Product: " + product.getName());
+            System.out.println("Store: " + product.getStore().getName());
+            System.out.println("Sales: " + product.getQuantity());
+            System.out.println("--------------------");
         }
     }
 

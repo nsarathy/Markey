@@ -165,7 +165,6 @@ public class MarketPlace implements Shared {
                 System.out.println();
                 String action = scanner.nextLine();
                 // carrying out the actions
-                // todo dashboard
                 if (action.equalsIgnoreCase(BUTTONS[4])) {
                     break listingDisplay;
                 } else if (customer) {
@@ -519,6 +518,9 @@ public class MarketPlace implements Shared {
                                 } else {
                                     importExport.sellerImport(seller);
                                 }
+                            } else if (action.equalsIgnoreCase(BUTTONS[10])) {
+                                var db = new SellerDashboard(username);
+                                db.main();
                             }
                             brSeller.close();
                             frSeller.close();

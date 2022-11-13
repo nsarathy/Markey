@@ -5,6 +5,8 @@ import java.util.InputMismatchException;
 import java.util.List;
 /**
  *
+ *  Customer Dashboard
+ *
  *  This class is used display, sort, and read the data
  *  given by the CustomerStatistics.txt and CustomerPurchaseHistory.txt
  *  The methods within this class read and divide the given text into
@@ -12,8 +14,8 @@ import java.util.List;
  *  user to interact with.
  *
  *
- * @author Lewis Park
- * @version November 11th, 2022
+ * @author Lewis Park, lab sec L-24
+ * @version November 13th, 2022
  *
  *
  */

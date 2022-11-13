@@ -6,7 +6,7 @@
 Selections: Files, Statistics, Shopping Cart
 # Compiling and Running
 
-## Run Login.java (Markey.zip file if you want to run in intellij)
+## Run Login.java
 
 - You will be prompted to enter whether or not you have an account
 - If you do not have an account you will be prompted to create one. If you do have an account you will be prompted to login
@@ -325,3 +325,5 @@ Everything that's on sale
 
 ## SellerStatistics
 Data for seller dashboard
+
+# The project is compressed into Markey.zip for IntelliJ

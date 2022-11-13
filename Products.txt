@@ -1,1 +1,0 @@
-sellerUsername;productName_storeName_quantity_price_description

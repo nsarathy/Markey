@@ -348,27 +348,65 @@ public class SellerDashboard {
 
 		for (int i = 0; i < allProducts.size(); i++) {
 			List<String> productData = new ArrayList<>(Arrays.asList(allProducts.get(i).split("___")));
-			byProducts.add(productData.get(i));
+			for (int q = 0; q < productData.size(); q++) {
+				byProducts.add(productData.get(q));
+			}
 		}
 
 		return byProducts;
 	}
 
-	//	public List<String> checkProductMatch() {
-	//		List<String> byProducts = splitByProduct();
-	//		List<String> productName = new ArrayList<>();
-	//		List<String> productData = new ArrayList<>();
-	//		
-	//		for (int i = 0; i < byProducts.size(); i++) {
-	//			productData = new ArrayList<>(Arrays.asList(byProducts.get(i).split("_")));
-	//			productName.add(productData.get(0));
-	//		}
-	//		
-	//		for (int i = 0; i < byProducts.size(); i++) {
-	//			if (byProducts.get(i).contains(productData.get(i)));
-	//		}
-	//		
-	//	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public ProductAndSales checkProductMatch() {
+		List<String> byProducts = splitByProduct();
+		List<String> productName = new ArrayList<>();
+		List<String> productQuantityStr = new ArrayList<>();
+		List<String> productData = new ArrayList<>();
+
+		for (int i = 0; i < byProducts.size(); i++) {
+			productData = new ArrayList<>(Arrays.asList(byProducts.get(i).split("_")));
+			productName.add(productData.get(0));
+			productQuantityStr.add(productData.get(2));
+		}
+
+		List<Integer> productQuantity = new ArrayList<>();
+
+
+		for (int i = 0; i < byProducts.size(); i++) {
+			productQuantity.add(Integer.parseInt(productQuantityStr.get(i)));
+		}
+
+		List<Integer> totalProductQuantity = new ArrayList<>();
+
+		int quantity = 0;
+		for (int i = 0; i < byProducts.size(); i++) {
+			for (int q = 0; q < byProducts.size(); q++) {
+				if (byProducts.get(q).contains(productData.get(i))) {
+					quantity = productQuantity.get(i) + productQuantity.get(q);
+				}
+			}
+
+			totalProductQuantity.add(quantity);
+		}
+
+		return new ProductAndSales(productName, totalProductQuantity);
+
+	}
 
 
 
@@ -391,6 +429,14 @@ public class SellerDashboard {
 		boolean repeat = true;
 		int sortID = 0;
 
+
+		ProductAndSales ps = checkProductMatch();
+		List<String> customer = ps.getProduct();
+		List<Integer> Sales = ps.getSales();
+
+		for (int i = 0; i < customer.size(); i++) {
+			System.out.println(customer.get(i));
+		}
 
 		while (repeat) {
 			int answer1 = 0;

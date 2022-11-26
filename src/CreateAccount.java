@@ -3,13 +3,13 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.*;
 
-public class CreateAccount {
+public class CreateAccount implements Shared {
     // creates account and updates Accounts.txt
 
     private String accountType;
     private boolean accountSignal;
+
     public CreateAccount(String username, String password, boolean check) {
         if (username != null && password != null) {
             Account newAccount = new Account(username, password);
@@ -41,7 +41,8 @@ public class CreateAccount {
     }
 
     // username taken, empty username/password fields,
-    // Make sure whule creating user, username contains only letters ( to avoid regex errors during other parts of the program)
+    // Make sure while creating user, username contains only letters
+    // ( to avoid regex errors during other parts of the program)
     public boolean checkUsername(String username) {
         ArrayList<String> usernames = new ArrayList<>();
         try {
@@ -58,19 +59,11 @@ public class CreateAccount {
             e.printStackTrace();
         }
 
-        if (usernames.contains(username)) {
-            return false;
-        } else {
-            return true;
-        }
+        return !usernames.contains(username);
     }
 
     public boolean checkLength(String username) {
-        if (username.length() == 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return username.length() != 0;
     }
 
     public boolean checkIfLetter(String username) {
@@ -85,24 +78,22 @@ public class CreateAccount {
     }
 
     public boolean checkPassword(String password) {
-        if (password.length() == 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public void setAccountSignal(boolean accountSignal) {
-        this.accountSignal = accountSignal;
+        return password.length() != 0;
     }
 
     public boolean isAccountSignal() {
         return accountSignal;
     }
 
+    public void setAccountSignal(boolean accountSignal) {
+        this.accountSignal = accountSignal;
+    }
+
     public void writeAccount(Account newAccount, boolean check) {
         try {
-            BufferedWriter bfw = new BufferedWriter(new FileWriter("Accounts.txt", true));
+            BufferedWriter bfw = new BufferedWriter(
+                new FileWriter("Accounts.txt", true)
+            );
             if (check) {
                 bfw.write("\n" + "customer_" + newAccount);
             } else {
@@ -115,12 +106,10 @@ public class CreateAccount {
     }
 
     public void main() {
-        Scanner sc = new Scanner(System.in);
         while (true) {
             while (true) {
                 System.out.println("Are you a seller or customer?\n1. Seller\n2. Customer");
-                int output = sc.nextInt();
-                sc.nextLine();
+                int output = Integer.parseInt(SCANNER.nextLine());
                 if (output == 1) {
                     accountType = "seller";
                     setAccountSignal(false);
@@ -134,9 +123,9 @@ public class CreateAccount {
                 }
             }
             System.out.println("Enter desired username: ");
-            String username = sc.nextLine();
+            String username = SCANNER.nextLine();
             System.out.println("Enter desired password: ");
-            String password = sc.nextLine();
+            String password = SCANNER.nextLine();
             System.out.println("Checking validity... ... ... ");
             if (checkingFields(username, password, isAccountSignal())) {
                 System.out.println("Account has been created!");

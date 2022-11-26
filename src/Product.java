@@ -57,6 +57,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return  String.format("%s_%s_%d_%.2f_%s", name, store.getName(), quantity, price, description);
+        return String.format("%s_%s_%d_%.2f_%s", name, store.getName(), quantity, price, description);
     }
 }

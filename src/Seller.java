@@ -53,6 +53,7 @@ public class Seller extends Account {
         // add created store to stores
         this.stores.add(newStore);
         // Update Stores.txt
+        /*
         try {
             BufferedReader bfr = new BufferedReader(new FileReader("Stores.txt"));
             BufferedWriter bfw = new BufferedWriter(new FileWriter("Stores.txt", true));
@@ -73,6 +74,7 @@ public class Seller extends Account {
         } catch (Exception e) {
             e.printStackTrace();
         }
+         */
     }
 
     public void deleteProduct(int index) {

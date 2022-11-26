@@ -2,9 +2,16 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class ImportExport {
+/**
+ * ImportExport
+ * <p>
+ * For importing and exporting csv files
+ *
+ * @author nsarathy
+ * @version 11/13/2022
+ */
+public class ImportExport implements Shared {
     private String username;
     private String password;
 
@@ -14,11 +21,9 @@ public class ImportExport {
     }
 
     public void customerExport() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter file path for the csv file");
-        String filePath = scanner.nextLine();
+        String filePath = SCANNER.nextLine();
         boolean exists = false;
-        ArrayList<Product> productList = new ArrayList<>();
         try {
             FileReader frHistory = new FileReader("CustomerPurchaseHistory.txt");
             BufferedReader brHistory = new BufferedReader(frHistory);
@@ -74,9 +79,8 @@ public class ImportExport {
     }
 
     public void sellerExport(Seller seller) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter file path for csv file");
-        String filePath = scanner.nextLine();
+        String filePath = SCANNER.nextLine();
         ArrayList<Product> products = seller.getProducts();
         try (PrintWriter writer = new PrintWriter(filePath)) {
             StringBuilder sb = new StringBuilder();
@@ -100,21 +104,20 @@ public class ImportExport {
     }
 
     public void sellerImport(Seller seller) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Make sure the csv file is in this format:");
         System.out.println("storeName,itemName,price,quantity,description");
         System.out.println("Make sure that no element has commas ','");
-        System.out.println("Enter file path to cs file");
-        String filePath = scanner.nextLine();
+        System.out.println("Enter file path to csv file");
+        String filePath = SCANNER.nextLine();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line = br.readLine();
             while (line != null) {
                 String[] prod = line.split(",");
                 seller.createProduct(prod[1],
-                        new Store(prod[0]),
-                        Integer.parseInt(prod[3]),
-                        Double.parseDouble(prod[2]),
-                        prod[4]
+                    new Store(prod[0]),
+                    Integer.parseInt(prod[3]),
+                    Double.parseDouble(prod[2]),
+                    prod[4]
                 );
                 line = br.readLine();
             }

@@ -1,28 +1,21 @@
-import java.util.*;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.InputMismatchException;
+import java.util.List;
 
 
-public class CustomerDashboard {
-    // TODO: Just display CustomerStatistics.txt
+public class CustomerDashboard implements Shared {
     // CustomerStatistics: Data will include a list of stores by number of products sold
     // Let customer sort by most products sold to the least products sold and vice versa
-    // a list of stores by the products purchased by that particular customer. -> Call MarketPlace [viewPurchaseHistory()]
-    // Use Scanner to provide an interface for user to do any of the above
+    // a list of stores by the products purchased by that particular customer.
+    // -> Call MarketPlace [viewPurchaseHistory()] Use Scanner to provide an interface for user to do any of the
+    // above i hope this line is changed
 
     private String customerUsername;
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
-        CustomerDashboard cd = new CustomerDashboard("testUser");
-        cd.main();
-
-    }
-
     //constructor
     public CustomerDashboard(String customerUsername) {
-        this.customerUsername = customerUsername;
-    }
-
-    public void setCustomerUsername(String customerUsername) {
         this.customerUsername = customerUsername;
     }
 
@@ -30,7 +23,9 @@ public class CustomerDashboard {
         return customerUsername;
     }
 
-
+    public void setCustomerUsername(String customerUsername) {
+        this.customerUsername = customerUsername;
+    }
 
     public List<String> readPurchaseHistory() throws IOException {
         //first method will be to get which lines belong to the customer
@@ -67,9 +62,9 @@ public class CustomerDashboard {
         List<String> fullList = readPurchaseHistory();
         List<String> wantedList = new ArrayList<>();
 
-        for (String s : fullList) {
-            if (s.contains(customerUser)) {
-                ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(s.split(";")));
+        for (int i = 0; i < fullList.size(); i++) {
+            if (fullList.get(i).contains(customerUser)) {
+                ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(fullList.get(i).split(";")));
                 wantedList.add(collectedData.get(1));
             }
         }
@@ -186,7 +181,7 @@ public class CustomerDashboard {
 
     }
 
-    public List<String> readCustomerStats() throws FileNotFoundException, IOException {
+    public List<String> readCustomerStats() throws IOException {
         //this method is not done yet, need to read more just don't know the format yet.
         //need to read all the information and either add it to the string array or
         //probably doing another way is more beneficial. Maybe getters and setters.
@@ -219,7 +214,7 @@ public class CustomerDashboard {
     }
 
 
-    public List<String> typeSplitter() throws FileNotFoundException, IOException {
+    public List<String> typeSplitter() throws IOException {
         //first we make the extended sellerStoreInfo into the bite sized
         //information that we want
         List<String> sellerStoreInfo = readCustomerStats();
@@ -237,7 +232,7 @@ public class CustomerDashboard {
         return splitByType;
     }
 
-    public String[] getSellerNames() throws FileNotFoundException, IOException {
+    public String[] getSellerNames() throws IOException {
         List<String> sellerStoreInfo = readCustomerStats();
         String[] storeInfoStr = new String[sellerStoreInfo.size()];
         storeInfoStr = sellerStoreInfo.toArray(storeInfoStr);
@@ -252,7 +247,7 @@ public class CustomerDashboard {
 
     }
 
-    public List<String> byStoreSplitter() throws FileNotFoundException, IOException {
+    public List<String> byStoreSplitter() throws IOException {
         List<String> splitByType = typeSplitter();
         String[] specificStoreStr = new String[splitByType.size()];
         specificStoreStr = splitByType.toArray(specificStoreStr);
@@ -261,7 +256,9 @@ public class CustomerDashboard {
         for (int i = 0; i < splitByType.size(); i++) {
             ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(specificStoreStr[i].split("___")));
             int storeNum = i + 1;
-            int sizeOfTypes = splitByType.get(i).length() - splitByType.get(i).replaceAll("___", "").length();
+            int sizeOfTypes = splitByType.get(i).length() - splitByType.get(i)
+                .replaceAll("___", "")
+                .length();
             int wantedNum = sizeOfTypes / 3;
 
             for (int q = 0; q < wantedNum + 1; q++) {
@@ -286,7 +283,7 @@ public class CustomerDashboard {
 
     //make a nested for loop, which loops until the seller changes
 
-    public List<String> getStoreAndSales() throws FileNotFoundException, IOException {
+    public List<String> getStoreAndSales() throws IOException {
         List<String> splitByStoreAndSales = byStoreSplitter();
         String[] specificSalesInfo = new String[splitByStoreAndSales.size()];
         specificSalesInfo = splitByStoreAndSales.toArray(specificSalesInfo);
@@ -297,14 +294,13 @@ public class CustomerDashboard {
                 List<String> splitterOf = new ArrayList<>(Arrays.asList(specificSalesInfo[i].split("_")));
                 storeAndSales.add(splitterOf.get(0));
                 storeAndSales.add(splitterOf.get(1));
-            } else if (!(splitByStoreAndSales.get(i).contains("_"))) {
             }
         }
         return storeAndSales;
 
     }
 
-    public List<String> getOnlyStore() throws FileNotFoundException, IOException {
+    public List<String> getOnlyStore() throws IOException {
         List<String> splitByStoreAndSales = byStoreSplitter();
         String[] specificSalesInfo = new String[splitByStoreAndSales.size()];
         specificSalesInfo = splitByStoreAndSales.toArray(specificSalesInfo);
@@ -314,14 +310,13 @@ public class CustomerDashboard {
             if (splitByStoreAndSales.get(i).contains("_")) {
                 List<String> splitterOf = new ArrayList<>(Arrays.asList(specificSalesInfo[i].split("_")));
                 onlyStore.add(splitterOf.get(0));
-            } else if (!(splitByStoreAndSales.get(i).contains("_"))) {
             }
         }
         return onlyStore;
 
     }
 
-    public List<String> getOnlySales() throws FileNotFoundException, IOException {
+    public List<String> getOnlySales() throws IOException {
         List<String> splitByStoreAndSales = byStoreSplitter();
         String[] specificSalesInfo = new String[splitByStoreAndSales.size()];
         specificSalesInfo = splitByStoreAndSales.toArray(specificSalesInfo);
@@ -331,7 +326,6 @@ public class CustomerDashboard {
             if (splitByStoreAndSales.get(i).contains("_")) {
                 List<String> splitterOf = new ArrayList<>(Arrays.asList(specificSalesInfo[i].split("_")));
                 onlySales.add(splitterOf.get(1));
-            } else if (!(splitByStoreAndSales.get(i).contains("_"))) {
             }
         }
 
@@ -339,7 +333,8 @@ public class CustomerDashboard {
 
     }
 
-    public List<Integer> getStoreTotal() throws FileNotFoundException, IOException {
+
+    public List<Integer> getStoreTotal() throws IOException {
         List<String> splitByType = typeSplitter();
         String[] specificStoreStr = new String[splitByType.size()];
         specificStoreStr = splitByType.toArray(specificStoreStr);
@@ -348,7 +343,9 @@ public class CustomerDashboard {
         for (int i = 0; i < splitByType.size(); i++) {
             ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(specificStoreStr[i].split("___")));
 
-            int sizeOfTypes = splitByType.get(i).length() - splitByType.get(i).replaceAll("___", "").length();
+            int sizeOfTypes = splitByType.get(i).length() - splitByType.get(i).
+                replaceAll("___", "").
+                length();
             int wantedNum = sizeOfTypes / 3 + 1;
 
             numberOfStores.add(wantedNum);
@@ -386,7 +383,6 @@ public class CustomerDashboard {
             System.out.print("Enter Here: ");
         }
     }
-
 
 
     //when sorting we can actually just change the way the list arrays are arranged instead of
@@ -486,7 +482,7 @@ public class CustomerDashboard {
 
     }
 
-    public List<String> splitStoreList() throws FileNotFoundException, IOException {
+    public List<String> splitStoreList() throws IOException {
         List<String> storeList = getOnlyStore();
         List<Integer> storeTotal = getStoreTotal();
 
@@ -507,7 +503,7 @@ public class CustomerDashboard {
         return splitterList;
     }
 
-    public List<String> splitSaleList() throws FileNotFoundException, IOException {
+    public List<String> splitSaleList() throws IOException {
         List<String> saleList = getOnlySales();
         List<Integer> storeTotal = getStoreTotal();
 
@@ -529,7 +525,7 @@ public class CustomerDashboard {
     }
 
 
-    public StoreAndSales sortHighLow() throws FileNotFoundException, IOException {
+    public StoreAndSales sortHighLow() throws IOException {
         List<String> originalStoreAndSaleList = byStoreSplitter();
         List<String> originalSaleList = getOnlySales();
         List<Integer> saleListToInt = new ArrayList<>();
@@ -588,7 +584,7 @@ public class CustomerDashboard {
 
 
     //sorting the arraylist to be used in the displaySorted method
-    public StoreAndSales sortLowHigh() throws FileNotFoundException, IOException {
+    public StoreAndSales sortLowHigh() throws IOException {
         List<String> originalStoreAndSaleList = byStoreSplitter();
         List<String> originalSaleList = getOnlySales();
         List<Integer> saleListToInt = new ArrayList<>();
@@ -644,14 +640,13 @@ public class CustomerDashboard {
         return new StoreAndSales(htLSalesList, htLStoreList);
     }
 
-    public void displaySorted(){
+    public void displaySorted() {
 
     }
 
-    public void main() throws FileNotFoundException, IOException {
+    public void main() throws IOException {
         //this method will contain what the user can do with all these methods, displaying
         //manipulating and sorting the products with the sort method
-        Scanner input = new Scanner(System.in);
         boolean repeat = true;
         int sortID = 0;
         //sortID 0 = unsorted
@@ -670,8 +665,7 @@ public class CustomerDashboard {
                     System.out.println("3. Exit Customer Dashboard");
                     System.out.println();
                     System.out.print("Enter Option Here: ");
-                    answer1 = input.nextInt();
-                    input.nextLine();
+                    answer1 = Integer.parseInt(SCANNER.nextLine());
                     System.out.println();
 
                     if (answer1 == 1) {
@@ -690,7 +684,7 @@ public class CustomerDashboard {
 
                     System.out.println("Please enter valid choice!");
                     System.out.println();
-                    input.nextLine();
+                    SCANNER.nextLine();
                 }
             } while (answer1 != 1 || answer1 != 2 || answer1 != 3);
 
@@ -703,19 +697,16 @@ public class CustomerDashboard {
                     if (sortID == 0) {
                         displayOriginalStores();
                         displaySortOptions(sortID);
-                        wantedSort = input.nextInt();
-                        input.nextLine();
+                        wantedSort = Integer.parseInt(SCANNER.nextLine());
                         System.out.println();
                     } else if (sortID == 1) {
                         displayHighLowStores();
                         displaySortOptions(sortID);
-                        wantedSort = input.nextInt();
-                        input.nextLine();
+                        wantedSort = Integer.parseInt(SCANNER.nextLine());
                     } else if (sortID == 2) {
                         displayLowHighStores();
                         displaySortOptions(sortID);
-                        wantedSort = input.nextInt();
-                        input.nextLine();
+                        wantedSort = Integer.parseInt(SCANNER.nextLine());
                     }
 
 
@@ -746,7 +737,7 @@ public class CustomerDashboard {
                         } else if (wantedSort == 2) {
                             sortID = 0;
 
-                        }else if (wantedSort == 3) {
+                        } else if (wantedSort == 3) {
                             System.out.println();
                             break;
                         }
@@ -761,20 +752,17 @@ public class CustomerDashboard {
                     if (sortID == 0) {
                         displayOriginalCustomerStatistics();
                         displaySortOptions(sortID);
-                        wantedSort = input.nextInt();
-                        input.nextLine();
+                        wantedSort = Integer.parseInt(SCANNER.nextLine());
                         System.out.println();
                     } else if (sortID == 1) {
                         displayPurchaseHistoryHighLow();
                         displaySortOptions(sortID);
-                        wantedSort = input.nextInt();
-                        input.nextLine();
+                        wantedSort = Integer.parseInt(SCANNER.nextLine());
                         System.out.println();
                     } else if (sortID == 2) {
                         displayPurchaseHistoryLowHigh();
                         displaySortOptions(sortID);
-                        wantedSort = input.nextInt();
-                        input.nextLine();
+                        wantedSort = Integer.parseInt(SCANNER.nextLine());
                         System.out.println();
                     }
 
@@ -805,7 +793,7 @@ public class CustomerDashboard {
                         } else if (wantedSort == 2) {
                             sortID = 0;
 
-                        }else if (wantedSort == 3) {
+                        } else if (wantedSort == 3) {
                             System.out.println();
                             break;
                         }
@@ -816,7 +804,7 @@ public class CustomerDashboard {
     }
 
 
-
+    //need to implement sort feature, probably pull from a method.
 
 
 }

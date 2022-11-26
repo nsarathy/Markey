@@ -1,13 +1,22 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
 
-public class MarketPlace {
+/**
+ * MarketPlace
+ * <p>
+ * Brains of the project
+ *
+ * @author nsarathy
+ * @version 11/13/2022
+ */
+public class MarketPlace implements Shared {
     public static final String PRODUCT_DISPLAY = "\n%d.\t%s\t\tSold by: %s\t\tPrice: %.2f\n";
-    public static final String SELECTED_PRODUCT_DISPLAY = "\n%s\t\tSold by: %s\t\tPrice: %.2f\nAvailable in stock: %d\nDescription: %s\n";
-    public static final String CART_END = "\n\nTotal Price: %.2f\n\nEnter '$' to checkout\nEnter 2 to remove item number 2\nEnter '?' to exit cart\n";
-    public static final String[] BUTTONS = {"#", "<", ">", "<>", "?", "@", "++", "--", "*", "csv", "db"};
+    public static final String SELECTED_PRODUCT_DISPLAY = "\n%s\t\tSold by: %s\t\tPrice: %.2f\nAvailable in stock: " +
+        "%d\nDescription: %s\n";
+    public static final String CART_END = "\n\nTotal Price: %.2f\n\nEnter '$' to checkout\nEnter 2 to remove item " +
+        "number 2\nEnter '?' to exit cart\n";
+    public static final String[] BUTTONS = {"#", "<", ">", "<>", "?", "@", "++", "--", "*", "csv", "db", "&", "q"};
     public static final String BUTTONS_PROMPT = "\nEnter '%s' to %s";
     public static final String ADD_TO_CART = "\nEnter '2' to add item number 2 to your cart";
     public static final String QUANTITY_PROMPT = "Enter quantity for the selected item ('?' to exit)";
@@ -18,7 +27,8 @@ public class MarketPlace {
     public static final String CART_LENGTH_1 = "\nYou have %d item in your cart\n";
     public static final String SELLER_NOTHING = "You do not having anything for sale";
     public static final String OPEN_STORE = "Enter a name for your store";
-    public static final String MANDATORY_PRODUCT = "It is mandatory to have at least one product on sale when opening a new store";
+    public static final String MANDATORY_PRODUCT = "It is mandatory to have at least one product on sale when opening" +
+        " a new store";
     public static final String PROD_NAME = "Enter name of product";
     public static final String PROD_STORE = "Choose a store for your item";
     public static final String PROD_QUANTITY = "Enter the quantity of this item available in stock";
@@ -31,7 +41,8 @@ public class MarketPlace {
     public static final String EDIT_PROMPT = "Enter 2 to edit 2nd item";
     public static final String EDIT_FAIL = "Edit unsuccessful :(";
     public static final String EDIT_SUCCESS = "Edit successful :)";
-    public static final String EDIT_WHAT = "\nEnter\n'1' to edit name\n'2' to edit price\n'3' to edit description\n'4' to edit availability in stock";
+    public static final String EDIT_WHAT = "\nEnter\n'1' to edit name\n'2' to edit price\n'3' to edit " +
+        "description\n'4' to edit availability in stock";
     public static final int[] EDIT_THAT = {1, 2, 3, 4};
     public static final String CART_REM = "An item was removed from your cart because it was out of stock";
     private final String username;
@@ -41,17 +52,15 @@ public class MarketPlace {
         this.username = username;
         this.password = password;
     }
-
-
-    /**
-     * TODO: Let customers proceed to checkout cart (uncomment)
-     * todo: dashboards
-     */
+    // test purposes
+    public static void main(String[] args) {
+        MarketPlace marketPlace = new MarketPlace("testSeller", "password");
+        marketPlace.main(false);
+    }
 
     public void main(boolean customer) {
         // if @param customer is false, don't let user do first 4 todos
         // Let user do those if @param customer is true
-        Scanner scanner = new Scanner(System.in);
         ArrayList<Product> cartItems = new ArrayList<>();
         ArrayList<String> cartSellerUsernames = new ArrayList<>();
         try {
@@ -73,13 +82,14 @@ public class MarketPlace {
                 listings.add(new Product(productDetails[0], store, quantity, price, productDetails[4]));
                 line = brProducts.readLine();
             }
+            MarketPlaceGUI marketPlaceGUI = new MarketPlaceGUI(customer, listings, sellerUsernames);
             // for de-sort
             originalListings = listings;
             originalSellerUsernames = sellerUsernames;
             // main loop for the program
             listingDisplay:
             while (true) {
-                System.out.println("Markey");
+                marketPlaceGUI.displayPlainMessage("Welcome to Markey!");
                 System.out.println();
                 if (!customer) {
                     FileReader frProducts2 = new FileReader("Products.txt");
@@ -99,6 +109,8 @@ public class MarketPlace {
                     }
                 }
                 // Displaying listings
+                marketPlaceGUI.main();
+                // original
                 if (listings.isEmpty()) {
                     System.out.println(NO_LISTINGS);
                     if (customer) {
@@ -121,9 +133,12 @@ public class MarketPlace {
                             Product cartProduct = cartItems.get(i);
                             for (Product listProduct : listings) {
                                 boolean outOfStock = listProduct.getName().equals(cartProduct.getName());
-                                outOfStock = outOfStock && listProduct.getStore().getName().equals(cartProduct.getStore().getName());
+                                outOfStock =
+                                    outOfStock && listProduct.getStore().getName()
+                                        .equals(cartProduct.getStore().getName());
                                 outOfStock = outOfStock && listProduct.getPrice() == cartProduct.getPrice();
-                                outOfStock = outOfStock && listProduct.getDescription().equals(cartProduct.getDescription());
+                                outOfStock =
+                                    outOfStock && listProduct.getDescription().equals(cartProduct.getDescription());
                                 if (outOfStock && listProduct.getQuantity() < cartProduct.getQuantity()) {
                                     toRemove.add(i);
                                 }
@@ -134,15 +149,18 @@ public class MarketPlace {
                             removed = true;
                             cartItems.remove(i);
                             cartSellerUsernames.remove(i);
-                            System.out.println(CART_REM);
+                            marketPlaceGUI.displayInformationMessage(CART_REM);
+                            System.out.println(CART_REM); // original
                         }
                         if (removed) {
                             storeCart(cartItems, cartSellerUsernames);
                         }
                         if (cartItems.size() == 1) {
-                            System.out.printf(CART_LENGTH_1, cartItems.size());
+                            marketPlaceGUI.displayInformationMessage(String.format(CART_LENGTH_1, cartItems.size()));
+                            System.out.printf(CART_LENGTH_1, cartItems.size()); // original
                         } else {
-                            System.out.printf(CART_LENGTH, cartItems.size());
+                            marketPlaceGUI.displayInformationMessage(String.format(CART_LENGTH, cartItems.size()));
+                            System.out.printf(CART_LENGTH, cartItems.size()); // original
                         }
                     } catch (CartNotTrackableException e) {
                         System.out.println(e.getMessage());
@@ -153,25 +171,28 @@ public class MarketPlace {
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[1], "sort listings by cost (low to high)");
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[2], "sort listings by cost (high to low)");
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[3], "de-sort");
+                    System.out.printf(BUTTONS_PROMPT, BUTTONS[12], "sort by availability");
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[5], "view your purchase history");
+                    System.out.printf(BUTTONS_PROMPT, BUTTONS[11], "search for something");
                 } else {
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[5], "open a new Store");
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[6], "list a new item for sale");
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[7], "remove an item from sale");
                     System.out.printf(BUTTONS_PROMPT, BUTTONS[8], "edit an item that's on sale");
+                    System.out.printf(BUTTONS_PROMPT, BUTTONS[11], "See what's on everyone's carts");
                 }
                 System.out.printf(BUTTONS_PROMPT, BUTTONS[9], "get a csv file with data");
                 System.out.printf(BUTTONS_PROMPT, BUTTONS[10], "go to dashboard");
                 System.out.printf(BUTTONS_PROMPT, BUTTONS[4], "exit");
                 System.out.println();
-                String action = scanner.nextLine();
+
+                String action = SCANNER.nextLine();
                 // carrying out the actions
-                // todo dashboard
                 if (action.equalsIgnoreCase(BUTTONS[4])) {
                     break listingDisplay;
                 } else if (customer) {
                     if (action.equalsIgnoreCase(BUTTONS[0])) {
-                        viewCart(cartItems, cartSellerUsernames, scanner);
+                        viewCart(cartItems, cartSellerUsernames);
                     } else if (action.equalsIgnoreCase(BUTTONS[1])) {
                         Listing listing = sortLowToHigh(listings, sellerUsernames);
                         listings = listing.getProducts();
@@ -188,6 +209,32 @@ public class MarketPlace {
                     } else if (action.equalsIgnoreCase(BUTTONS[9])) {
                         var export = new ImportExport(username, password);
                         export.customerExport();
+                    } else if (action.equalsIgnoreCase(BUTTONS[10])) {
+                        var db = new CustomerDashboard(username);
+                        db.main();
+                    } else if (action.equalsIgnoreCase(BUTTONS[11])) {
+                        System.out.println("Enter search keyword");
+                        String search = SCANNER.nextLine();
+                        search = search.toUpperCase();
+                        int count = 0;
+                        for (int i = 0; i < listings.size(); i++) {
+                            String compare = listings.get(i).toString().toUpperCase();
+                            if (compare.contains(search)) {
+                                Product temp = listings.get(i);
+                                listings.set(i, listings.get(count));
+                                listings.set(count, temp);
+
+                                String tempString = sellerUsernames.get(i);
+                                sellerUsernames.set(i, sellerUsernames.get(count));
+                                sellerUsernames.set(count, tempString);
+
+                                count++;
+                            }
+                        }
+                    } else if (action.equalsIgnoreCase(BUTTONS[12])) {
+                        Listing listing = sortByAvailability(listings, sellerUsernames);
+                        listings = listing.getProducts();
+                        sellerUsernames = listing.getSellers();
                     } else {
                         try {
                             int itemNumber = Integer.parseInt(action);
@@ -196,7 +243,7 @@ public class MarketPlace {
                                 Product product = listings.get(itemNumber - 1);
                                 displaySelectedProduct(product);
                                 System.out.println(QUANTITY_PROMPT);
-                                String cartAction = scanner.nextLine();
+                                String cartAction = SCANNER.nextLine();
                                 if (cartAction.equalsIgnoreCase("?")) {
                                     continue listingDisplay;
                                 } else {
@@ -209,7 +256,8 @@ public class MarketPlace {
                                         if (quantity > product.getQuantity()) {
                                             throw new NotInStockException("Item not in stock :(");
                                         } else {
-                                            Product cartProduct = new Product(product.getName(), product.getStore(), quantity, product.getPrice(), product.getDescription());
+                                            Product cartProduct = new Product(product.getName(), product.getStore(),
+                                                quantity, product.getPrice(), product.getDescription());
                                             cartItems.add(cartProduct);
                                             cartSellerUsernames.add(sellerUsernames.get(listings.indexOf(product)));
                                             int forRemove = cartItems.size() - 1;
@@ -260,16 +308,14 @@ public class MarketPlace {
                     if (listed) {
                         seller = new Seller(username, password, stores, products);
                         try {
-                            FileReader frSeller = new FileReader("Stores.txt");
-                            BufferedReader brSeller = new BufferedReader(frSeller);
                             // read actions
                             if (action.equalsIgnoreCase(BUTTONS[5])) {
                                 System.out.println(OPEN_STORE);
-                                String storeName = scanner.nextLine();
+                                String storeName = SCANNER.nextLine();
                                 while (storeName.contains("_") || storeName.contains(";") || storeName.contains(",")) {
                                     System.out.println("Store name cannot contain '_' or ';' or ','");
                                     System.out.println(PROD_NAME);
-                                    storeName = scanner.nextLine();
+                                    storeName = SCANNER.nextLine();
                                 }
                                 boolean storeExists = false;
                                 for (Store value : stores) {
@@ -284,32 +330,32 @@ public class MarketPlace {
                                     Store store = new Store(storeName);
                                     System.out.println(MANDATORY_PRODUCT);
                                     System.out.println(PROD_NAME);
-                                    String prodName = scanner.nextLine();
+                                    String prodName = SCANNER.nextLine();
                                     while (prodName.contains("_") || prodName.contains(";")) {
                                         System.out.println("Item name cannot contain '_' or ';'");
                                         System.out.println(PROD_NAME);
-                                        prodName = scanner.nextLine();
+                                        prodName = SCANNER.nextLine();
                                     }
                                     System.out.println(PROD_QUANTITY);
-                                    int prodQuantity = Integer.parseInt(scanner.nextLine());
+                                    int prodQuantity = Integer.parseInt(SCANNER.nextLine());
                                     while (prodQuantity <= 0) {
                                         System.out.println("Quantity cannot be 0 or negative");
                                         System.out.println(PROD_QUANTITY);
-                                        prodQuantity = Integer.parseInt(scanner.nextLine());
+                                        prodQuantity = Integer.parseInt(SCANNER.nextLine());
                                     }
                                     System.out.println(PROD_PRICE);
-                                    double prodPrice = Double.parseDouble(scanner.nextLine());
+                                    double prodPrice = Double.parseDouble(SCANNER.nextLine());
                                     while (prodPrice <= 0) {
                                         System.out.println("Price cannot be 0 or negative");
                                         System.out.println(PROD_PRICE);
-                                        prodPrice = Double.parseDouble(scanner.nextLine());
+                                        prodPrice = Double.parseDouble(SCANNER.nextLine());
                                     }
                                     System.out.println(PROD_DESCRIPTION);
-                                    String prodDescription = scanner.nextLine();
+                                    String prodDescription = SCANNER.nextLine();
                                     while (prodDescription.contains("_") || prodDescription.contains(";")) {
                                         System.out.println("Description cannot contain '_' or ';'");
                                         System.out.println(PROD_NAME);
-                                        prodDescription = scanner.nextLine();
+                                        prodDescription = SCANNER.nextLine();
                                     }
                                     seller = new Seller(username, password, stores, products);
                                     seller.createStore(storeName);
@@ -317,40 +363,41 @@ public class MarketPlace {
                                 }
                             } else if (action.equalsIgnoreCase(BUTTONS[6])) { // add
                                 System.out.println(PROD_NAME);
-                                String prodName = scanner.nextLine();
+                                String prodName = SCANNER.nextLine();
                                 while (prodName.contains("_") || prodName.contains(";")) {
                                     System.out.println("Item name cannot contain '_' or ';'");
                                     System.out.println(PROD_NAME);
-                                    prodName = scanner.nextLine();
+                                    prodName = SCANNER.nextLine();
                                 }
                                 System.out.println(PROD_STORE);
                                 for (int i = 0; i < stores.size(); i++) {
                                     Store value = stores.get(i);
                                     System.out.println((i + 1) + ". " + value.getName());
                                 }
-                                int prodStoreChoose = Integer.parseInt(scanner.nextLine());
+                                int prodStoreChoose = Integer.parseInt(SCANNER.nextLine());
                                 prodStoreChoose = prodStoreChoose - 1;
                                 Store prodStore = stores.get(prodStoreChoose);
                                 System.out.println(PROD_QUANTITY);
-                                int prodQuantity = Integer.parseInt(scanner.nextLine());
+                                int prodQuantity = Integer.parseInt(SCANNER.nextLine());
                                 while (prodQuantity <= 0) {
                                     System.out.println("Quantity cannot be 0 or negative");
                                     System.out.println(PROD_QUANTITY);
-                                    prodQuantity = Integer.parseInt(scanner.nextLine());
+                                    prodQuantity = Integer.parseInt(SCANNER.nextLine());
                                 }
                                 System.out.println(PROD_PRICE);
-                                double prodPrice = Double.parseDouble(scanner.nextLine());
+                                double prodPrice = Double.parseDouble(SCANNER.nextLine());
                                 while (prodPrice <= 0) {
                                     System.out.println("Price cannot be 0 or negative");
                                     System.out.println(PROD_PRICE);
-                                    prodPrice = Double.parseDouble(scanner.nextLine());
+                                    prodPrice = Double.parseDouble(SCANNER.nextLine());
                                 }
                                 System.out.println(PROD_DESCRIPTION);
-                                String prodDescription = scanner.nextLine();
-                                while (prodDescription.contains("_") || prodDescription.contains(";") || prodDescription.contains("$")) {
+                                String prodDescription = SCANNER.nextLine();
+                                while (prodDescription.contains("_") || prodDescription.contains(";") ||
+                                    prodDescription.contains("$")) {
                                     System.out.println("Description cannot contain '_' or ';' or '$'");
                                     System.out.println(PROD_NAME);
-                                    prodDescription = scanner.nextLine();
+                                    prodDescription = SCANNER.nextLine();
                                 }
                                 seller = new Seller(username, password, stores, products);
                                 seller.createProduct(prodName, prodStore, prodQuantity, prodPrice, prodDescription);
@@ -360,7 +407,7 @@ public class MarketPlace {
                                     displayProduct(value, i);
                                 }
                                 System.out.println(DELETE_LISTING);
-                                int delIndex = Integer.parseInt(scanner.nextLine());
+                                int delIndex = Integer.parseInt(SCANNER.nextLine());
                                 delIndex = delIndex - 1;
                                 Product toDelete = products.get(delIndex);
                                 seller.deleteProduct(delIndex);
@@ -419,10 +466,11 @@ public class MarketPlace {
                                     displayProduct(products.get(i), i);
                                 }
                                 System.out.println(EDIT_PROMPT);
-                                int editIndex = Integer.parseInt(scanner.nextLine());
+                                int editIndex = Integer.parseInt(SCANNER.nextLine());
                                 editIndex = editIndex - 1;
                                 Product toEdit = products.get(editIndex);
-                                Product tempProd = new Product(toEdit.getName(), toEdit.getStore(), toEdit.getQuantity(), toEdit.getPrice(), toEdit.getDescription());
+                                Product tempProd = new Product(toEdit.getName(), toEdit.getStore(),
+                                    toEdit.getQuantity(), toEdit.getPrice(), toEdit.getDescription());
                                 ArrayList<String> afterEdit = new ArrayList<>();
                                 try {
                                     FileReader frEdit = new FileReader("Products.txt");
@@ -436,41 +484,42 @@ public class MarketPlace {
                                     frEdit.close();
                                     displaySelectedProduct(toEdit);
                                     System.out.println(EDIT_WHAT);
-                                    int editWhat = Integer.parseInt(scanner.nextLine());
+                                    int editWhat = Integer.parseInt(SCANNER.nextLine());
                                     if (editWhat == EDIT_THAT[0]) {
                                         System.out.println("Enter new name");
-                                        String prodName = scanner.nextLine();
+                                        String prodName = SCANNER.nextLine();
                                         while (prodName.contains("_") || prodName.contains(";")) {
                                             System.out.println("Item name cannot contain '_' or ';'");
                                             System.out.println(PROD_NAME);
-                                            prodName = scanner.nextLine();
+                                            prodName = SCANNER.nextLine();
                                         }
                                         toEdit.setName(prodName);
                                     } else if (editWhat == EDIT_THAT[1]) {
                                         System.out.println("Enter new price");
-                                        double newPrice = Double.parseDouble(scanner.nextLine());
+                                        double newPrice = Double.parseDouble(SCANNER.nextLine());
                                         while (newPrice <= 0) {
                                             System.out.println("Price cannot be 0 or negative");
                                             System.out.println("Enter new price");
-                                            newPrice = Double.parseDouble(scanner.nextLine());
+                                            newPrice = Double.parseDouble(SCANNER.nextLine());
                                         }
                                         toEdit.setPrice(newPrice);
                                     } else if (editWhat == EDIT_THAT[2]) {
                                         System.out.println("Enter new description");
-                                        String prodDescription = scanner.nextLine();
-                                        while (prodDescription.contains("_") || prodDescription.contains(";") || prodDescription.contains("$")) {
+                                        String prodDescription = SCANNER.nextLine();
+                                        while (prodDescription.contains("_") || prodDescription.contains(";") ||
+                                            prodDescription.contains("$")) {
                                             System.out.println("Description cannot contain '_' or ';' or '$'");
                                             System.out.println(PROD_NAME);
-                                            prodDescription = scanner.nextLine();
+                                            prodDescription = SCANNER.nextLine();
                                         }
                                         toEdit.setDescription(prodDescription);
                                     } else if (editWhat == EDIT_THAT[3]) {
                                         System.out.println("Enter new quantity");
-                                        int newQuantity = Integer.parseInt(scanner.nextLine());
+                                        int newQuantity = Integer.parseInt(SCANNER.nextLine());
                                         while (newQuantity <= 0) {
                                             System.out.println("Quantity cannot be 0 or negative");
                                             System.out.println("Enter new quantity");
-                                            newQuantity = Integer.parseInt(scanner.nextLine());
+                                            newQuantity = Integer.parseInt(SCANNER.nextLine());
                                         }
                                         toEdit.setQuantity(newQuantity);
                                     }
@@ -502,7 +551,7 @@ public class MarketPlace {
                                 int choice = 0;
                                 while (true) {
                                     try {
-                                        choice = Integer.parseInt(scanner.nextLine());
+                                        choice = Integer.parseInt(SCANNER.nextLine());
                                         if (choice != 1 && choice != 2) {
                                             throw new Exception();
                                         }
@@ -517,9 +566,42 @@ public class MarketPlace {
                                 } else {
                                     importExport.sellerImport(seller);
                                 }
+                            } else if (action.equalsIgnoreCase(BUTTONS[10])) {
+                                var db = new SellerDashboard(username);
+                                db.main();
+                            } else if (action.equalsIgnoreCase(BUTTONS[11])) {
+                                try {
+                                    FileReader frCarts = new FileReader("carts.txt");
+                                    BufferedReader brCarts = new BufferedReader(frCarts);
+                                    ArrayList<String> lines = new ArrayList<>();
+                                    String eachLine = brCarts.readLine();
+                                    while (eachLine != null) {
+                                        lines.add(eachLine);
+                                        eachLine = brCarts.readLine();
+                                    }
+                                    brCarts.close();
+                                    frCarts.close();
+                                    System.out.println("*******************");
+                                    for (String theLine : lines) {
+                                        String[] all = theLine.split(";", -1);
+                                        String user = all[0];
+                                        String[] allProds = all[1].split("___", -1);
+                                        System.out.println("Customer: " + user);
+                                        for (String eachProd : allProds) {
+                                            String[] prodDetails = eachProd.split("_", -1);
+                                            System.out.println("___________________");
+                                            System.out.println(prodDetails[0]);
+                                            System.out.println("Store: " + prodDetails[1]);
+                                            System.out.println("Quantity in cart: " + prodDetails[2]);
+                                            System.out.println("Price: " + prodDetails[3]);
+                                            System.out.println("Description:\n" + prodDetails[4]);
+                                        }
+                                        System.out.println("*******************");
+                                    }
+                                } catch (Exception e) {
+                                    System.out.println("Something went wrong");
+                                }
                             }
-                            brSeller.close();
-                            frSeller.close();
                         } catch (Exception e) {
                             System.out.println("Something went wrong :(\nPlease try again later");
                         }
@@ -528,41 +610,41 @@ public class MarketPlace {
                         // mandatory to have at least one product
                         // prompt to open store
                         System.out.println(OPEN_STORE);
-                        String storeName = scanner.nextLine();
+                        String storeName = SCANNER.nextLine();
                         while (storeName.contains("_") || storeName.contains(";") || storeName.contains(",")) {
                             System.out.println("Store name cannot contain '_' or ';' or ','");
                             System.out.println(PROD_NAME);
-                            storeName = scanner.nextLine();
+                            storeName = SCANNER.nextLine();
                         }
                         Store store = new Store(storeName);
                         System.out.println(MANDATORY_PRODUCT);
                         System.out.println(PROD_NAME);
-                        String prodName = scanner.nextLine();
+                        String prodName = SCANNER.nextLine();
                         while (prodName.contains("_") || prodName.contains(";")) {
                             System.out.println("Item name cannot contain '_' or ';'");
                             System.out.println(PROD_NAME);
-                            prodName = scanner.nextLine();
+                            prodName = SCANNER.nextLine();
                         }
                         System.out.println(PROD_QUANTITY);
-                        int prodQuantity = Integer.parseInt(scanner.nextLine());
+                        int prodQuantity = Integer.parseInt(SCANNER.nextLine());
                         while (prodQuantity <= 0) {
                             System.out.println("Quantity cannot be 0 or negative");
                             System.out.println(PROD_QUANTITY);
-                            prodQuantity = Integer.parseInt(scanner.nextLine());
+                            prodQuantity = Integer.parseInt(SCANNER.nextLine());
                         }
                         System.out.println(PROD_PRICE);
-                        double prodPrice = Double.parseDouble(scanner.nextLine());
+                        double prodPrice = Double.parseDouble(SCANNER.nextLine());
                         while (prodPrice <= 0) {
                             System.out.println("Price cannot be 0 or negative");
                             System.out.println(PROD_PRICE);
-                            prodPrice = Double.parseDouble(scanner.nextLine());
+                            prodPrice = Double.parseDouble(SCANNER.nextLine());
                         }
                         System.out.println(PROD_DESCRIPTION);
-                        String prodDescription = scanner.nextLine();
+                        String prodDescription = SCANNER.nextLine();
                         while (prodDescription.contains("_") || prodDescription.contains(";")) {
                             System.out.println("Description cannot contain '_' or ';'");
                             System.out.println(PROD_NAME);
-                            prodDescription = scanner.nextLine();
+                            prodDescription = SCANNER.nextLine();
                         }
                         seller = new Seller(username, password, stores, products);
                         seller.createStore(storeName);
@@ -625,8 +707,6 @@ public class MarketPlace {
         } catch (Exception e) {
             System.out.println("Something went wrong :(");
         }
-        // customer stats
-        // todo debug when store data already there
         try {
             FileReader frCustomer = new FileReader("CustomerStatistics.txt");
             BufferedReader brCustomer = new BufferedReader(frCustomer);
@@ -661,7 +741,9 @@ public class MarketPlace {
                             }
                         }
                         if (!changed) {
-                            finalLine = finalLine + proceedToCheckout.get(i).getStore().getName() + "_" + proceedToCheckout.get(i).getQuantity() + "___";
+                            finalLine =
+                                finalLine + proceedToCheckout.get(i).getStore().getName() + "_" +
+                                    proceedToCheckout.get(i).getQuantity() + "___";
                             changed = true;
                         }
                     }
@@ -675,7 +757,8 @@ public class MarketPlace {
                     j++;
                 }
                 if (!changed) {
-                    lines.add(sellerUsername + ";" + proceedToCheckout.get(i).getStore().getName() + "_" + proceedToCheckout.get(i).getQuantity());
+                    lines.add(sellerUsername + ";" + proceedToCheckout.get(i).getStore().getName() + "_" +
+                        proceedToCheckout.get(i).getQuantity());
                 }
                 i++;
             }
@@ -704,10 +787,10 @@ public class MarketPlace {
                     boolean same = sellerAndProduct[0].equals(seller);
                     String[] productString = sellerAndProduct[1].split("_", -1);
                     Product newProduct = new Product(productString[0],
-                            new Store(productString[1]),
-                            Integer.parseInt(productString[2]),
-                            Double.parseDouble(productString[3]),
-                            productString[4]
+                        new Store(productString[1]),
+                        Integer.parseInt(productString[2]),
+                        Double.parseDouble(productString[3]),
+                        productString[4]
                     );
                     same = same && product.getName().equals(newProduct.getName());
                     same = same && product.getStore().getName().equals(newProduct.getStore().getName());
@@ -721,11 +804,6 @@ public class MarketPlace {
                             break;
                         }
                     }
-                    // debug
-                    for (String value : lines) {
-                        System.out.println(value);
-                    }
-                    System.out.println();
                 }
                 if (!added) {
                     lines.add(line);
@@ -744,17 +822,17 @@ public class MarketPlace {
         } catch (Exception e) {
             System.out.println("Something went wrong :(");
         }
-        /*
+
         var cart = new Cart(proceedToCheckout, sellerUsernames, username);
         cart.updateCustomerPurchaseHistory();
         cart.updateSellerStatistics();
-         */
+
 
     }
 
     // Displaying cart
     // Actions : remove item, exit cart, proceed to checkout
-    public void viewCart(ArrayList<Product> currentCart, ArrayList<String> currentCartSellers, Scanner scanner) {
+    public void viewCart(ArrayList<Product> currentCart, ArrayList<String> currentCartSellers) {
         boolean stepFound = false;
         while (!stepFound) {
             if (currentCart.size() == 0) {
@@ -768,7 +846,7 @@ public class MarketPlace {
                 totalPrice += (product.getPrice() * product.getQuantity());
             }
             System.out.printf(CART_END, totalPrice);
-            String nextStep = scanner.nextLine();
+            String nextStep = SCANNER.nextLine();
             if (nextStep.equalsIgnoreCase("$")) {
                 checkout(currentCart, currentCartSellers);
                 stepFound = true;
@@ -836,6 +914,28 @@ public class MarketPlace {
         return new Listing(list, sellers);
     }
 
+    public Listing sortByAvailability(ArrayList<Product> list, ArrayList<String> sellers) {
+        Product[] array = list.toArray(new Product[0]);
+        String[] sellerArray = sellers.toArray(new String[0]);
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array.length - i - 1; j++) {
+                int priceJ = array[j].getQuantity();
+                int priceJPlus1 = array[j + 1].getQuantity();
+                if (priceJ < priceJPlus1) {
+                    Product temporary = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temporary;
+                    String tempString = sellerArray[j];
+                    sellerArray[j] = sellerArray[j + 1];
+                    sellerArray[j + 1] = tempString;
+                }
+            }
+        }
+        list = new ArrayList<>(Arrays.asList(array));
+        sellers = new ArrayList<>(Arrays.asList(sellerArray));
+        return new Listing(list, sellers);
+    }
+
     public void viewPurchaseHistory() {
         System.out.println("Your purchases:");
         // Use Customer.displayPurchases
@@ -860,10 +960,10 @@ public class MarketPlace {
                     for (String val : products) {
                         String[] product = val.split("_", -1);
                         productList.add(new Product(product[0],
-                                new Store(product[1]),
-                                Integer.parseInt(product[2]),
-                                Double.parseDouble(product[3]),
-                                product[4].split("\\$", -1)[0]
+                            new Store(product[1]),
+                            Integer.parseInt(product[2]),
+                            Double.parseDouble(product[3]),
+                            product[4].split("\\$", -1)[0]
                         ));
                     }
                 }
@@ -874,13 +974,15 @@ public class MarketPlace {
         if (!exists) {
             System.out.println("You have not made any purchases yet");
         } else {
-            Customer customer = new Customer(username, password, productList.toArray(productList.toArray(new Product[0])));
+            Customer customer = new Customer(username, password,
+                productList.toArray(productList.toArray(new Product[0])));
             customer.displayPurchases();
         }
     }
 
     // Writing user's cart to a txt file
-    public void storeCart(ArrayList<Product> currentCart, ArrayList<String> currentSellers) throws CartNotTrackableException {
+    public void storeCart(ArrayList<Product> currentCart, ArrayList<String> currentSellers)
+        throws CartNotTrackableException {
         String finalLine = username + ";";
         for (Product product : currentCart) {
             finalLine = finalLine + product.toString() + "___";

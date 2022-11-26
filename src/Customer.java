@@ -19,11 +19,11 @@ public class Customer extends Account {
     public void displayPurchases() { //method displaying purchases
         for (Product product : this.purchases) {
             System.out.printf("\n%s\t\tSold by: %s\t\tPrice: %.2f\tQuantity: %d\nDescription: %s\n",
-                    product.getName(),
-                    product.getStore().getName(),
-                    product.getPrice(),
-                    product.getQuantity(),
-                    product.getDescription());
+                product.getName(),
+                product.getStore().getName(),
+                product.getPrice(),
+                product.getQuantity(),
+                product.getDescription());
         }
         System.out.println();
     }

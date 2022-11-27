@@ -52,11 +52,6 @@ public class MarketPlace implements Shared {
         this.username = username;
         this.password = password;
     }
-    // test purposes
-    public static void main(String[] args) {
-        MarketPlace marketPlace = new MarketPlace("testSeller", "password");
-        marketPlace.main(false);
-    }
 
     public void main(boolean customer) {
         // if @param customer is false, don't let user do first 4 todos
@@ -82,7 +77,7 @@ public class MarketPlace implements Shared {
                 listings.add(new Product(productDetails[0], store, quantity, price, productDetails[4]));
                 line = brProducts.readLine();
             }
-            MarketPlaceGUI marketPlaceGUI = new MarketPlaceGUI(customer, listings, sellerUsernames);
+            MarketPlaceGUI marketPlaceGUI = new MarketPlaceGUI();
             // for de-sort
             originalListings = listings;
             originalSellerUsernames = sellerUsernames;
@@ -109,7 +104,7 @@ public class MarketPlace implements Shared {
                     }
                 }
                 // Displaying listings
-                marketPlaceGUI.main();
+                marketPlaceGUI.main(customer, username);
                 // original
                 if (listings.isEmpty()) {
                     System.out.println(NO_LISTINGS);
@@ -156,10 +151,8 @@ public class MarketPlace implements Shared {
                             storeCart(cartItems, cartSellerUsernames);
                         }
                         if (cartItems.size() == 1) {
-                            marketPlaceGUI.displayInformationMessage(String.format(CART_LENGTH_1, cartItems.size()));
                             System.out.printf(CART_LENGTH_1, cartItems.size()); // original
                         } else {
-                            marketPlaceGUI.displayInformationMessage(String.format(CART_LENGTH, cartItems.size()));
                             System.out.printf(CART_LENGTH, cartItems.size()); // original
                         }
                     } catch (CartNotTrackableException e) {

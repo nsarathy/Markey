@@ -1,16 +1,28 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * HintTextField
+ * <p>
+ * {@code @src} <a href="https://stackoverflow.com/a/24571681">Source</a>
+ *
+ * @author <a href="https://stackoverflow.com/users/3805036/adam-gawne-cain">Adam Gawne-Cain</a>
+ * @version 7/4/2014
+ */
 public class HintTextField extends JTextField {
+    private final String _hint;
+
     public HintTextField(String hint) {
         _hint = hint;
     }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
         if (getText().length() == 0) {
             int h = getHeight();
-            ((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
             Insets ins = getInsets();
             FontMetrics fm = g.getFontMetrics();
             int c0 = getBackground().getRGB();
@@ -21,5 +33,4 @@ public class HintTextField extends JTextField {
             g.drawString(_hint, ins.left, h / 2 + fm.getAscent() / 2 - 2);
         }
     }
-    private final String _hint;
 }

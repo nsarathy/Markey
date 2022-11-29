@@ -57,14 +57,11 @@ public class MarketPlaceGUI implements Runnable, Shared {
     JButton seeCartsButton;
     JButton copyDbButton;
     JButton copyCsvButton;
+    Icon seeListingsIcon;
+    JButton seeListingsButton;
     //listings
     HashMap<JButton, Product> listings;
-    ActionListener sellerListener = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
-    };
+    // customer stuff
     private ArrayList<Product> itemsForSale;
     private ArrayList<String> sellerUsernames;
     private ArrayList<Product> cartItems;
@@ -93,6 +90,31 @@ public class MarketPlaceGUI implements Runnable, Shared {
             }
         }
     };
+    // seller stuff
+    private ArrayList<Product> sellerItems;
+    private ArrayList<Store> sellerStores;
+    ActionListener sellerListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (sellerItems.isEmpty()) {
+                displayPlainMessage("<html>Welcome to Markey<br>It is mandatory for you to have at least one " +
+                    "store open<br>with at least one item for sale to perform any actions</html>");
+                openStore();
+            } else if (e.getSource() == seeListingsButton) {
+                seeListings();
+            } else if (e.getSource() == storeButton) {
+                openStore();
+            } else if (e.getSource() == addProductButton) {
+                addProduct();
+            } else if (e.getSource() == removeProductButton) {
+                removeProduct();
+            } else if (e.getSource() == editProductButton) {
+                editProduct();
+            } else if (e.getSource() == seeCartsButton) {
+                seeCarts();
+            }
+        }
+    };
 
     // test purposes
     public static void main(String[] args) {
@@ -113,20 +135,31 @@ public class MarketPlaceGUI implements Runnable, Shared {
         gui.setItemsForSale(products.getProducts());
         gui.setSellerUsernames(products.getSellers());
 
-        // reading and updating carts
-        gui.setCartItems(new ArrayList<>());
-        gui.setCartSellerUsernames(new ArrayList<>());
-        try {
-            Listing readCart = methods.readCart(); // todo
-            gui.setCartItems(readCart.getProducts());
-            gui.setCartSellerUsernames(readCart.getSellers());
-            boolean removed = gui.checkCartStatus();
-            if (removed) {
-                methods.storeCart(gui.getCartItems(), gui.getCartSellerUsernames()); // todo
+        if (customer) {
+            // reading and updating carts
+            gui.setCartItems(new ArrayList<>());
+            gui.setCartSellerUsernames(new ArrayList<>());
+            try {
+                Listing readCart = methods.readCart(); // todo
+                gui.setCartItems(readCart.getProducts());
+                gui.setCartSellerUsernames(readCart.getSellers());
+                boolean removed = gui.checkCartStatus();
+                if (removed) {
+                    methods.storeCart(gui.getCartItems(), gui.getCartSellerUsernames()); // todo
+                }
+            } catch (Exception e) {
+                if (!e.getMessage().equals("Your cart is empty")) {
+                    displayErrorMessage(e.getMessage());
+                }
             }
-        } catch (Exception e) {
-            if (customer) {
-                displayErrorMessage(e.getMessage());
+        } else {
+            // seller
+            gui.setSellerItems(new ArrayList<>());
+            gui.setSellerStores(new ArrayList<>());
+            ProductsAndStores productsAndStores = methods.readSeller(); // todo
+            if (productsAndStores != null) {
+                gui.setSellerStores(productsAndStores.getStores());
+                gui.setSellerItems(productsAndStores.getProducts());
             }
         }
 
@@ -167,6 +200,7 @@ public class MarketPlaceGUI implements Runnable, Shared {
         refreshIcon = new ImageIcon("images/markey-logo.png");
         refreshButton = new JButton(refreshIcon);
         refreshButton.setToolTipText("<html>refresh</html>");
+        refreshButton.addActionListener(customerListener); // todo refresh customer
 
         searchIcon = new ImageIcon("images/search.png");
         searchButton = new JButton(searchIcon);
@@ -200,6 +234,7 @@ public class MarketPlaceGUI implements Runnable, Shared {
         dbButton = new JButton(dbIcon);
         dbButton.setPreferredSize(new Dimension(36, 36));
         dbButton.setToolTipText("<html> Dashboard </html>");
+        dbButton.addActionListener(customerListener); // todo dashboard
 
         historyIcon = new ImageIcon("images/history.png");
         purchaseHistoryButton = new JButton(historyIcon);
@@ -243,32 +278,45 @@ public class MarketPlaceGUI implements Runnable, Shared {
         storeButton = new JButton(storeIcon);
         storeButton.setPreferredSize(new Dimension(36, 36));
         storeButton.setToolTipText("<html>Open new store</html>");
+        storeButton.addActionListener(sellerListener);
 
         addProductButton = new JButton("+");
         addProductButton.setFont(new Font("Arial", Font.BOLD, 22));
         addProductButton.setToolTipText("<html>Create new listing</html>");
+        addProductButton.addActionListener(sellerListener);
 
         removeProductButton = new JButton("-");
         removeProductButton.setFont(new Font("Arial", Font.BOLD, 22));
         removeProductButton.setToolTipText("<html>Delete listing</html>");
+        removeProductButton.addActionListener(sellerListener);
 
         editIcon = new ImageIcon("images/edit.png");
         editProductButton = new JButton(editIcon);
         editProductButton.setPreferredSize(new Dimension(36, 36));
         editProductButton.setToolTipText("<html>Edit details of a product on sale</html>");
+        editProductButton.addActionListener(sellerListener);
 
         listIcon = new ImageIcon("images/list.png");
         seeCartsButton = new JButton(listIcon);
         seeCartsButton.setPreferredSize(new Dimension(36, 36));
         seeCartsButton.setToolTipText("<html>See what's on everyone's carts</html>");
+        seeCartsButton.addActionListener(sellerListener);
 
         copyDbButton = new JButton(dbIcon);
         copyDbButton.setPreferredSize(new Dimension(36, 36));
         copyDbButton.setToolTipText("<html> Dashboard </html>");
+        copyDbButton.addActionListener(sellerListener); // todo seller db
 
         copyCsvButton = new JButton(".csv");
         copyCsvButton.setFont(new Font("Arial", Font.PLAIN, 22));
         copyCsvButton.setToolTipText("<html> import or export csv file with your data</html>");
+        copyCsvButton.addActionListener(sellerListener); // todo seller csv
+
+        seeListingsIcon = new ImageIcon("images/priceTag.png");
+        seeListingsButton = new JButton(seeListingsIcon);
+        seeListingsButton.setPreferredSize(new Dimension(36, 36));
+        seeListingsButton.setToolTipText("<html>See what you have on sale</html>");
+        seeListingsButton.addActionListener(sellerListener);
 
         JPanel sellerPanel = new JPanel();
         if (!customer) {
@@ -281,6 +329,7 @@ public class MarketPlaceGUI implements Runnable, Shared {
         sellerPanel.add(seeCartsButton);
         sellerPanel.add(copyDbButton);
         sellerPanel.add(copyCsvButton);
+        sellerPanel.add(seeListingsButton);
 
         if (customer) {
             actionFrame.add(customerPanel, BorderLayout.NORTH);
@@ -524,6 +573,10 @@ public class MarketPlaceGUI implements Runnable, Shared {
         JOptionPane.showMessageDialog(null, message, "Markey", JOptionPane.ERROR_MESSAGE);
     }
 
+    public String displayInputMessage(String message) {
+        return JOptionPane.showInputDialog(null, message, "Markey", JOptionPane.PLAIN_MESSAGE);
+    }
+
 
     public String getUsername() {
         return username;
@@ -580,7 +633,6 @@ public class MarketPlaceGUI implements Runnable, Shared {
     }
 
     public void displayCart() {
-        // todo checkout
         if (cartItems == null || cartItems.size() == 0) {
             displayInformationMessage("You have 0 items in your cart");
             return;
@@ -768,8 +820,8 @@ public class MarketPlaceGUI implements Runnable, Shared {
                 JLabel purchaseLabel = new JLabel(String.format("<html><br>%s<br>Sold by: %s<br>Price %" +
                         ".2f<br>Description: %s<br>Quantity: %d<br>Final Price: %.2f<br></html>", name, storeName,
                     purchase.getPrice(), description, purchase.getQuantity(),
-                    (purchase.getPrice() * purchase.getQuantity())));
-                purchaseLabel.setBorder(BorderFactory.createEtchedBorder(0));
+                    (purchase.getPrice() * purchase.getQuantity())), SwingConstants.CENTER);
+                purchaseLabel.setBorder(BorderFactory.createBevelBorder(0));
                 purchaseLabel.setFont(new Font("Arial", Font.PLAIN, 18));
                 panel.add(purchaseLabel);
             }
@@ -806,4 +858,475 @@ public class MarketPlaceGUI implements Runnable, Shared {
         }
     }
 
+    public ArrayList<Product> getSellerItems() {
+        return sellerItems;
+    }
+
+    public void setSellerItems(ArrayList<Product> sellerItems) {
+        this.sellerItems = sellerItems;
+    }
+
+    public ArrayList<Store> getSellerStores() {
+        return sellerStores;
+    }
+
+    public void setSellerStores(ArrayList<Store> sellerStores) {
+        this.sellerStores = sellerStores;
+    }
+
+    public void seeListings() {
+        if (sellerItems.isEmpty()) {
+            displayInformationMessage("You don't have anything for sale");
+        } else {
+            JFrame frame = new JFrame("Markey");
+            JPanel panel = new JPanel(new GridLayout(0, 1));
+            for (Product listing : sellerItems) {
+                String name = unTruncate(listing.getName());
+                String storeName = unTruncate(listing.getStore().getName());
+                String description = unTruncate(listing.getDescription());
+                JLabel listingLabel = new JLabel(String.format("<html><br>%s<br>Sold by: %s<br>Price %" +
+                        ".2f<br>Description: %s<br>Quantity: %d<br>Final Price: %.2f<br></html>", name, storeName,
+                    listing.getPrice(), description, listing.getQuantity(),
+                    (listing.getPrice() * listing.getQuantity())), SwingConstants.CENTER);
+                listingLabel.setBorder(BorderFactory.createEtchedBorder(0));
+                listingLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+                panel.add(listingLabel);
+            }
+            frame.setSize(520, 700);
+            JScrollPane scrollPane = new JScrollPane(panel);
+            frame.add(scrollPane);
+            frame.setVisible(true);
+        }
+    }
+
+    public void openStore() {
+        MarketPlaceMethods methods = new MarketPlaceMethods(username); // todo
+        String storeName = displayInputMessage("Enter store name");
+        if (storeName == null) {
+            return;
+        }
+        while (storeName.contains("_") || storeName.contains(";") || storeName.contains(",") || storeName.isEmpty()) {
+            displayErrorMessage("<html>Store name cannot be empty<br>Store name cannot contain '_' or ';' or '," +
+                "'</html>");
+            storeName = displayInputMessage("Enter store name");
+            if (storeName == null) {
+                return;
+            }
+        }
+        boolean storeExists = false;
+        for (Store value : sellerStores) {
+            if (value.getName().equals(storeName)) {
+                storeExists = true;
+                break;
+            }
+        }
+        if (storeExists) {
+            displayErrorMessage("You already have a store of the same name");
+            return;
+        }
+
+        displayInformationMessage("<html>You need to have at least one item on sale<br>for a store to remain " +
+            "open<br>A store with nothing for sale<br>will be automatically closed</html>");
+
+        JFrame frame = new JFrame("Markey");
+        frame.setSize(600, 400);
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.VERTICAL;
+        gbc.gridx = 0;
+        gbc.weightx = 1;
+        gbc.insets = new Insets(6, 6, 6, 6);
+
+        JTextField prodNameText = new HintTextField("Item Name");
+        prodNameText.setFont(new Font("Arial", Font.PLAIN, 18));
+        prodNameText.setColumns(20);
+        JTextField prodPriceText = new HintTextField("Item price");
+        prodPriceText.setFont(new Font("Arial", Font.PLAIN, 18));
+        prodPriceText.setColumns(20);
+        JTextField prodDescriptionText = new HintTextField("Item Description");
+        prodDescriptionText.setFont(new Font("Arial", Font.PLAIN, 18));
+        prodDescriptionText.setColumns(20);
+        JTextField prodQuantityText = new HintTextField("Quantity available in stock");
+        prodQuantityText.setFont(new Font("Arial", Font.PLAIN, 18));
+        prodQuantityText.setColumns(20);
+        JButton confirmButton = new JButton("Create listing");
+        confirmButton.setFont(new Font("Arial", Font.PLAIN, 18));
+
+        panel.add(prodNameText, gbc);
+        panel.add(prodPriceText, gbc);
+        panel.add(prodDescriptionText, gbc);
+        panel.add(prodQuantityText, gbc);
+        panel.add(confirmButton, gbc);
+
+        frame.add(panel);
+        frame.setVisible(true);
+
+        String finalStoreName = storeName;
+        confirmButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String prodName = prodNameText.getText().toString();
+                if (prodName.contains("_") || prodName.contains(";")) {
+                    displayErrorMessage("Item name cannot contain '_' or ';'");
+                    return;
+                }
+                String prodPriceString = prodPriceText.getText().toString();
+                double prodPrice = 0;
+                try {
+                    prodPrice = Double.parseDouble(prodPriceString);
+                    if (prodPrice <= 0) {
+                        displayErrorMessage("Price cannot be 0 or lower");
+                        return;
+                    }
+                } catch (NumberFormatException ex) {
+                    displayErrorMessage("Enter a number for price");
+                    return;
+                }
+                String prodDescription = prodDescriptionText.getText().toString();
+                if (prodDescription.contains("_") || prodDescription.contains(";")) {
+                    displayErrorMessage("Item description cannot contain '_' or ';'");
+                    return;
+                }
+                int prodQuantity = 0;
+                String prodQuantityString = prodQuantityText.getText().toString();
+                try {
+                    prodQuantity = Integer.parseInt(prodQuantityString);
+                } catch (NumberFormatException ex) {
+                    displayErrorMessage("Enter a number for quantity");
+                    return;
+                }
+                if (prodQuantity <= 0) {
+                    displayErrorMessage("Quantity cannot be 0 or lower");
+                    return;
+                }
+                if (prodName.isEmpty() || prodDescription.isEmpty()) {
+                    displayErrorMessage("Please enter required details");
+                    return;
+                }
+                Store store = new Store(finalStoreName);
+                sellerStores.add(store);
+                sellerItems.add(new Product(prodName, store, prodQuantity, prodPrice, prodDescription));
+                try {
+                    methods.createProduct(prodName, store, prodQuantity, prodPrice, prodDescription); // todo
+                } catch (IOException ex) {
+                    displayErrorMessage("Something went wrong :(");
+                    return;
+                }
+                frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+                displayPlainMessage("<html><b>Thank you for using Markey</b><br>Listing successfully created");
+            }
+        });
+    }
+
+    public void addProduct() {
+        MarketPlaceMethods methods = new MarketPlaceMethods(username); // todo
+        JFrame frame = new JFrame("Markey");
+        frame.setSize(600, 400);
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.VERTICAL;
+        gbc.gridx = 0;
+        gbc.weightx = 1;
+
+        JLabel chooseStore = new JLabel("Choose store:");
+        chooseStore.setFont(new Font("Arial", Font.PLAIN, 16));
+        JComboBox<Store> prodStoreDrop = new JComboBox<>(sellerStores.toArray(new Store[0]));
+        prodStoreDrop.setFont(new Font("Arial", Font.PLAIN, 18));
+        JTextField prodNameText = new HintTextField("Item Name");
+        prodNameText.setFont(new Font("Arial", Font.PLAIN, 18));
+        prodNameText.setColumns(20);
+        JTextField prodPriceText = new HintTextField("Item price");
+        prodPriceText.setFont(new Font("Arial", Font.PLAIN, 18));
+        prodPriceText.setColumns(20);
+        JTextField prodDescriptionText = new HintTextField("Item Description");
+        prodDescriptionText.setFont(new Font("Arial", Font.PLAIN, 18));
+        prodDescriptionText.setColumns(20);
+        JTextField prodQuantityText = new HintTextField("Quantity available in stock");
+        prodQuantityText.setFont(new Font("Arial", Font.PLAIN, 18));
+        prodQuantityText.setColumns(20);
+        JButton confirmButton = new JButton("Create listing");
+        confirmButton.setFont(new Font("Arial", Font.PLAIN, 18));
+
+        gbc.insets = new Insets(6, 6, 3, 6);
+        panel.add(chooseStore, gbc);
+        gbc.insets = new Insets(3, 6, 6, 6);
+        panel.add(prodStoreDrop, gbc);
+        gbc.insets = new Insets(6, 6, 6, 6);
+        panel.add(prodNameText, gbc);
+        panel.add(prodPriceText, gbc);
+        panel.add(prodDescriptionText, gbc);
+        panel.add(prodQuantityText, gbc);
+        panel.add(confirmButton, gbc);
+
+        frame.add(panel);
+        frame.setVisible(true);
+
+        confirmButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Store store = (Store) prodStoreDrop.getSelectedItem();
+
+                String prodName = prodNameText.getText().toString();
+                if (prodName.contains("_") || prodName.contains(";")) {
+                    displayErrorMessage("Item name cannot contain '_' or ';'");
+                    return;
+                }
+                String prodPriceString = prodPriceText.getText().toString();
+                double prodPrice = 0;
+                try {
+                    prodPrice = Double.parseDouble(prodPriceString);
+                    if (prodPrice <= 0) {
+                        displayErrorMessage("Price cannot be 0 or lower");
+                        return;
+                    }
+                } catch (NumberFormatException ex) {
+                    displayErrorMessage("Enter a number for price");
+                    return;
+                }
+                String prodDescription = prodDescriptionText.getText().toString();
+                if (prodDescription.contains("_") || prodDescription.contains(";")) {
+                    displayErrorMessage("Item description cannot contain '_' or ';'");
+                    return;
+                }
+                int prodQuantity = 0;
+                String prodQuantityString = prodQuantityText.getText().toString();
+                try {
+                    prodQuantity = Integer.parseInt(prodQuantityString);
+                } catch (NumberFormatException ex) {
+                    displayErrorMessage("Enter a number for quantity");
+                    return;
+                }
+                if (prodQuantity <= 0) {
+                    displayErrorMessage("Quantity cannot be 0 or lower");
+                    return;
+                }
+                if (prodName.isEmpty() || prodDescription.isEmpty()) {
+                    displayErrorMessage("Please enter required details");
+                    return;
+                }
+                sellerStores.add(store);
+                sellerItems.add(new Product(prodName, store, prodQuantity, prodPrice, prodDescription));
+                try {
+                    methods.createProduct(prodName, store, prodQuantity, prodPrice, prodDescription); // todo
+                } catch (IOException ex) {
+                    displayErrorMessage("Something went wrong :(");
+                    return;
+                }
+                frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+                displayPlainMessage("<html><b>Thank you for using Markey</b><br>Listing successfully created");
+            }
+        });
+    }
+
+    public void removeProduct() {
+        MarketPlaceMethods methods = new MarketPlaceMethods(username); // todo
+        JFrame frame = new JFrame("Markey");
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = SwingConstants.HORIZONTAL;
+        gbc.insets = new Insets(2, 2, 2, 2);
+        for (Product product : sellerItems) {
+            JLabel productLabel = new JLabel(String.format(
+                "<html><br>%s<br>Store: %s<br>Price: %.2f<br>Description: %s<br>Available in stock: %d<br></html>",
+                unTruncate(product.getName()), unTruncate(product.getStore().getName()),
+                product.getPrice(), unTruncate(product.getDescription()), product.getQuantity()),
+                SwingConstants.CENTER);
+            productLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+            productLabel.setBorder(BorderFactory.createBevelBorder(0));
+            final String checkString = username + ";" + product.toString();
+            JButton deleteButton = new JButton(new ImageIcon("images/delete.png"));
+            deleteButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        methods.deleteProduct(checkString); // todo
+                    } catch (IOException ex) {
+                        displayErrorMessage("Something went wrong :(");
+                        return;
+                    }
+                    sellerItems.remove(product);
+                    productLabel.setVisible(false);
+                    deleteButton.setVisible(false);
+                }
+            });
+            gbc.gridx = 0;
+            panel.add(productLabel, gbc);
+            gbc.gridx = 1;
+            panel.add(deleteButton, gbc);
+        }
+        JScrollPane scrollPane = new JScrollPane(panel);
+        frame.add(scrollPane);
+        frame.setSize(500, 700);
+        frame.setVisible(true);
+    }
+
+    public void editProduct() {
+        MarketPlaceMethods methods = new MarketPlaceMethods(username); // todo
+        JFrame frame = new JFrame("Markey");
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = SwingConstants.HORIZONTAL;
+        gbc.insets = new Insets(2, 2, 2, 2);
+        for (Product product : sellerItems) {
+            JLabel productLabel = new JLabel(String.format(
+                "<html><br>%s<br>Store: %s<br>Price: %.2f<br>Description: %s<br>Available in stock: %d<br></html>",
+                unTruncate(product.getName()), unTruncate(product.getStore().getName()),
+                product.getPrice(), unTruncate(product.getDescription()), product.getQuantity()),
+                SwingConstants.CENTER);
+            productLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+            productLabel.setBorder(BorderFactory.createBevelBorder(0));
+            final String checkString = username + ";" + product.toString();
+            JButton editButton = new JButton(new ImageIcon("images/edit.png"));
+            editButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JFrame frame = new JFrame("Markey");
+                    frame.setSize(600, 400);
+                    JPanel panel = new JPanel(new GridBagLayout());
+                    GridBagConstraints gbc = new GridBagConstraints();
+                    gbc.fill = GridBagConstraints.VERTICAL;
+                    gbc.gridx = 0;
+                    gbc.weightx = 1;
+                    gbc.insets = new Insets(6, 6, 6, 6);
+
+                    JTextField prodNameText = new HintTextField("Item Name");
+                    prodNameText.setFont(new Font("Arial", Font.PLAIN, 18));
+                    prodNameText.setColumns(20);
+                    prodNameText.setText(product.getName());
+                    JTextField prodPriceText = new HintTextField("Item price");
+                    prodPriceText.setFont(new Font("Arial", Font.PLAIN, 18));
+                    prodPriceText.setColumns(20);
+                    prodPriceText.setText(String.format("%.2f", product.getPrice()));
+                    JTextField prodDescriptionText = new HintTextField("Item Description");
+                    prodDescriptionText.setFont(new Font("Arial", Font.PLAIN, 18));
+                    prodDescriptionText.setColumns(20);
+                    prodDescriptionText.setText(product.getDescription());
+                    JTextField prodQuantityText = new HintTextField("Quantity available in stock");
+                    prodQuantityText.setFont(new Font("Arial", Font.PLAIN, 18));
+                    prodQuantityText.setColumns(20);
+                    prodQuantityText.setText(String.valueOf(product.getQuantity()));
+                    JButton confirmButton = new JButton("Edit listing");
+                    confirmButton.setFont(new Font("Arial", Font.PLAIN, 18));
+
+                    panel.add(prodNameText, gbc);
+                    panel.add(prodPriceText, gbc);
+                    panel.add(prodDescriptionText, gbc);
+                    panel.add(prodQuantityText, gbc);
+                    panel.add(confirmButton, gbc);
+
+                    frame.add(panel);
+                    frame.setVisible(true);
+
+                    confirmButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            String prodName = prodNameText.getText().toString();
+                            if (prodName.contains("_") || prodName.contains(";")) {
+                                displayErrorMessage("Item name cannot contain '_' or ';'");
+                                return;
+                            }
+                            String prodPriceString = prodPriceText.getText().toString();
+                            double prodPrice = 0;
+                            try {
+                                prodPrice = Double.parseDouble(prodPriceString);
+                                if (prodPrice <= 0) {
+                                    displayErrorMessage("Price cannot be 0 or lower");
+                                    return;
+                                }
+                            } catch (NumberFormatException ex) {
+                                displayErrorMessage("Enter a number for price");
+                                return;
+                            }
+                            String prodDescription = prodDescriptionText.getText().toString();
+                            if (prodDescription.contains("_") || prodDescription.contains(";")) {
+                                displayErrorMessage("Item description cannot contain '_' or ';'");
+                                return;
+                            }
+                            int prodQuantity = 0;
+                            String prodQuantityString = prodQuantityText.getText().toString();
+                            try {
+                                prodQuantity = Integer.parseInt(prodQuantityString);
+                            } catch (NumberFormatException ex) {
+                                displayErrorMessage("Enter a number for quantity");
+                                return;
+                            }
+                            if (prodQuantity <= 0) {
+                                displayErrorMessage("Quantity cannot be 0 or lower");
+                                return;
+                            }
+                            if (prodName.isEmpty() || prodDescription.isEmpty()) {
+                                displayErrorMessage("Please enter required details");
+                                return;
+                            }
+                            Product replaceProduct = new Product(prodName, product.getStore(), prodQuantity, prodPrice,
+                                prodDescription);
+                            String replaceString = username + ";" + replaceProduct.toString();
+
+                            try {
+                                methods.editProduct(checkString, replaceString); // todo
+                            } catch (IOException ex) {
+                                displayErrorMessage("Something went wrong :(");
+                                return;
+                            }
+                            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+                            displayInformationMessage("Edit successful");
+                            productLabel.setText(String.format(
+                                "<html><br>%s<br>Store: %s<br>Price: %.2f<br>Description: %s<br>Available in stock: " +
+                                    "%d<br></html>",
+                                unTruncate(replaceProduct.getName()), unTruncate(replaceProduct.getStore().getName()),
+                                replaceProduct.getPrice(), unTruncate(replaceProduct.getDescription()),
+                                replaceProduct.getQuantity()));
+                        }
+                    });
+                }
+            });
+            gbc.gridx = 0;
+            panel.add(productLabel, gbc);
+            gbc.gridx = 1;
+            panel.add(editButton, gbc);
+        }
+        JScrollPane scrollPane = new JScrollPane(panel);
+        frame.add(scrollPane);
+        frame.setSize(500, 700);
+        frame.setVisible(true);
+    }
+
+    public void seeCarts() {
+        MarketPlaceMethods methods = new MarketPlaceMethods(username); // todo
+        try {
+            ArrayList<ArrayList<String>> data = methods.seeCarts(); // todo
+            JFrame frame = new JFrame("Markey");
+            frame.setSize(1600, 900);
+            JPanel panel = new JPanel(new GridLayout(0, 3));
+            for (ArrayList<String> cart : data) {
+                String datum = "<html>";
+                for (String line : cart) {
+                    datum = datum + unTruncate(line) + "<br>";
+                }
+                datum = datum + "</html>";
+                JLabel cartLabel = new JLabel(datum);
+                cartLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+                JButton button = new JButton(cart.get(0));
+                button.setFont(new Font("Arial", Font.PLAIN, 22));
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        JFrame frame1 = new JFrame("Markey");
+                        JPanel panel1 = new JPanel();
+                        panel1.add(cartLabel);
+                        JScrollPane scrollPane = new JScrollPane(panel1);
+                        frame1.add(scrollPane);
+                        frame1.setSize(600, 300);
+                        frame1.setVisible(true);
+                    }
+                });
+                panel.add(button);
+            }
+            JScrollPane scrollPane = new JScrollPane(panel);
+            frame.add(scrollPane);
+            frame.setVisible(true);
+        } catch (IOException e) {
+            displayErrorMessage("Something went wrong :(");
+        }
+    }
 }

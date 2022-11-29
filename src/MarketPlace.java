@@ -307,7 +307,7 @@ public class MarketPlace implements Shared {
                                 String storeName = SCANNER.nextLine();
                                 while (storeName.contains("_") || storeName.contains(";") || storeName.contains(",")) {
                                     System.out.println("Store name cannot contain '_' or ';' or ','");
-                                    System.out.println(PROD_NAME);
+                                    System.out.println(OPEN_STORE);
                                     storeName = SCANNER.nextLine();
                                 }
                                 boolean storeExists = false;
@@ -412,7 +412,6 @@ public class MarketPlace implements Shared {
                                     }
                                 }
                                 // editing Products.txt
-                                int reachingDeletion = 0;
                                 ArrayList<String> theListingsLines = new ArrayList<>();
                                 String checkLine = username + ";" + toDelete.toString();
                                 boolean deleted = false;

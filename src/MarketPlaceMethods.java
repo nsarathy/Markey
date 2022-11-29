@@ -365,4 +365,139 @@ public class MarketPlaceMethods {
         }
         return sb;
     }
+
+    public ProductsAndStores readSeller() {
+        Listing reading = readProductsTxt();
+        ArrayList<Product> listings = reading.getProducts();
+        ArrayList<String> sellerUsernames = reading.getSellers();
+        boolean listed = false;
+        ArrayList<Product> products = new ArrayList<>();
+        ArrayList<Store> stores = new ArrayList<>();
+        for (int i = 0; i < listings.size(); i++) {
+            String sellerUsername = sellerUsernames.get(i);
+            if (sellerUsername.equals(username)) {
+                listed = true;
+                products.add(listings.get(i));
+                Store sellerStore = listings.get(i).getStore();
+                boolean sameName = false;
+                for (Store value : stores) {
+                    if (value.getName().equals(sellerStore.getName())) {
+                        sameName = true;
+                        break;
+                    }
+                }
+                if (!sameName) {
+                    stores.add(sellerStore);
+                }
+            }
+        }
+        if (listed) {
+            return new ProductsAndStores(products, stores);
+        } else {
+            return null;
+        }
+    }
+
+    public void createProduct(String name, Store store, int quantity, double price, String description)
+        throws IOException {
+        // initialize a product
+        Product newProduct = new Product(name, store, quantity, price, description);
+        // add created product to products
+        // update Products.txt
+        ArrayList<String> lines = new ArrayList<>();
+        BufferedReader br = new BufferedReader(new FileReader("Products.txt"));
+        String line = br.readLine();
+        while (line != null) {
+            lines.add(line);
+            line = br.readLine();
+        }
+        br.close();
+
+        PrintWriter pw = new PrintWriter("Products.txt");
+        for (String eachLine : lines) {
+            pw.println(eachLine);
+        }
+        pw.println(username + ";" + newProduct.toString());
+        pw.close();
+    }
+
+    public void deleteProduct(String checkLine) throws IOException {
+        ArrayList<String> theListingsLines = new ArrayList<>();
+        FileReader frDelete = new FileReader("Products.txt");
+        BufferedReader brDelete = new BufferedReader(frDelete);
+        String eachLine = brDelete.readLine();
+        while (eachLine != null) {
+            if (!eachLine.equals(checkLine)) {
+                theListingsLines.add(eachLine);
+            }
+            eachLine = brDelete.readLine();
+        }
+        brDelete.close();
+        frDelete.close();
+        PrintWriter pwDelete = new PrintWriter("Products.txt");
+        for (String line : theListingsLines) {
+            pwDelete.println(line);
+        }
+        pwDelete.close();
+    }
+
+    public void editProduct(String checkLine, String replaceLine) throws IOException {
+        ArrayList<String> theListingsLines = new ArrayList<>();
+        FileReader frDelete = new FileReader("Products.txt");
+        BufferedReader brDelete = new BufferedReader(frDelete);
+        String eachLine = brDelete.readLine();
+        while (eachLine != null) {
+            if (!eachLine.equals(checkLine)) {
+                theListingsLines.add(eachLine);
+            } else {
+                theListingsLines.add(replaceLine);
+            }
+            eachLine = brDelete.readLine();
+        }
+        brDelete.close();
+        frDelete.close();
+        PrintWriter pwDelete = new PrintWriter("Products.txt");
+        for (String line : theListingsLines) {
+            pwDelete.println(line);
+        }
+        pwDelete.close();
+    }
+
+    public ArrayList<ArrayList<String>> seeCarts() throws IOException {
+        FileReader frCarts = new FileReader("carts.txt");
+        BufferedReader brCarts = new BufferedReader(frCarts);
+        ArrayList<String> lines = new ArrayList<>();
+        String eachLine = brCarts.readLine();
+        while (eachLine != null) {
+            lines.add(eachLine);
+            eachLine = brCarts.readLine();
+        }
+        brCarts.close();
+        frCarts.close();
+        ArrayList<ArrayList<String>> result = new ArrayList<>();
+        for (String theLine : lines) {
+            ArrayList<String> element = new ArrayList<>();
+            String[] all = theLine.split(";", -1);
+            String user = all[0];
+            String[] allProds = all[1].split("___", -1);
+            element.add("Customer: " + user);
+            if (allProds.length > 1) {
+                element.add("________________________");
+                for (String eachProd : allProds) {
+                    String[] prodDetails = eachProd.split("_", -1);
+                    element.add(prodDetails[0]);
+                    element.add("Store: " + prodDetails[1]);
+                    element.add("Quantity in cart: " + prodDetails[2]);
+                    element.add("Price: " + prodDetails[3]);
+                    element.add("Description:<br>" + prodDetails[4]);
+                    element.add("________________________");
+                }
+            } else {
+                element.add("Empty");
+            }
+            result.add(element);
+        }
+
+        return result;
+    }
 }

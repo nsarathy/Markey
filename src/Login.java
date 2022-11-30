@@ -7,19 +7,29 @@ public class Login implements Shared {
         boolean flag = true;
         String accountType = "";
 
-        System.out.println("Welcome to the Marketplace!");
-        System.out.println("Do you have an existing account?\n1. Yes\n2. No");
-        String check = scanner.nextLine();
-        if (check.equals("2")) {
+        LoginGUI loginGUI = new LoginGUI();
+
+        LoginGUI.welcomeDialog();
+
+        LoginGUI.existingAccountDialog();
+
+        //  System.out.println("Welcome to the Marketplace!");
+        //System.out.println("Do you have an existing account?\n1. Yes\n2. No");
+        // String check = scanner.nextLine();
+        if (LoginGUI.check.equals("2")) {
             CreateAccount newAcc = new CreateAccount(null, null, false);
             newAcc.main();
         }
         while (flag) {
-            System.out.println("\nLOGIN WINDOW:");
-            System.out.println("Enter Username:");
-            String username = scanner.nextLine();
-            System.out.println("Enter Password:");
-            String password = scanner.nextLine();
+            //System.out.println("\nLOGIN WINDOW:");
+            // System.out.println("Enter Username:");
+            LoginGUI.usernameDialog();
+            String username = loginGUI.username1;
+            // System.out.println(username);
+            // System.out.println("Enter Password:");
+            LoginGUI.passwordDialog();
+            String password = loginGUI.password1;
+
             boolean exists = false;
             try {
                 BufferedReader bfr = new BufferedReader(new FileReader("Accounts.txt"));
@@ -45,7 +55,8 @@ public class Login implements Shared {
                 e.printStackTrace();
             }
             if (exists) {
-                System.out.println("LOGIN SUCCESSFUL");
+                // System.out.println("LOGIN SUCCESSFUL");
+                loginGUI.loginSuccessDialog();
                 if (accountType.equals("seller")) {
                     MarketPlace newMarket = new MarketPlace(username, password);
                     newMarket.main(false);
@@ -56,7 +67,8 @@ public class Login implements Shared {
                     flag = false;
                 }
             } else {
-                System.out.println("Wrong username or password!\nPlease try again.");
+                // System.out.println("Wrong username or password!\nPlease try again.");
+                loginGUI.loginUnSuccessDialog();
             }
         }
     }

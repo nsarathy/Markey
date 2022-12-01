@@ -5,11 +5,39 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.*;
 
-public class CreateAccount {
+public class CreateAccount implements Shared{
     // creates account and updates Accounts.txt
 
-    private String accountType;
+    private String createAccountType;
     private boolean accountSignal;
+    private String username;
+    private String password;
+    private String passwordCheck;
+
+    public void main() {
+        CreateAccountGUI.AccountType();
+        createAccountType = CreateAccountGUI.accType;
+        if (createAccountType.equals("1")) {
+            setAccountSignal(false);
+        } else if (createAccountType.equals("2")) {
+            setAccountSignal(true);
+        }
+        while (true) {
+            CreateAccountGUI.enterUsername();
+            username = CreateAccountGUI.newUsername;
+            CreateAccountGUI.enterPassword();
+            password = CreateAccountGUI.newPassword;
+            CreateAccountGUI.enterPasswordCheck();
+            passwordCheck = CreateAccountGUI.newPasswordCheck;
+            if (checkingFields(username, password, passwordCheck, isAccountSignal())) {
+                CreateAccountGUI.successInfo();
+                break;
+            } else {
+                CreateAccountGUI.errorRetry();
+            }
+        }
+    }
+
     public CreateAccount(String username, String password, boolean check) {
         if (username != null && password != null) {
             Account newAccount = new Account(username, password);
@@ -17,32 +45,51 @@ public class CreateAccount {
         }
     }
 
-    public boolean checkingFields(String username, String password, boolean check) {
+    public boolean checkingFields(String username, String password, String password2, boolean check) {
         boolean checkUser = checkUsername(username);
-        boolean checkUserLength = checkLength(username);
-        boolean checkPass = checkPassword(password);
+        boolean checkUserLength = checkUsernameLength(username);
+        boolean checkPassLength = checkPasswordLength(password);
         boolean isLetter = checkIfLetter(username);
+        boolean checkPasswordEquals = checkPasswordSame(password, password2);
+        boolean checkUsernameSpaces = checkUserSpaces(username);
 
-        if (checkUser && checkPass && checkUserLength && isLetter) {
+        if (checkUser && checkPassLength && checkUserLength && isLetter && checkPasswordEquals && checkUsernameSpaces) {
             CreateAccount newAccount = new CreateAccount(username, password, check);
             return true;
-        } else if (!checkUserLength || !checkPass) {
-            System.out.println("Username or Password cannot be empty!");
+        }  else if (!checkUsernameSpaces) {
+            CreateAccountGUI.errorSpaces();
+            return false;
+        } else if (!checkUserLength || !checkPassLength) {
+            CreateAccountGUI.errorEmpty();
             return false;
         } else if (!isLetter) {
-            System.out.println("Username may only contain letters!");
+            CreateAccountGUI.errorSpecialCharacters();
             return false;
         } else if (!checkUser) {
-            System.out.println("Username already taken!");
+            CreateAccountGUI.errorTaken();
+            return false;
+        } else if (!checkPasswordEquals) {
+            CreateAccountGUI.errorPassword();
             return false;
         } else {
             return false;
         }
     }
 
-    // TODO: check for all possible errors :
-    // username taken, empty username/password fields,
-    // Make sure whule creating user, username contains only letters ( to avoid regex errors during other parts of the program)
+    public boolean checkUserSpaces(String username) {
+        if (username.contains(" ")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    public boolean checkPasswordSame(String pw1, String pw2) {
+        if (pw1.equals(pw2)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public boolean checkUsername(String username) {
         ArrayList<String> usernames = new ArrayList<>();
         try {
@@ -66,7 +113,7 @@ public class CreateAccount {
         }
     }
 
-    public boolean checkLength(String username) {
+    public boolean checkUsernameLength(String username) {
         if (username.length() == 0) {
             return false;
         } else {
@@ -85,20 +132,12 @@ public class CreateAccount {
         return result;
     }
 
-    public boolean checkPassword(String password) {
+    public boolean checkPasswordLength(String password) {
         if (password.length() == 0) {
             return false;
         } else {
             return true;
         }
-    }
-
-    public void setAccountSignal(boolean accountSignal) {
-        this.accountSignal = accountSignal;
-    }
-
-    public boolean isAccountSignal() {
-        return accountSignal;
     }
 
     public void writeAccount(Account newAccount, boolean check) {
@@ -115,36 +154,13 @@ public class CreateAccount {
         }
     }
 
-    public void main() {
-        Scanner sc = new Scanner(System.in);
-        while (true) {
-            while (true) {
-                System.out.println("Are you a seller or customer?\n1. Seller\n2. Customer");
-                int output = sc.nextInt();
-                sc.nextLine();
-                if (output == 1) {
-                    accountType = "seller";
-                    setAccountSignal(false);
-                    break;
-                } else if (output == 2) {
-                    accountType = "customer";
-                    setAccountSignal(true);
-                    break;
-                } else {
-                    System.out.println("Enter valid input, 1 or 2!");
-                }
-            }
-            System.out.println("Enter desired username: ");
-            String username = sc.nextLine();
-            System.out.println("Enter desired password: ");
-            String password = sc.nextLine();
-            System.out.println("Checking validity... ... ... ");
-            if (checkingFields(username, password, isAccountSignal())) {
-                System.out.println("Account has been created!");
-                break;
-            } else {
-                System.out.println("Please re-enter required fields!");
-            }
-        }
+    //for boolean checking sellers or customers -----
+    public void setAccountSignal(boolean accountSignal) {
+        this.accountSignal = accountSignal;
     }
+
+    public boolean isAccountSignal() {
+        return accountSignal;
+    }
+
 }

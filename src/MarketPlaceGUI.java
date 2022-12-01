@@ -4,8 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 /*
@@ -21,8 +20,9 @@ transfers data to client
 
 public class MarketPlaceGUI implements Runnable, Shared {
     /**
-     * todo: seller
      * todo: server-client
+     * todo: Tests.md
+     * todo: reviews
      */
 
 
@@ -112,15 +112,11 @@ public class MarketPlaceGUI implements Runnable, Shared {
                 editProduct();
             } else if (e.getSource() == seeCartsButton) {
                 seeCarts();
+            } else if (e.getSource() == copyCsvButton) {
+                sellerCsv();
             }
         }
     };
-
-    // test purposes
-    public static void main(String[] args) {
-        MarketPlaceGUI gui = new MarketPlaceGUI();
-        gui.main(false, "testSeller");
-    }
 
 
     public void main(boolean customer, String username) {
@@ -205,7 +201,8 @@ public class MarketPlaceGUI implements Runnable, Shared {
         searchIcon = new ImageIcon("images/search.png");
         searchButton = new JButton(searchIcon);
         searchButton.setPreferredSize(new Dimension(36, 36));
-        searchField = new JTextField(16);
+        searchField = new HintTextField("search");
+        searchField.setColumns(16);
         searchField.setFont(new Font("Arial", Font.PLAIN, 22));
 
         cartIcon = new ImageIcon("images/cart.png");
@@ -310,7 +307,7 @@ public class MarketPlaceGUI implements Runnable, Shared {
         copyCsvButton = new JButton(".csv");
         copyCsvButton.setFont(new Font("Arial", Font.PLAIN, 22));
         copyCsvButton.setToolTipText("<html> import or export csv file with your data</html>");
-        copyCsvButton.addActionListener(sellerListener); // todo seller csv
+        copyCsvButton.addActionListener(sellerListener);
 
         seeListingsIcon = new ImageIcon("images/priceTag.png");
         seeListingsButton = new JButton(seeListingsIcon);
@@ -751,17 +748,22 @@ public class MarketPlaceGUI implements Runnable, Shared {
         JFrame productFrame = new JFrame("Markey");
         JPanel panel = new JPanel();
         panel.add(label);
-        Icon icon = new ImageIcon("images/cart.png");
-        JButton addToCart = new JButton(icon);
-        addToCart.setPreferredSize(new Dimension(36, 36));
-        panel.add(addToCart);
-        productFrame.add(panel, BorderLayout.NORTH);
+        Icon listIcon = new ImageIcon("images/list.png");
+        JButton seeReviews = new JButton(listIcon);
+        seeReviews.setToolTipText("<html>See reviews</html>");
+        panel.add(seeReviews);
 
         JTextField quantityField = new HintTextField("Enter quantity");
         quantityField.setColumns("Enter Quantity  ".length());
         quantityField.setFont(new Font("Arial", Font.PLAIN, 22));
         JPanel panel1 = new JPanel();
         panel1.add(quantityField);
+        Icon icon = new ImageIcon("images/cart.png");
+        JButton addToCart = new JButton(icon);
+        addToCart.setPreferredSize(new Dimension(36, 36));
+        addToCart.setToolTipText("<html>Add to cart</html>");
+        productFrame.add(panel, BorderLayout.NORTH);
+        panel1.add(addToCart);
         productFrame.add(panel1, BorderLayout.SOUTH);
         productFrame.setSize(600, 200);
 
@@ -801,6 +803,33 @@ public class MarketPlaceGUI implements Runnable, Shared {
                 }
             }
         });
+        seeReviews.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                reviews(p);
+            }
+        });
+    }
+
+    public void reviews(Product p) {
+        MarketPlaceMethods methods = new MarketPlaceMethods(username); // todo
+        JFrame reviewsFrame = new JFrame("Markey");
+        reviewsFrame.setSize(500, 700);
+        try {
+            ArrayList<String> reviews = methods.reviewRead(p); // todo
+            JPanel revPanel = new JPanel(new GridLayout(0, 1));
+            for (String line : reviews) {
+                JLabel label1 = new JLabel("<html>" + line + "</html>");
+                label1.setFont(new Font("Arial", Font.PLAIN, 20));
+                label1.setBorder(BorderFactory.createEtchedBorder());
+                revPanel.add(label1);
+            }
+            JScrollPane scrollPane = new JScrollPane(revPanel);
+            reviewsFrame.add(scrollPane);
+            reviewsFrame.setVisible(true);
+        } catch (IOException ex) {
+            displayErrorMessage("Something went wrong");
+        }
     }
 
     public void displayPurchaseHistory() {
@@ -812,7 +841,9 @@ public class MarketPlaceGUI implements Runnable, Shared {
             displayErrorMessage("Something went wrong :(");
         } else {
             JFrame frame = new JFrame("Markey");
-            JPanel panel = new JPanel(new GridLayout(0, 1));
+            JPanel panel = new JPanel(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(4, 4, 4, 4);
             for (Product purchase : purchases) {
                 String name = unTruncate(purchase.getName());
                 String storeName = unTruncate(purchase.getStore().getName());
@@ -823,9 +854,83 @@ public class MarketPlaceGUI implements Runnable, Shared {
                     (purchase.getPrice() * purchase.getQuantity())), SwingConstants.CENTER);
                 purchaseLabel.setBorder(BorderFactory.createBevelBorder(0));
                 purchaseLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-                panel.add(purchaseLabel);
+                gbc.gridx = 0;
+                panel.add(purchaseLabel, gbc);
+                JButton reviewButton = new JButton("Write Review");
+                reviewButton.setFont(new Font("Arial", Font.PLAIN, 14));
+                gbc.gridx = 1;
+                panel.add(reviewButton, gbc);
+                reviewButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        JFrame reviewFrame = new JFrame("Markey");
+                        JPanel reviewPanel = new JPanel(new GridBagLayout());
+                        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+                        gridBagConstraints.gridx = 0;
+                        gridBagConstraints.insets = new Insets(2, 2, 2, 2);
+                        JLabel starLabel = new JLabel("Stars:");
+                        starLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+                        starLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+                        JPanel starPanel = new JPanel();
+                        JRadioButton[] stars = new JRadioButton[5];
+                        for (int i = 0; i < stars.length; i++) {
+                            int finalI = i;
+                            stars[i] = new JRadioButton();
+                            stars[i].addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+
+                                    for (int j = 0; j <= finalI; j++) {
+                                        stars[j].setSelected(true);
+                                    }
+                                    for (int j = finalI + 1; j < stars.length; j++) {
+                                        stars[j].setSelected(false);
+                                    }
+
+                                }
+                            });
+                            starPanel.add(stars[i]);
+                        }
+                        JTextField reviewText = new HintTextField("Write your review...");
+                        reviewText.setFont(new Font("Arial", Font.PLAIN, 18));
+                        reviewText.setColumns(35);
+                        JButton sendReviewButton = new JButton("Ok");
+                        sendReviewButton.setFont(new Font("Arial", Font.PLAIN, 18));
+                        reviewPanel.add(starLabel, gridBagConstraints);
+                        reviewPanel.add(starPanel, gridBagConstraints);
+                        reviewPanel.add(reviewText, gridBagConstraints);
+                        reviewPanel.add(sendReviewButton, gridBagConstraints);
+                        reviewFrame.add(reviewPanel);
+                        reviewFrame.setSize(600, 200);
+                        reviewFrame.setVisible(true);
+                        sendReviewButton.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                int starReview = 0;
+                                for (int i = stars.length - 1; i >= 0; i--) {
+                                    if (stars[i].isSelected()) {
+                                        starReview = i + 1;
+                                        break;
+                                    }
+                                }
+                                String starReviewString = "";
+                                for (int i = 0; i < starReview; i++) {
+                                    starReviewString = starReviewString + "* ";
+                                }
+                                String review = reviewText.getText().toString();
+                                try {
+                                    methods.reviewWrite(purchase, starReviewString, review); // todo
+                                    reviewFrame.dispatchEvent(new WindowEvent(reviewFrame, WindowEvent.WINDOW_CLOSING));
+                                    displayPlainMessage("Reviewed successfully");
+                                } catch (IOException ex) {
+                                    displayErrorMessage("Something went wrong :(");
+                                }
+                            }
+                        });
+                    }
+                });
             }
-            frame.setSize(520, 700);
+            frame.setSize(560, 700);
             JScrollPane scrollPane = new JScrollPane(panel);
             frame.add(scrollPane);
             frame.setVisible(true);
@@ -879,7 +984,7 @@ public class MarketPlaceGUI implements Runnable, Shared {
             displayInformationMessage("You don't have anything for sale");
         } else {
             JFrame frame = new JFrame("Markey");
-            JPanel panel = new JPanel(new GridLayout(0, 1));
+            JPanel panel = new JPanel(new GridLayout(0, 2));
             for (Product listing : sellerItems) {
                 String name = unTruncate(listing.getName());
                 String storeName = unTruncate(listing.getStore().getName());
@@ -891,8 +996,18 @@ public class MarketPlaceGUI implements Runnable, Shared {
                 listingLabel.setBorder(BorderFactory.createEtchedBorder(0));
                 listingLabel.setFont(new Font("Arial", Font.PLAIN, 18));
                 panel.add(listingLabel);
+                Icon listIcon = new ImageIcon("images/list.png");
+                JButton seeReviewsButton = new JButton(listIcon);
+                panel.add(seeReviewsButton);
+                seeReviewsButton.setToolTipText("<html> See reviews </html>");
+                seeReviewsButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        reviews(listing);
+                    }
+                });
             }
-            frame.setSize(520, 700);
+            frame.setSize(600, 700);
             JScrollPane scrollPane = new JScrollPane(panel);
             frame.add(scrollPane);
             frame.setVisible(true);
@@ -1328,5 +1443,107 @@ public class MarketPlaceGUI implements Runnable, Shared {
         } catch (IOException e) {
             displayErrorMessage("Something went wrong :(");
         }
+    }
+
+    public void sellerCsv() {
+        MarketPlaceMethods methods = new MarketPlaceMethods(username); // todo
+
+        JFrame frame = new JFrame("Markey");
+        JPanel panel = new JPanel();
+        JRadioButton importButton = new JRadioButton("Import from csv file");
+        importButton.setFont(new Font("Arial", Font.PLAIN, 20));
+        JRadioButton exportButton = new JRadioButton("Export a csv file");
+        exportButton.setFont(new Font("Arial", Font.PLAIN, 20));
+        panel.add(importButton);
+        panel.add(exportButton);
+        frame.add(panel, BorderLayout.NORTH);
+        JButton okButton = new JButton("Confirm");
+        okButton.setFont(new Font("Arial", Font.PLAIN, 20));
+        JPanel panel1 = new JPanel();
+        panel1.add(okButton);
+        frame.add(panel1, BorderLayout.SOUTH);
+        frame.setSize(600, 150);
+        frame.setVisible(true);
+
+        importButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exportButton.setSelected(false);
+            }
+        });
+        exportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                importButton.setSelected(false);
+            }
+        });
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (exportButton.isSelected()) {
+                    frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+                    JFileChooser fileChooser = new JFileChooser();
+                    int option = fileChooser.showSaveDialog(frame);
+                    if (option == JFileChooser.APPROVE_OPTION) {
+                        StringBuilder stringBuilder = new StringBuilder();
+                        for (Product p : sellerItems) {
+                            stringBuilder.append(p.getStore().getName());
+                            stringBuilder.append(',');
+                            stringBuilder.append(p.getName());
+                            stringBuilder.append(',');
+                            stringBuilder.append(p.getDescription());
+                            stringBuilder.append(',');
+                            stringBuilder.append(p.getPrice());
+                            stringBuilder.append(',');
+                            stringBuilder.append(p.getQuantity());
+                            stringBuilder.append('\n');
+                        }
+                        String fileName = fileChooser.getSelectedFile().getAbsolutePath();
+                        if (!fileName.endsWith(".csv")) {
+                            fileName = fileName.concat(".csv");
+                        }
+                        try {
+                            PrintWriter writer = new PrintWriter(fileName);
+                            writer.write(stringBuilder.toString());
+                            writer.close();
+                            displayPlainMessage("<html>File saved<br>The csv file is in the following " +
+                                "format:<br>|store_name|item_name|item_description|item_price|item_in_stock|");
+                        } catch (FileNotFoundException ex) {
+                            displayErrorMessage("Something went wrong :(");
+                        }
+                    }
+                } else if (importButton.isSelected()) {
+                    frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+                    displayPlainMessage("<html>Make sure that the csv file is in the following " +
+                        "format:<br>|store_name|item_name|item_description|item_price|item_in_stock|<br>Also make " +
+                        "sure that no element has any commas \",\"");
+                    JFileChooser fileChooser = new JFileChooser();
+                    int option = fileChooser.showOpenDialog(frame);
+                    if (option == JFileChooser.APPROVE_OPTION) {
+                        String fileName = fileChooser.getSelectedFile().getAbsolutePath();
+                        ArrayList<Product> newProducts = new ArrayList<>();
+                        try {
+                            BufferedReader br = new BufferedReader(new FileReader(fileName));
+                            String line = br.readLine();
+                            while (line != null) {
+                                String[] prodDetails = line.split(",", -1);
+                                Store store = new Store(prodDetails[0]);
+                                String name = prodDetails[1];
+                                String description = prodDetails[2];
+                                double price = Double.parseDouble(prodDetails[3]);
+                                int quantity = Integer.parseInt(prodDetails[4]);
+                                newProducts.add(new Product(name, store, quantity, price, description));
+                                line = br.readLine();
+                            }
+                            br.close();
+                            methods.csvImport(newProducts); // todo
+                            displayPlainMessage("Import successful!");
+                        } catch (Exception ex) {
+                            displayErrorMessage("Something went wrong :(");
+                        }
+                    }
+                }
+            }
+        });
     }
 }

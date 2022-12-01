@@ -77,14 +77,12 @@ public class MarketPlace implements Shared {
                 listings.add(new Product(productDetails[0], store, quantity, price, productDetails[4]));
                 line = brProducts.readLine();
             }
-            MarketPlaceGUI marketPlaceGUI = new MarketPlaceGUI();
             // for de-sort
             originalListings = listings;
             originalSellerUsernames = sellerUsernames;
             // main loop for the program
             listingDisplay:
             while (true) {
-                marketPlaceGUI.displayPlainMessage("Welcome to Markey!");
                 System.out.println();
                 if (!customer) {
                     FileReader frProducts2 = new FileReader("Products.txt");
@@ -104,7 +102,6 @@ public class MarketPlace implements Shared {
                     }
                 }
                 // Displaying listings
-                marketPlaceGUI.main(customer, username);
                 // original
                 if (listings.isEmpty()) {
                     System.out.println(NO_LISTINGS);
@@ -144,7 +141,6 @@ public class MarketPlace implements Shared {
                             removed = true;
                             cartItems.remove(i);
                             cartSellerUsernames.remove(i);
-                            marketPlaceGUI.displayInformationMessage(CART_REM);
                             System.out.println(CART_REM); // original
                         }
                         if (removed) {

@@ -283,7 +283,6 @@ public class MarketPlaceMethods {
     }
 
     public ArrayList<Product> viewPurchaseHistory() {
-        System.out.println("Your purchases:");
         // Use Customer.displayPurchases
         boolean exists = false;
         ArrayList<Product> productList = new ArrayList<>();
@@ -421,6 +420,26 @@ public class MarketPlaceMethods {
         pw.close();
     }
 
+    public void createProduct(Product newProduct)
+        throws IOException {
+        // update Products.txt
+        ArrayList<String> lines = new ArrayList<>();
+        BufferedReader br = new BufferedReader(new FileReader("Products.txt"));
+        String line = br.readLine();
+        while (line != null) {
+            lines.add(line);
+            line = br.readLine();
+        }
+        br.close();
+
+        PrintWriter pw = new PrintWriter("Products.txt");
+        for (String eachLine : lines) {
+            pw.println(eachLine);
+        }
+        pw.println(username + ";" + newProduct.toString());
+        pw.close();
+    }
+
     public void deleteProduct(String checkLine) throws IOException {
         ArrayList<String> theListingsLines = new ArrayList<>();
         FileReader frDelete = new FileReader("Products.txt");
@@ -499,5 +518,56 @@ public class MarketPlaceMethods {
         }
 
         return result;
+    }
+
+    public void csvImport(ArrayList<Product> products) throws IOException {
+        for (Product product : products) {
+            createProduct(product);
+        }
+    }
+
+    public void reviewWrite(Product product, String stars, String review) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("Reviews.txt"));
+        ArrayList<String> lines = new ArrayList<>();
+        String line = br.readLine();
+        while (line != null) {
+            lines.add(line);
+            line = br.readLine();
+        }
+        br.close();
+        lines.add(product.toString() + "___" + stars + "___" + review);
+        PrintWriter pw = new PrintWriter("Reviews.txt");
+        for (String eachLine : lines) {
+            pw.println(eachLine);
+        }
+        pw.close();
+    }
+
+    public ArrayList<String> reviewRead(Product p) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("Reviews.txt"));
+        ArrayList<String> lines = new ArrayList<>();
+        String line = br.readLine();
+        while (line != null) {
+            lines.add(line);
+            line = br.readLine();
+        }
+        br.close();
+        ArrayList<String> reviews = new ArrayList<>();
+        for (String eachLine : lines) {
+            String[] det = eachLine.split("___", -1);
+            String[] prodDetails = det[0].split("_", -1);
+            if (prodDetails[0].equals(p.getName()) && prodDetails[1].equals(p.getStore().getName()) &&
+                prodDetails[3].equals(String.valueOf(p.getPrice())) && prodDetails[4].equals(p.getDescription())) {
+                reviews.add("<br>" + det[1] + "<br>" + unTruncate(det[2]) + "<br>");
+            }
+        }
+        return reviews;
+    }
+
+    public String unTruncate(String name) {
+        if (name.length() > 30) {
+            name = name.substring(0, 30) + "-<br>" + unTruncate(name.substring(30));
+        }
+        return name;
     }
 }

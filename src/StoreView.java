@@ -8,7 +8,7 @@ import javax.swing.*;
 public class StoreView {
 
 	int action = 0;
-	
+
 	//high low = 1
 	//low high = 2
 	//revert = 0;
@@ -20,7 +20,7 @@ public class StoreView {
 	JButton revert;
 	JButton exit;
 	JPanel storePanel;
-	
+
 	private String customerUsername;
 	String storeList;
 
@@ -31,10 +31,10 @@ public class StoreView {
 				try {
 					storePanel.removeAll();
 					storeList = isolateHighLowStores();
-					JTextArea originalStores = new JTextArea(storeList);
-					originalStores.setOpaque(false);
-					originalStores.setEditable(false);
-					storePanel.add(originalStores, BorderLayout.WEST);
+					JTextArea highLowStore = new JTextArea(storeList);
+					highLowStore.setOpaque(false);
+					highLowStore.setEditable(false);
+					storePanel.add(highLowStore, BorderLayout.WEST);
 					frame.add(storePanel);
 					storePanel.updateUI();
 				} catch (IOException e1) {
@@ -70,7 +70,7 @@ public class StoreView {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-				
+
 			}
 			if (e.getSource() == exit) {
 				frame.dispose();
@@ -78,7 +78,7 @@ public class StoreView {
 		}
 	};
 
-	
+
 	public String isolateStore() throws IOException {
 		if (action == 0) {
 			return isolateOriginalStores();
@@ -89,7 +89,7 @@ public class StoreView {
 		if (action == 2) {
 			return isolateLowHighStores();
 		}
-		
+
 		return isolateOriginalStores();
 	}
 
@@ -98,13 +98,13 @@ public class StoreView {
 		String originalStores = cd.sendOriginalStores();
 		return originalStores;
 	}
-	
+
 	public String isolateHighLowStores() throws IOException {
 		CustomerDashboard cd = new CustomerDashboard(this.customerUsername);
 		String highLowStores = cd.sendHighLowStores();
 		return highLowStores;
 	}
-	
+
 	public String isolateLowHighStores() throws IOException {
 		CustomerDashboard cd = new CustomerDashboard(this.customerUsername);
 		String lowHighStores = cd.sendLowHighStores();
@@ -113,7 +113,7 @@ public class StoreView {
 
 
 	StoreView(String customerUsername) {
-	
+
 		CustomerDashboardGUI cdg = new CustomerDashboardGUI(customerUsername);
 		this.customerUsername = cdg.getCustomerUsername();		
 
@@ -149,9 +149,9 @@ public class StoreView {
 		revert.addActionListener(actionListener);
 		exit = new JButton("EXIT");
 		exit.addActionListener(actionListener);
-		
 
-		
+
+
 		nPanel.add(viewStore);
 		content.add(nPanel, BorderLayout.NORTH);
 		cPanel.add(highLow);

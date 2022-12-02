@@ -415,6 +415,33 @@ public class CustomerDashboard {
 
 
 	}
+	
+	public String sendOriginalStores() throws IOException {
+		int update = 0;
+		String[] sellerNameList = getSellerNames();
+		List<String> originalStoreList = getOnlyStore();
+		List<String> originalSaleList = getOnlySales();
+		List<Integer> storeTotal = getStoreTotal();
+		
+		StringBuilder sb = new StringBuilder();
+
+		//this is for view the stores
+		for (int i = 0; i < sellerNameList.length; i++) {
+			int count = 0;
+			sb.append("--------------------\n");
+			sb.append("Seller: " + sellerNameList[i] + "\n");
+			for (int q = 0; q < storeTotal.get(i); q++) {
+				sb.append(originalStoreList.get(q + update) + ": ");
+				sb.append(originalSaleList.get(q + update) + " Sales\n");
+				count++;
+			}
+			update += count;
+		}
+		sb.append("--------------------\n");
+
+		String storeList = sb.toString();
+		return storeList;
+	}
 
 	public void displayHighLowStores() throws IOException {
 		int update = 0;
@@ -450,6 +477,44 @@ public class CustomerDashboard {
 		System.out.println();
 
 	}
+	
+	public String sendHighLowStores() throws IOException {
+		int update = 0;
+
+		StoreAndSales alteredStores = sortHighLow();
+		String[] sellerNameList = getSellerNames();
+		List<String> justStores = new ArrayList<>();
+		List<String> highLowStores = alteredStores.getStores();
+		List<Integer> highLowSales = alteredStores.getSales();
+		List<Integer> storeTotal = getStoreTotal();
+		
+		StringBuilder sb = new StringBuilder();
+
+		for (int j = 0; j < highLowStores.size(); j++) {
+			List<String> dataCollected = new ArrayList<>(Arrays.asList(highLowStores.get(j).split("_")));
+			justStores.add(dataCollected.get(0));
+		}
+
+		for (int i = 0; i < sellerNameList.length; i++) {
+			int count = 0;
+			sb.append("--------------------\n");
+			sb.append("Seller: " + sellerNameList[i] + "\n");
+
+			for (int q = 0; q < storeTotal.get(i); q++) {
+				sb.append(justStores.get(q + update) + ": ");
+				sb.append(highLowSales.get(q + update) + " Sales\n");
+				count++;
+
+			}
+			update += count;
+
+		}
+
+		sb.append("--------------------\n");
+		
+		String results = sb.toString();
+		return results;
+	}
 
 	public void displayLowHighStores() throws IOException {
 		int update = 0;
@@ -484,6 +549,44 @@ public class CustomerDashboard {
 		System.out.println("--------------------");
 		System.out.println();
 
+	}
+	
+	public String sendLowHighStores() throws IOException {
+		int update = 0;
+
+		StoreAndSales alteredStores = sortLowHigh();
+		String[] sellerNameList = getSellerNames();
+		List<String> justStores = new ArrayList<>();
+		List<String> lowHighStores = alteredStores.getStores();
+		List<Integer> lowHighSales = alteredStores.getSales();
+		List<Integer> storeTotal = getStoreTotal();
+		
+		StringBuilder sb = new StringBuilder();
+
+		for (int j = 0; j < lowHighStores.size(); j++) {
+			List<String> dataCollected = new ArrayList<>(Arrays.asList(lowHighStores.get(j).split("_")));
+			justStores.add(dataCollected.get(0));
+		}
+
+		for (int i = 0; i < sellerNameList.length; i++) {
+			int count = 0;
+			sb.append("--------------------\n");
+			sb.append("Seller: " + sellerNameList[i] + "\n");
+
+			for (int q = 0; q < storeTotal.get(i); q++) {
+				sb.append(justStores.get(q + update) + ": ");
+				sb.append(lowHighSales.get(q + update) + " Sales\n");
+				count++;
+
+			}
+			update += count;
+
+		}
+
+		sb.append("--------------------\n");
+		
+		String results = sb.toString();
+		return results;
 	}
 
 	public List<String> splitStoreList() throws FileNotFoundException, IOException {
@@ -657,8 +760,7 @@ public class CustomerDashboard {
 		//sortID 0 = unsorted
 		//sortID 1 = high to low
 		//sortID 2 = low to high
-
-
+		
 		while (repeat) {
 			int answer1 = 0;
 			do {
@@ -696,9 +798,9 @@ public class CustomerDashboard {
 
 			//first print unsorted original list
 			if (answer1 == 1) {
+				int wantedSort = 0;
 				System.out.println("********************");
 				System.out.println("STORE INFORMATION");
-				int wantedSort = 0;
 				while (true) {
 					if (sortID == 0) {
 						displayOriginalStores();
@@ -814,11 +916,6 @@ public class CustomerDashboard {
 			}
 		}
 	}
-
-
-
-	//need to implement sort feature, probably pull from a method.
-
 
 }
 

@@ -109,6 +109,27 @@ public class CustomerDashboard {
 		}
 	}
 	
+	public String sendOriginalHistory() throws IOException {
+		List<String> wantedList = splitByProduct();
+		StringBuilder sb = new StringBuilder();
+
+
+		for (int i = 0; i < wantedList.size(); i++) {
+			ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(wantedList.get(i).split("_")));
+			sb.append("Store: " + collectedData.get(1) + "\n");
+			sb.append("Item: " + collectedData.get(0) + "\n");
+			sb.append("Purchased Amount: " + collectedData.get(2) + "\n");
+			sb.append("Price: " + collectedData.get(3) + "\n");
+			sb.append("--------------------\n");
+		}
+		
+		String results = sb.toString();
+		return results;
+	}
+	
+	
+	
+	
 	 public StoreAndSales sortPurchaseHistoryLowHigh() throws IOException {
 	        List<String> wantedList = splitByProduct();
 	        List<Integer> amounts = new ArrayList<>();
@@ -144,6 +165,23 @@ public class CustomerDashboard {
 	            System.out.println("--------------------");
 	        }
 	    }
+	    
+		 public String sendLowHighHistory() throws IOException {
+			 StoreAndSales sorted = sortPurchaseHistoryLowHigh();
+			 StringBuilder sb = new StringBuilder();
+		        List<String> wantedList = sorted.getStores();
+		        for (String s : wantedList) {
+		            ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(s.split("_")));
+		            sb.append("Store: " + collectedData.get(1) + "\n");
+		            sb.append("Item: " + collectedData.get(0) + "\n");
+		            sb.append("Purchased Amount: " + collectedData.get(2) + "\n");
+		            sb.append("Price: " + collectedData.get(3) + "\n");
+		            sb.append("--------------------\n");
+		        }
+		        
+		        String results = sb.toString();
+		        return results;
+		 }
 
 	    public StoreAndSales sortPurchaseHistoryHighLow() throws IOException {
 	        List<String> wantedList = splitByProduct();
@@ -154,7 +192,7 @@ public class CustomerDashboard {
 	        }
 	        for (int i = 0; i < amounts.size(); i++) {
 	            for (int j = 0; j < amounts.size() - i - 1; j++) {
-	                if (amounts.get(j) > amounts.get(j + 1)) {
+	                if (amounts.get(j) < amounts.get(j + 1)) {
 	                    int temp = amounts.get(j);
 	                    amounts.set(j, amounts.get(j + 1));
 	                    amounts.set(j + 1, temp);
@@ -180,11 +218,23 @@ public class CustomerDashboard {
 	            System.out.println("--------------------");
 	        }
 	    }
-
-
-	public void sortPurchaseHistoryList() {
-
-	}
+	    
+	    public String sendHighLowHistory() throws IOException {
+	    	StoreAndSales sorted = sortPurchaseHistoryHighLow();
+	    	StringBuilder sb = new StringBuilder();
+	        List<String> wantedList = sorted.getStores();
+	        for (String s : wantedList) {
+	            ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(s.split("_")));
+	            sb.append("Store: " + collectedData.get(1) + "\n");
+	            sb.append("Item: " + collectedData.get(0) + "\n");
+	            sb.append("Purchased Amount: " + collectedData.get(2) + "\n");
+	            sb.append("Price: " + collectedData.get(3) + "\n");
+	            sb.append("--------------------\n");
+	        }
+	        
+	        String results = sb.toString();
+	        return results;
+	    }
 
 	public List<String> readCustomerStats() throws FileNotFoundException, IOException {
 		//this method is not done yet, need to read more just don't know the format yet.

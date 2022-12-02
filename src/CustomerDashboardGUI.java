@@ -1,8 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
-import java.net.UnknownHostException;
 
 
 public class CustomerDashboardGUI extends JComponent implements Runnable {

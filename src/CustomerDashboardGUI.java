@@ -7,25 +7,41 @@ import java.net.UnknownHostException;
 
 public class CustomerDashboardGUI extends JComponent implements Runnable {
 
+	private String customerUsername;
+	
 	JButton storeView;
 	JButton purchaseHistory;
 	JButton exit;
-
-	JFrame frame = new JFrame("CustomerDashboardGUI");
-
+	
+	//when store view is clicked action will equal 1 and 2 for history
 
 	public static void main(String[] args) {
-		CustomerDashboardGUI cdg = new CustomerDashboardGUI();
+		CustomerDashboardGUI cdg = new CustomerDashboardGUI("testUser");
 		cdg.main();
 	}
+	
+	JFrame frame = new JFrame("CustomerDashboardGUI");
+
+	public CustomerDashboardGUI(String customerUsername) {
+		this.customerUsername = customerUsername;
+	}
+
+	public void setCustomerUsername(String customerUsername) {
+		this.customerUsername = customerUsername;
+	}
+
+	public String getCustomerUsername() {
+		return customerUsername;
+	}
+
 
 	ActionListener actionListener = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == storeView) {
-				StoreView storeView = new StoreView();
+				StoreView storeView = new StoreView(customerUsername);
 			}
 			if (e.getSource() == purchaseHistory) {
-				PurchaseHistoryView purchaseHistoryView = new PurchaseHistoryView();
+				PurchaseHistoryView purchaseHistoryView = new PurchaseHistoryView(customerUsername);
 			}
 			if (e.getSource() == exit) {
 				frame.dispose();
@@ -36,7 +52,7 @@ public class CustomerDashboardGUI extends JComponent implements Runnable {
 
 
 	public void main() {
-		SwingUtilities.invokeLater(new CustomerDashboardGUI());
+		SwingUtilities.invokeLater(new CustomerDashboardGUI(customerUsername));
 	}
 
 	@Override
@@ -71,10 +87,6 @@ public class CustomerDashboardGUI extends JComponent implements Runnable {
 		content.add(cPanel, BorderLayout.CENTER);
 		cPanel.add(exit);
 		content.add(cPanel, BorderLayout.CENTER);
-
-
-
-
 	}
 
 

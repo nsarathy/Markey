@@ -138,6 +138,7 @@ public class StoreView {
 		frame.setSize(400, 700);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setResizable(false);
 		frame.setVisible(true);
 
 		JLabel viewStore = new JLabel("All Stores");

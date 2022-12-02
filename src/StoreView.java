@@ -7,6 +7,11 @@ import javax.swing.*;
 
 public class StoreView {
 
+	int action = 0;
+	
+	//high low = 1
+	//low high = 2
+	//revert = 0;
 
 	JFrame frame = new JFrame();
 
@@ -14,18 +19,57 @@ public class StoreView {
 	JButton lowHigh;
 	JButton revert;
 	JButton exit;
-
+	JPanel storePanel;
+	
 	private String customerUsername;
-
-
+	String storeList;
 
 	ActionListener actionListener = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == highLow) {
+				action = 1;
+				try {
+					storePanel.removeAll();
+					storeList = isolateHighLowStores();
+					JTextArea originalStores = new JTextArea(storeList);
+					originalStores.setOpaque(false);
+					originalStores.setEditable(false);
+					storePanel.add(originalStores, BorderLayout.WEST);
+					frame.add(storePanel);
+					storePanel.updateUI();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 			if (e.getSource() == lowHigh) {
+				action = 2;
+				try {
+					storePanel.removeAll();
+					storeList = isolateLowHighStores();
+					JTextArea lowHighStores = new JTextArea(storeList);
+					lowHighStores.setOpaque(false);
+					lowHighStores.setEditable(false);
+					storePanel.add(lowHighStores, BorderLayout.WEST);
+					frame.add(storePanel);
+					storePanel.updateUI();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 			if (e.getSource() == revert) {
+				action = 0;
+				try {
+					storePanel.removeAll();
+					storeList = isolateOriginalStores();
+					JTextArea originalStores = new JTextArea(storeList);
+					originalStores.setOpaque(false);
+					originalStores.setEditable(false);
+					storePanel.add(originalStores, BorderLayout.WEST);
+					frame.add(storePanel);
+					storePanel.updateUI();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				
 			}
 			if (e.getSource() == exit) {
@@ -34,17 +78,42 @@ public class StoreView {
 		}
 	};
 
+	
+	public String isolateStore() throws IOException {
+		if (action == 0) {
+			return isolateOriginalStores();
+		}
+		if (action == 1) {
+			return isolateHighLowStores();
+		}
+		if (action == 2) {
+			return isolateLowHighStores();
+		}
+		
+		return isolateOriginalStores();
+	}
 
 	public String isolateOriginalStores() throws IOException {
-		CustomerDashboardDuplicate cdd = new CustomerDashboardDuplicate(this.customerUsername);
-		String originalStores = cdd.sendOriginalStores();
-		System.out.println(originalStores);
+		CustomerDashboard cd = new CustomerDashboard(this.customerUsername);
+		String originalStores = cd.sendOriginalStores();
 		return originalStores;
+	}
+	
+	public String isolateHighLowStores() throws IOException {
+		CustomerDashboard cd = new CustomerDashboard(this.customerUsername);
+		String highLowStores = cd.sendHighLowStores();
+		return highLowStores;
+	}
+	
+	public String isolateLowHighStores() throws IOException {
+		CustomerDashboard cd = new CustomerDashboard(this.customerUsername);
+		String lowHighStores = cd.sendLowHighStores();
+		return lowHighStores;
 	}
 
 
 	StoreView(String customerUsername) {
-
+	
 		CustomerDashboardGUI cdg = new CustomerDashboardGUI(customerUsername);
 		this.customerUsername = cdg.getCustomerUsername();		
 
@@ -53,19 +122,15 @@ public class StoreView {
 
 		JPanel nPanel = new JPanel();
 		JPanel cPanel = new JPanel();
+		storePanel = new JPanel();
 
 		try {
-			String originalStoresLabel = isolateOriginalStores();
-			JTextArea originalStores = new JTextArea(originalStoresLabel);
-			frame.add(originalStores);
-			content.add(cPanel, BorderLayout.CENTER);
-			originalStores.setLineWrap(true);
-			originalStores.setWrapStyleWord(true);
+			storeList = isolateStore();
+			JTextArea originalStores = new JTextArea(storeList);
 			originalStores.setOpaque(false);
 			originalStores.setEditable(false);
-
-			cPanel.add(originalStores);
-			frame.add(cPanel);
+			storePanel.add(originalStores, BorderLayout.WEST);
+			frame.add(storePanel);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -84,19 +149,19 @@ public class StoreView {
 		revert.addActionListener(actionListener);
 		exit = new JButton("EXIT");
 		exit.addActionListener(actionListener);
+		
 
-		cPanel.setLayout(new BoxLayout(cPanel, BoxLayout.Y_AXIS));
 		
 		nPanel.add(viewStore);
 		content.add(nPanel, BorderLayout.NORTH);
 		cPanel.add(highLow);
-		content.add(cPanel, BorderLayout.CENTER);
+		content.add(cPanel, BorderLayout.EAST);
 		cPanel.add(lowHigh);
-		content.add(cPanel, BorderLayout.CENTER);
+		content.add(cPanel, BorderLayout.EAST);
 		cPanel.add(revert);
-		content.add(cPanel, BorderLayout.CENTER);
+		content.add(cPanel, BorderLayout.EAST);
 		cPanel.add(exit);
-		content.add(cPanel, BorderLayout.CENTER);
+		content.add(cPanel, BorderLayout.SOUTH);
 
 	}
 

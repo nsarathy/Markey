@@ -17,7 +17,7 @@ public class CustomerDashboardGUI extends JComponent implements Runnable {
 		CustomerDashboardGUI cdg = new CustomerDashboardGUI("testUser");
 		cdg.main();
 	}
-	
+
 	JFrame frame = new JFrame("CustomerDashboardGUI");
 
 	public CustomerDashboardGUI(String customerUsername) {
@@ -61,6 +61,7 @@ public class CustomerDashboardGUI extends JComponent implements Runnable {
 		frame.setSize(500, 200);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setResizable(false);
 		frame.setVisible(true);
 
 
@@ -85,6 +86,10 @@ public class CustomerDashboardGUI extends JComponent implements Runnable {
 		content.add(cPanel, BorderLayout.CENTER);
 		cPanel.add(exit);
 		content.add(cPanel, BorderLayout.CENTER);
+
+
+
+
 	}
 
 

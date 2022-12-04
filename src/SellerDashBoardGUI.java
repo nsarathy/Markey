@@ -6,11 +6,11 @@ import java.util.*;
 import java.util.List;
 import javax.swing.*;
 
-public class SellerDashBoardGUI extends JComponent implements Runnable, Shared {
+public class SellerDashboardGUI extends JComponent implements Runnable, Shared {
 
     private String userName;
 
-    public SellerDashBoardGUI(String userName) {
+    public SellerDashboardGUI(String userName) {
         this.userName = userName;
     }
 
@@ -22,6 +22,14 @@ public class SellerDashBoardGUI extends JComponent implements Runnable, Shared {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    JTextArea sellerMenu;
+    JTextField listSelection;
+    JButton listSelectionButton;
+    JTextArea optionDescription;
+    JButton highToLow;
+    JButton lowToHigh;
+    JButton exit;
 
     public void run() {
         boolean repeat = true;
@@ -42,126 +50,145 @@ public class SellerDashBoardGUI extends JComponent implements Runnable, Shared {
         frame2Content.setLayout(new BorderLayout());
 
         JPanel menuPanel = new JPanel();
-        JTextArea sellerMenu = new JTextArea(sellerboardMenu);
+        sellerMenu = new JTextArea(sellerboardMenu);
+        sellerMenu.setEditable(false);
         menuPanel.add(sellerMenu);
-        frame1Content.add(menuPanel);
-
+        frame1Content.add(menuPanel, BorderLayout.CENTER);
         JPanel buttonPanel = new JPanel();
-        JTextField listSelection = new JTextField("", 10);
-        int selection = Integer.parseInt(listSelection.getText());
-        JButton listSelectionButton = new JButton("Enter");
+
+        listSelection = new JTextField("", 1);
+        listSelectionButton = new JButton("Enter");
         buttonPanel.add(listSelection);
         buttonPanel.add(listSelectionButton);
         listSelectionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (selection != 1 && selection != 2 && selection != 3) {
+                try {
+                    int selection = Integer.parseInt(listSelection.getText());
+                    if (selection != 1 && selection != 2 && selection != 3) {
+                        JOptionPane.showMessageDialog(null,
+                                "Please enter valid choice!",
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    } else if (selection == 3) {
+                        frame1.setVisible(false);
+                    } else {
+
+                        JPanel descriptionPanel = new JPanel();
+                        optionDescription = new JTextArea("");
+
+                        JPanel sortPanel = new JPanel();
+                        highToLow = new JButton("High to Low");
+                        lowToHigh = new JButton("Low to High");
+                        exit = new JButton("Exit");
+                        if (selection == 1) {
+                            String customerList = "********************\nCustomer List\n--------------------\n";
+                            customerList = customerList + displayOriginalCustomerList();
+                            optionDescription.setText(customerList);
+
+                            highToLow.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    optionDescription.setText(displayCustomerListHighLow());
+                                }
+                            });
+                            lowToHigh.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    optionDescription.setText(displayCustomerListLowHigh());
+                                }
+                            });
+                        } else if (selection == 2) {
+                            List<String> products = onlyProducts();
+                            ArrayList<Product> products1 = new ArrayList<>();
+                            for (String value : products) {
+                                String[] products2 = value.split("___");
+                                for (String each : products2) {
+                                    String[] productDetails = each.split("_");
+                                    products1.add(new Product(
+                                            productDetails[0],
+                                            new Store(productDetails[1]),
+                                            Integer.parseInt(productDetails[2]),
+                                            Double.parseDouble(productDetails[3]),
+                                            productDetails[4]
+                                    ));
+                                }
+                            }
+                            for (int i = 0; i < products1.size(); i++) {
+                                Product product0 = products1.get(i);
+                                for (int j = i + 1; j < products1.size(); j++) {
+                                    Product product01 = products1.get(j);
+                                    if (product01 != null && product01.getName().equals(product0.getName()) &&
+                                            product01.getStore().getName().equals(product0.getStore().getName())) {
+                                        int q = product01.getQuantity() + product0.getQuantity();
+                                        product0.setQuantity(q);
+                                        products1.set(i, product0);
+                                        products1.set(j, null);
+                                    }
+                                }
+                            }
+                            for (int i = 0; i < products1.size(); i++) {
+                                if (products1.get(i) == null) {
+                                    products1.remove(i);
+                                    i--;
+                                }
+                            }
+                            String productList = "********************\nProduct List\n--------------------";
+                            productList = productList + displayProducts(products1);
+                            optionDescription.setText(productList);
+
+                            highToLow.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    optionDescription.setText(displayProducts(sortProductsHighLow(products1)));
+                                }
+                            });
+                            lowToHigh.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    optionDescription.setText(displayProducts(sortProductsLowHigh(products1)));
+                                }
+                            });
+                        }
+                        exit.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                frame2.setVisible(false);
+                            }
+                        });
+                        descriptionPanel.add(optionDescription);
+                        sortPanel.add(highToLow);
+                        sortPanel.add(lowToHigh);
+                        sortPanel.add(exit);
+                        frame2Content.add(descriptionPanel, BorderLayout.CENTER);
+                        frame2Content.add(sortPanel, BorderLayout.SOUTH);
+
+                        frame2.setSize(600, 400);
+                        frame2.setLocationRelativeTo(null);
+                        frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                        frame1.setVisible(false);
+                        frame2.setVisible(true);
+                    }
+                } catch (Exception error) {
+                    error.printStackTrace();
                     JOptionPane.showMessageDialog(null,
-                            "Please enter valid choice!",
+                            "Please enter 1, 2, or 3!",
                             "Error",
                             JOptionPane.ERROR_MESSAGE);
-                } else if (selection == 3) {
-                    frame1.setVisible(false);
-                } else {
-                    frame1.setVisible(false);
-                    frame2.setVisible(true);
                 }
             }
         });
-        frame1Content.add(buttonPanel);
-
-        JPanel descriptionPanel = new JPanel();
-        JTextArea optionDescription = new JTextArea("");
-        JButton highToLow = new JButton();
-        JButton lowToHigh = new JButton();
-        JButton exit = new JButton();
-        if (selection == 1) {
-            String customerList = "********************\nCustomer List\n--------------------\n";
-            customerList = customerList + displayOriginalCustomerList();
-            optionDescription.setText(customerList);
-
-            highToLow.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    optionDescription.setText(displayCustomerListHighLow());
-                }
-            });
-            lowToHigh.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    optionDescription.setText(displayCustomerListLowHigh());
-                }
-            });
-        } else if (selection == 2) {
-            List<String> products = onlyProducts();
-            ArrayList<Product> products1 = new ArrayList<>();
-            for (String value : products) {
-                String[] products2 = value.split("___");
-                for (String each : products2) {
-                    String[] productDetails = each.split("_");
-                    products1.add(new Product(
-                            productDetails[0],
-                            new Store(productDetails[1]),
-                            Integer.parseInt(productDetails[2]),
-                            Double.parseDouble(productDetails[3]),
-                            productDetails[4]
-                    ));
-                }
-            }
-            for (int i = 0; i < products1.size(); i++) {
-                Product product0 = products1.get(i);
-                for (int j = i + 1; j < products1.size(); j++) {
-                    Product product01 = products1.get(j);
-                    if (product01 != null && product01.getName().equals(product0.getName()) &&
-                            product01.getStore().getName().equals(product0.getStore().getName())) {
-                        int q = product01.getQuantity() + product0.getQuantity();
-                        product0.setQuantity(q);
-                        products1.set(i, product0);
-                        products1.set(j, null);
-                    }
-                }
-            }
-            for (int i = 0; i < products1.size(); i++) {
-                if (products1.get(i) == null) {
-                    products1.remove(i);
-                    i--;
-                }
-            }
-            String productList = "********************\nProduct List\n--------------------";
-            productList = productList + displayProducts(products1);
-            optionDescription.setText(productList);
-
-            highToLow.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    optionDescription.setText(displayProducts(sortProductsHighLow(products1)));
-                }
-            });
-            lowToHigh.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    optionDescription.setText(displayProducts(sortProductsLowHigh(products1)));
-                }
-            });
-        }
-        exit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame2.setVisible(false);
-            }
-        });
-        descriptionPanel.add(optionDescription);
+        frame1Content.add(buttonPanel, BorderLayout.SOUTH);
 
         frame1.setSize(600, 400);
         frame1.setLocationRelativeTo(null);
-        frame2.setLocationRelativeTo(null);
         frame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame1.setVisible(true);
     }
 
     public void main() {
-        SwingUtilities.invokeLater(new SellerDashBoardGUI(userName));
+        SwingUtilities.invokeLater(new SellerDashboardGUI(userName));
     }
 
     public List<String> readSellerStats() {
@@ -423,7 +450,7 @@ public class SellerDashBoardGUI extends JComponent implements Runnable, Shared {
 
         for (int i = 0; i < highLowStores.size(); i++) {
             customerListHighLow = customerListHighLow + "--------------------\n" + "Customer: " + justStores.get(i) + "\n"
-                                  + justStores.get(i) + ": \n" + highLowSales.get(i) + " Sales" + "\n";
+                + justStores.get(i) + ": \n" + highLowSales.get(i) + " Sales" + "\n";
 
         }
         customerListHighLow = customerListHighLow + "--------------------\n";
@@ -448,7 +475,7 @@ public class SellerDashBoardGUI extends JComponent implements Runnable, Shared {
         for (int i = 0; i < lowHighStores.size(); i++) {
             int count = 0;
             customerListLowHigh = customerListLowHigh + "--------------------\n" + "Customer: " + justStores.get(i) + "\n"
-                                  + justStores.get(i) + ": \n" + lowHighSales.get(i) + " Sales\n";
+                + justStores.get(i) + ": \n" + lowHighSales.get(i) + " Sales\n";
         }
         customerListLowHigh = customerListLowHigh + "--------------------\n";
 
@@ -480,9 +507,8 @@ public class SellerDashBoardGUI extends JComponent implements Runnable, Shared {
         String products = "";
         for (Product product : products1) {
             products = products + "Product: " + product.getName() + "\nStore: " + product.getStore().getName()
-                       + "\nSales: " + product.getQuantity() + "\n--------------------\n";
+                + "\nSales: " + product.getQuantity() + "\n--------------------\n";
         }
         return products;
     }
 }
-

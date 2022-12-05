@@ -1,4 +1,0 @@
-seller_firstSeller;password
-customer_firstCustomer;password
-
-seller_sellerUser;password

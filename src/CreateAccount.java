@@ -7,62 +7,102 @@ import java.util.ArrayList;
 public class CreateAccount implements Shared {
     // creates account and updates Accounts.txt
 
-    private String accountType;
+    private String createAccountType;
     private boolean accountSignal;
+    private String username;
+    private String password;
+    private String passwordCheck;
 
     public CreateAccount(String username, String password, boolean check) {
         if (username != null && password != null) {
             Account newAccount = new Account(username, password);
-            writeAccount(newAccount, check);
+            CreateAccountMethods.writeAccount(newAccount, check); // todo
         }
     }
 
-    public boolean checkingFields(String username, String password, boolean check) {
-        boolean checkUser = checkUsername(username);
-        boolean checkUserLength = checkLength(username);
-        boolean checkPass = checkPassword(password);
-        boolean isLetter = checkIfLetter(username);
+    public void main() {
+        CreateAccountGUI.AccountType();
+        createAccountType = CreateAccountGUI.accType;
+        if (createAccountType == null) {
+            return;
+        }
+        if (createAccountType.equals("1")) {
+            setAccountSignal(false);
+        } else if (createAccountType.equals("2")) {
+            setAccountSignal(true);
+        }
+        while (true) {
+            CreateAccountGUI.enterUsername();
+            username = CreateAccountGUI.newUsername;
+            if (username == null) {
+                return;
+            }
+            CreateAccountGUI.enterPassword();
+            password = CreateAccountGUI.newPassword;
+            if (password == null) {
+                return;
+            }
+            CreateAccountGUI.enterPasswordCheck();
+            passwordCheck = CreateAccountGUI.newPasswordCheck;
+            if (passwordCheck == null) {
+                return;
+            }
+            if (checkingFields(username, password, passwordCheck, isAccountSignal())) {
+                CreateAccountGUI.successInfo();
+                break;
+            } else {
+                CreateAccountGUI.errorRetry();
+            }
+        }
+        Login.main(new String[0]);
+    }
 
-        if (checkUser && checkPass && checkUserLength && isLetter) {
+    public boolean checkingFields(String username, String password, String password2, boolean check) {
+        boolean checkUser = CreateAccountMethods.checkUsername(username); // todo
+        boolean checkUserLength = checkUsernameLength(username);
+        boolean checkPassLength = checkPasswordLength(password);
+        boolean isLetter = checkIfLetter(username);
+        boolean checkPasswordEquals = checkPasswordSame(password, password2);
+        boolean checkUsernameSpaces = checkUserSpaces(username);
+
+        if (checkUser && checkPassLength && checkUserLength && isLetter && checkPasswordEquals && checkUsernameSpaces) {
             CreateAccount newAccount = new CreateAccount(username, password, check);
             return true;
-        } else if (!checkUserLength || !checkPass) {
-            System.out.println("Username or Password cannot be empty!");
+        } else if (!checkUsernameSpaces) {
+            CreateAccountGUI.errorSpaces();
+            return false;
+        } else if (!checkUserLength || !checkPassLength) {
+            CreateAccountGUI.errorEmpty();
             return false;
         } else if (!isLetter) {
-            System.out.println("Username may only contain letters!");
+            CreateAccountGUI.errorSpecialCharacters();
             return false;
         } else if (!checkUser) {
-            System.out.println("Username already taken!");
+            CreateAccountGUI.errorTaken();
+            return false;
+        } else if (!checkPasswordEquals) {
+            CreateAccountGUI.errorPassword();
             return false;
         } else {
             return false;
         }
     }
 
-    // username taken, empty username/password fields,
-    // Make sure while creating user, username contains only letters
-    // ( to avoid regex errors during other parts of the program)
-    public boolean checkUsername(String username) {
-        ArrayList<String> usernames = new ArrayList<>();
-        try {
-            BufferedReader bfr = new BufferedReader(new FileReader("Accounts.txt"));
-            String line = "";
-            while ((line = bfr.readLine()) != null) {
-                if (!line.equals("")) {
-                    int indexOf1 = line.indexOf("_");
-                    int indexOf2 = line.indexOf(";");
-                    usernames.add(line.substring(indexOf1 + 1, indexOf2));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    public boolean checkUserSpaces(String username) {
+        if (username.contains(" ")) {
+            return false;
+        } else {
+            return true;
         }
-
-        return !usernames.contains(username);
     }
 
-    public boolean checkLength(String username) {
+    public boolean checkPasswordSame(String pw1, String pw2) {
+        return pw1.equals(pw2);
+    }
+
+
+
+    public boolean checkUsernameLength(String username) {
         return username.length() != 0;
     }
 
@@ -77,62 +117,23 @@ public class CreateAccount implements Shared {
         return result;
     }
 
-    public boolean checkPassword(String password) {
-        return password.length() != 0;
+    public boolean checkPasswordLength(String password) {
+        if (password.length() == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
+
+
 
     public boolean isAccountSignal() {
         return accountSignal;
     }
 
+    //for boolean checking sellers or customers -----
     public void setAccountSignal(boolean accountSignal) {
         this.accountSignal = accountSignal;
     }
 
-    public void writeAccount(Account newAccount, boolean check) {
-        try {
-            BufferedWriter bfw = new BufferedWriter(
-                new FileWriter("Accounts.txt", true)
-            );
-            if (check) {
-                bfw.write("\n" + "customer_" + newAccount);
-            } else {
-                bfw.write("\n" + "seller_" + newAccount);
-            }
-            bfw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void main() {
-        while (true) {
-            while (true) {
-                System.out.println("Are you a seller or customer?\n1. Seller\n2. Customer");
-                int output = Integer.parseInt(SCANNER.nextLine());
-                if (output == 1) {
-                    accountType = "seller";
-                    setAccountSignal(false);
-                    break;
-                } else if (output == 2) {
-                    accountType = "customer";
-                    setAccountSignal(true);
-                    break;
-                } else {
-                    System.out.println("Enter valid input, 1 or 2!");
-                }
-            }
-            System.out.println("Enter desired username: ");
-            String username = SCANNER.nextLine();
-            System.out.println("Enter desired password: ");
-            String password = SCANNER.nextLine();
-            System.out.println("Checking validity... ... ... ");
-            if (checkingFields(username, password, isAccountSignal())) {
-                System.out.println("Account has been created!");
-                break;
-            } else {
-                System.out.println("Please re-enter required fields!");
-            }
-        }
-    }
 }

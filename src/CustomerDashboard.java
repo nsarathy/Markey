@@ -1,16 +1,8 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.List;
+import java.util.*;
 
 
-public class CustomerDashboard implements Shared {
-    // CustomerStatistics: Data will include a list of stores by number of products sold
-    // Let customer sort by most products sold to the least products sold and vice versa
-    // a list of stores by the products purchased by that particular customer.
-    // -> Call MarketPlace [viewPurchaseHistory()] Use Scanner to provide an interface for user to do any of the
-    // above i hope this line is changed
+public class CustomerDashboard {
 
     private String customerUsername;
 
@@ -18,6 +10,7 @@ public class CustomerDashboard implements Shared {
     public CustomerDashboard(String customerUsername) {
         this.customerUsername = customerUsername;
     }
+
 
     public String getCustomerUsername() {
         return customerUsername;
@@ -28,33 +21,7 @@ public class CustomerDashboard implements Shared {
     }
 
     public List<String> readPurchaseHistory() throws IOException {
-        //first method will be to get which lines belong to the customer
-        List<String> historyList = new ArrayList<String>();
-        int count = 0;
-
-        try {
-            File f = new File("CustomerPurchaseHistory.txt");
-            FileReader fr = new FileReader(f);
-            BufferedReader bfr = new BufferedReader(fr);
-
-            if (f == null || !(f.exists())) {
-                throw new FileNotFoundException();
-            }
-
-            String line = bfr.readLine();
-
-            while (line != null) {
-                count++;
-                historyList.add(line);
-                line = bfr.readLine();
-            }
-
-            return historyList;
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return CustomerDashboardMethods.readPurchaseHistory(); // todo
     }
 
     public List<String> matchCustomerName() throws IOException {
@@ -104,6 +71,25 @@ public class CustomerDashboard implements Shared {
         }
     }
 
+    public String sendOriginalHistory() throws IOException {
+        List<String> wantedList = splitByProduct();
+        StringBuilder sb = new StringBuilder();
+
+
+        for (int i = 0; i < wantedList.size(); i++) {
+            ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(wantedList.get(i).split("_")));
+            sb.append("Store: " + collectedData.get(1) + "\n");
+            sb.append("Item: " + collectedData.get(0) + "\n");
+            sb.append("Purchased Amount: " + collectedData.get(2) + "\n");
+            sb.append("Price: " + collectedData.get(3) + "\n");
+            sb.append("--------------------\n");
+        }
+
+        String results = sb.toString();
+        return results;
+    }
+
+
     public StoreAndSales sortPurchaseHistoryLowHigh() throws IOException {
         List<String> wantedList = splitByProduct();
         List<Integer> amounts = new ArrayList<>();
@@ -140,6 +126,23 @@ public class CustomerDashboard implements Shared {
         }
     }
 
+    public String sendLowHighHistory() throws IOException {
+        StoreAndSales sorted = sortPurchaseHistoryLowHigh();
+        StringBuilder sb = new StringBuilder();
+        List<String> wantedList = sorted.getStores();
+        for (String s : wantedList) {
+            ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(s.split("_")));
+            sb.append("Store: " + collectedData.get(1) + "\n");
+            sb.append("Item: " + collectedData.get(0) + "\n");
+            sb.append("Purchased Amount: " + collectedData.get(2) + "\n");
+            sb.append("Price: " + collectedData.get(3) + "\n");
+            sb.append("--------------------\n");
+        }
+
+        String results = sb.toString();
+        return results;
+    }
+
     public StoreAndSales sortPurchaseHistoryHighLow() throws IOException {
         List<String> wantedList = splitByProduct();
         List<Integer> amounts = new ArrayList<>();
@@ -149,7 +152,7 @@ public class CustomerDashboard implements Shared {
         }
         for (int i = 0; i < amounts.size(); i++) {
             for (int j = 0; j < amounts.size() - i - 1; j++) {
-                if (amounts.get(j) > amounts.get(j + 1)) {
+                if (amounts.get(j) < amounts.get(j + 1)) {
                     int temp = amounts.get(j);
                     amounts.set(j, amounts.get(j + 1));
                     amounts.set(j + 1, temp);
@@ -176,45 +179,29 @@ public class CustomerDashboard implements Shared {
         }
     }
 
-
-    public void sortPurchaseHistoryList() {
-
-    }
-
-    public List<String> readCustomerStats() throws IOException {
-        //this method is not done yet, need to read more just don't know the format yet.
-        //need to read all the information and either add it to the string array or
-        //probably doing another way is more beneficial. Maybe getters and setters.
-        List<String> sellerStoreInfo = new ArrayList<String>();
-        int count = 0;
-
-        try {
-            File f = new File("CustomerStatistics.txt");
-            FileReader fr = new FileReader(f);
-            BufferedReader bfr = new BufferedReader(fr);
-
-            if (f == null || !(f.exists())) {
-                throw new FileNotFoundException();
-            }
-
-            String line = bfr.readLine();
-
-            while (line != null) {
-                count++;
-                sellerStoreInfo.add(line);
-                line = bfr.readLine();
-            }
-
-            return sellerStoreInfo;
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
+    public String sendHighLowHistory() throws IOException {
+        StoreAndSales sorted = sortPurchaseHistoryHighLow();
+        StringBuilder sb = new StringBuilder();
+        List<String> wantedList = sorted.getStores();
+        for (String s : wantedList) {
+            ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(s.split("_")));
+            sb.append("Store: " + collectedData.get(1) + "\n");
+            sb.append("Item: " + collectedData.get(0) + "\n");
+            sb.append("Purchased Amount: " + collectedData.get(2) + "\n");
+            sb.append("Price: " + collectedData.get(3) + "\n");
+            sb.append("--------------------\n");
         }
+
+        String results = sb.toString();
+        return results;
+    }
+
+    public List<String> readCustomerStats() throws FileNotFoundException, IOException {
+        return CustomerDashboardMethods.readCustomerStats(); // todo
     }
 
 
-    public List<String> typeSplitter() throws IOException {
+    public List<String> typeSplitter() throws FileNotFoundException, IOException {
         //first we make the extended sellerStoreInfo into the bite sized
         //information that we want
         List<String> sellerStoreInfo = readCustomerStats();
@@ -232,7 +219,7 @@ public class CustomerDashboard implements Shared {
         return splitByType;
     }
 
-    public String[] getSellerNames() throws IOException {
+    public String[] getSellerNames() throws FileNotFoundException, IOException {
         List<String> sellerStoreInfo = readCustomerStats();
         String[] storeInfoStr = new String[sellerStoreInfo.size()];
         storeInfoStr = sellerStoreInfo.toArray(storeInfoStr);
@@ -247,7 +234,7 @@ public class CustomerDashboard implements Shared {
 
     }
 
-    public List<String> byStoreSplitter() throws IOException {
+    public List<String> byStoreSplitter() throws FileNotFoundException, IOException {
         List<String> splitByType = typeSplitter();
         String[] specificStoreStr = new String[splitByType.size()];
         specificStoreStr = splitByType.toArray(specificStoreStr);
@@ -256,9 +243,7 @@ public class CustomerDashboard implements Shared {
         for (int i = 0; i < splitByType.size(); i++) {
             ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(specificStoreStr[i].split("___")));
             int storeNum = i + 1;
-            int sizeOfTypes = splitByType.get(i).length() - splitByType.get(i)
-                .replaceAll("___", "")
-                .length();
+            int sizeOfTypes = splitByType.get(i).length() - splitByType.get(i).replaceAll("___", "").length();
             int wantedNum = sizeOfTypes / 3;
 
             for (int q = 0; q < wantedNum + 1; q++) {
@@ -283,7 +268,7 @@ public class CustomerDashboard implements Shared {
 
     //make a nested for loop, which loops until the seller changes
 
-    public List<String> getStoreAndSales() throws IOException {
+    public List<String> getStoreAndSales() throws FileNotFoundException, IOException {
         List<String> splitByStoreAndSales = byStoreSplitter();
         String[] specificSalesInfo = new String[splitByStoreAndSales.size()];
         specificSalesInfo = splitByStoreAndSales.toArray(specificSalesInfo);
@@ -300,7 +285,7 @@ public class CustomerDashboard implements Shared {
 
     }
 
-    public List<String> getOnlyStore() throws IOException {
+    public List<String> getOnlyStore() throws FileNotFoundException, IOException {
         List<String> splitByStoreAndSales = byStoreSplitter();
         String[] specificSalesInfo = new String[splitByStoreAndSales.size()];
         specificSalesInfo = splitByStoreAndSales.toArray(specificSalesInfo);
@@ -316,7 +301,7 @@ public class CustomerDashboard implements Shared {
 
     }
 
-    public List<String> getOnlySales() throws IOException {
+    public List<String> getOnlySales() throws FileNotFoundException, IOException {
         List<String> splitByStoreAndSales = byStoreSplitter();
         String[] specificSalesInfo = new String[splitByStoreAndSales.size()];
         specificSalesInfo = splitByStoreAndSales.toArray(specificSalesInfo);
@@ -326,6 +311,7 @@ public class CustomerDashboard implements Shared {
             if (splitByStoreAndSales.get(i).contains("_")) {
                 List<String> splitterOf = new ArrayList<>(Arrays.asList(specificSalesInfo[i].split("_")));
                 onlySales.add(splitterOf.get(1));
+            } else if (!(splitByStoreAndSales.get(i).contains("_"))) {
             }
         }
 
@@ -333,8 +319,7 @@ public class CustomerDashboard implements Shared {
 
     }
 
-
-    public List<Integer> getStoreTotal() throws IOException {
+    public List<Integer> getStoreTotal() throws FileNotFoundException, IOException {
         List<String> splitByType = typeSplitter();
         String[] specificStoreStr = new String[splitByType.size()];
         specificStoreStr = splitByType.toArray(specificStoreStr);
@@ -343,9 +328,8 @@ public class CustomerDashboard implements Shared {
         for (int i = 0; i < splitByType.size(); i++) {
             ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(specificStoreStr[i].split("___")));
 
-            int sizeOfTypes = splitByType.get(i).length() - splitByType.get(i).
-                replaceAll("___", "").
-                length();
+            int sizeOfTypes = splitByType.get(i).length() - splitByType.get(i)
+                .replaceAll("___", "").length();
             int wantedNum = sizeOfTypes / 3 + 1;
 
             numberOfStores.add(wantedNum);
@@ -412,6 +396,33 @@ public class CustomerDashboard implements Shared {
 
     }
 
+    public String sendOriginalStores() throws IOException {
+        int update = 0;
+        String[] sellerNameList = getSellerNames();
+        List<String> originalStoreList = getOnlyStore();
+        List<String> originalSaleList = getOnlySales();
+        List<Integer> storeTotal = getStoreTotal();
+
+        StringBuilder sb = new StringBuilder();
+
+        //this is for view the stores
+        for (int i = 0; i < sellerNameList.length; i++) {
+            int count = 0;
+            sb.append("--------------------\n");
+            sb.append("Seller: " + sellerNameList[i] + "\n");
+            for (int q = 0; q < storeTotal.get(i); q++) {
+                sb.append(originalStoreList.get(q + update) + ": ");
+                sb.append(originalSaleList.get(q + update) + " Sales\n");
+                count++;
+            }
+            update += count;
+        }
+        sb.append("--------------------\n");
+
+        String storeList = sb.toString();
+        return storeList;
+    }
+
     public void displayHighLowStores() throws IOException {
         int update = 0;
 
@@ -445,6 +456,44 @@ public class CustomerDashboard implements Shared {
         System.out.println("--------------------");
         System.out.println();
 
+    }
+
+    public String sendHighLowStores() throws IOException {
+        int update = 0;
+
+        StoreAndSales alteredStores = sortHighLow();
+        String[] sellerNameList = getSellerNames();
+        List<String> justStores = new ArrayList<>();
+        List<String> highLowStores = alteredStores.getStores();
+        List<Integer> highLowSales = alteredStores.getSales();
+        List<Integer> storeTotal = getStoreTotal();
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int j = 0; j < highLowStores.size(); j++) {
+            List<String> dataCollected = new ArrayList<>(Arrays.asList(highLowStores.get(j).split("_")));
+            justStores.add(dataCollected.get(0));
+        }
+
+        for (int i = 0; i < sellerNameList.length; i++) {
+            int count = 0;
+            sb.append("--------------------\n");
+            sb.append("Seller: " + sellerNameList[i] + "\n");
+
+            for (int q = 0; q < storeTotal.get(i); q++) {
+                sb.append(justStores.get(q + update) + ": ");
+                sb.append(highLowSales.get(q + update) + " Sales\n");
+                count++;
+
+            }
+            update += count;
+
+        }
+
+        sb.append("--------------------\n");
+
+        String results = sb.toString();
+        return results;
     }
 
     public void displayLowHighStores() throws IOException {
@@ -482,7 +531,45 @@ public class CustomerDashboard implements Shared {
 
     }
 
-    public List<String> splitStoreList() throws IOException {
+    public String sendLowHighStores() throws IOException {
+        int update = 0;
+
+        StoreAndSales alteredStores = sortLowHigh();
+        String[] sellerNameList = getSellerNames();
+        List<String> justStores = new ArrayList<>();
+        List<String> lowHighStores = alteredStores.getStores();
+        List<Integer> lowHighSales = alteredStores.getSales();
+        List<Integer> storeTotal = getStoreTotal();
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int j = 0; j < lowHighStores.size(); j++) {
+            List<String> dataCollected = new ArrayList<>(Arrays.asList(lowHighStores.get(j).split("_")));
+            justStores.add(dataCollected.get(0));
+        }
+
+        for (int i = 0; i < sellerNameList.length; i++) {
+            int count = 0;
+            sb.append("--------------------\n");
+            sb.append("Seller: " + sellerNameList[i] + "\n");
+
+            for (int q = 0; q < storeTotal.get(i); q++) {
+                sb.append(justStores.get(q + update) + ": ");
+                sb.append(lowHighSales.get(q + update) + " Sales\n");
+                count++;
+
+            }
+            update += count;
+
+        }
+
+        sb.append("--------------------\n");
+
+        String results = sb.toString();
+        return results;
+    }
+
+    public List<String> splitStoreList() throws FileNotFoundException, IOException {
         List<String> storeList = getOnlyStore();
         List<Integer> storeTotal = getStoreTotal();
 
@@ -503,7 +590,7 @@ public class CustomerDashboard implements Shared {
         return splitterList;
     }
 
-    public List<String> splitSaleList() throws IOException {
+    public List<String> splitSaleList() throws FileNotFoundException, IOException {
         List<String> saleList = getOnlySales();
         List<Integer> storeTotal = getStoreTotal();
 
@@ -525,7 +612,7 @@ public class CustomerDashboard implements Shared {
     }
 
 
-    public StoreAndSales sortHighLow() throws IOException {
+    public StoreAndSales sortHighLow() throws FileNotFoundException, IOException {
         List<String> originalStoreAndSaleList = byStoreSplitter();
         List<String> originalSaleList = getOnlySales();
         List<Integer> saleListToInt = new ArrayList<>();
@@ -584,7 +671,7 @@ public class CustomerDashboard implements Shared {
 
 
     //sorting the arraylist to be used in the displaySorted method
-    public StoreAndSales sortLowHigh() throws IOException {
+    public StoreAndSales sortLowHigh() throws FileNotFoundException, IOException {
         List<String> originalStoreAndSaleList = byStoreSplitter();
         List<String> originalSaleList = getOnlySales();
         List<Integer> saleListToInt = new ArrayList<>();
@@ -640,19 +727,16 @@ public class CustomerDashboard implements Shared {
         return new StoreAndSales(htLSalesList, htLStoreList);
     }
 
-    public void displaySorted() {
 
-    }
-
-    public void main() throws IOException {
+    public void main() throws FileNotFoundException, IOException {
         //this method will contain what the user can do with all these methods, displaying
         //manipulating and sorting the products with the sort method
+        Scanner input = new Scanner(System.in);
         boolean repeat = true;
         int sortID = 0;
         //sortID 0 = unsorted
         //sortID 1 = high to low
         //sortID 2 = low to high
-
 
         while (repeat) {
             int answer1 = 0;
@@ -665,7 +749,8 @@ public class CustomerDashboard implements Shared {
                     System.out.println("3. Exit Customer Dashboard");
                     System.out.println();
                     System.out.print("Enter Option Here: ");
-                    answer1 = Integer.parseInt(SCANNER.nextLine());
+                    answer1 = input.nextInt();
+                    input.nextLine();
                     System.out.println();
 
                     if (answer1 == 1) {
@@ -684,29 +769,32 @@ public class CustomerDashboard implements Shared {
 
                     System.out.println("Please enter valid choice!");
                     System.out.println();
-                    SCANNER.nextLine();
+                    input.nextLine();
                 }
             } while (answer1 != 1 || answer1 != 2 || answer1 != 3);
 
             //first print unsorted original list
             if (answer1 == 1) {
+                int wantedSort = 0;
                 System.out.println("********************");
                 System.out.println("STORE INFORMATION");
-                int wantedSort = 0;
                 while (true) {
                     if (sortID == 0) {
                         displayOriginalStores();
                         displaySortOptions(sortID);
-                        wantedSort = Integer.parseInt(SCANNER.nextLine());
+                        wantedSort = input.nextInt();
+                        input.nextLine();
                         System.out.println();
                     } else if (sortID == 1) {
                         displayHighLowStores();
                         displaySortOptions(sortID);
-                        wantedSort = Integer.parseInt(SCANNER.nextLine());
+                        wantedSort = input.nextInt();
+                        input.nextLine();
                     } else if (sortID == 2) {
                         displayLowHighStores();
                         displaySortOptions(sortID);
-                        wantedSort = Integer.parseInt(SCANNER.nextLine());
+                        wantedSort = input.nextInt();
+                        input.nextLine();
                     }
 
 
@@ -752,17 +840,20 @@ public class CustomerDashboard implements Shared {
                     if (sortID == 0) {
                         displayOriginalCustomerStatistics();
                         displaySortOptions(sortID);
-                        wantedSort = Integer.parseInt(SCANNER.nextLine());
+                        wantedSort = input.nextInt();
+                        input.nextLine();
                         System.out.println();
                     } else if (sortID == 1) {
                         displayPurchaseHistoryHighLow();
                         displaySortOptions(sortID);
-                        wantedSort = Integer.parseInt(SCANNER.nextLine());
+                        wantedSort = input.nextInt();
+                        input.nextLine();
                         System.out.println();
                     } else if (sortID == 2) {
                         displayPurchaseHistoryLowHigh();
                         displaySortOptions(sortID);
-                        wantedSort = Integer.parseInt(SCANNER.nextLine());
+                        wantedSort = input.nextInt();
+                        input.nextLine();
                         System.out.println();
                     }
 
@@ -802,10 +893,6 @@ public class CustomerDashboard implements Shared {
             }
         }
     }
-
-
-    //need to implement sort feature, probably pull from a method.
-
 
 }
 

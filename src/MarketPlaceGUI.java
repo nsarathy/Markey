@@ -87,6 +87,9 @@ public class MarketPlaceGUI implements Runnable, Shared {
                 displayPurchaseHistory();
             } else if (e.getSource() == csvButton) {
                 customerCsv();
+            } else if (e.getSource() == dbButton) {
+                CustomerDashboardGUI cdGui = new CustomerDashboardGUI(username);
+                cdGui.main();
             }
         }
     };
@@ -114,6 +117,9 @@ public class MarketPlaceGUI implements Runnable, Shared {
                 seeCarts();
             } else if (e.getSource() == copyCsvButton) {
                 sellerCsv();
+            } else if (e.getSource() == copyDbButton) {
+                SellerDashboardGUI sellerDashboardGUI = new SellerDashboardGUI(username);
+                sellerDashboardGUI.main();
             }
         }
     };
@@ -231,7 +237,7 @@ public class MarketPlaceGUI implements Runnable, Shared {
         dbButton = new JButton(dbIcon);
         dbButton.setPreferredSize(new Dimension(36, 36));
         dbButton.setToolTipText("<html> Dashboard </html>");
-        dbButton.addActionListener(customerListener); // todo dashboard
+        dbButton.addActionListener(customerListener);
 
         historyIcon = new ImageIcon("images/history.png");
         purchaseHistoryButton = new JButton(historyIcon);
@@ -302,7 +308,7 @@ public class MarketPlaceGUI implements Runnable, Shared {
         copyDbButton = new JButton(dbIcon);
         copyDbButton.setPreferredSize(new Dimension(36, 36));
         copyDbButton.setToolTipText("<html> Dashboard </html>");
-        copyDbButton.addActionListener(sellerListener); // todo seller db
+        copyDbButton.addActionListener(sellerListener);
 
         copyCsvButton = new JButton(".csv");
         copyCsvButton.setFont(new Font("Arial", Font.PLAIN, 22));
@@ -1020,7 +1026,7 @@ public class MarketPlaceGUI implements Runnable, Shared {
         if (storeName == null) {
             return;
         }
-        while (storeName.contains("_") || storeName.contains(";") || storeName.contains(",") || storeName.isEmpty()) {
+        while (storeName.contains("_") || storeName.contains(";") || storeName.isEmpty()) {
             displayErrorMessage("<html>Store name cannot be empty<br>Store name cannot contain '_' or ';' or '," +
                 "'</html>");
             storeName = displayInputMessage("Enter store name");

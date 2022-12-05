@@ -1,0 +1,1086 @@
+Sample 1:
+
+Products.txt:
+wantGorOwner;Metal Headband_WantGor_100_3.98_Metal headband for men and women
+jbl;JBL Vibe 200TWs_JBL_30_29.95_Black wireless earbuds
+steveJ;USB-C Wall Charger_INCORIC_200_9.27_iPhone 14 Charger Block 20W PD Power Adaptor
+proGamer69;Razer DeathAdder Essential Gaming Mouse_Razer_50_17.85_Gaming mouse - 5 programmable buttons - Mechanical switches - rubber side grips - Mercury white
+warrenBuffet;Guide to investing in your 20s_Puffin Books_396_12.99_Book about long term investing
+ysenser;Wool Socks 5 pairs_YSense_10_10.99_Thick Wool socks winter warm for men
+firstSeller;gg_Dunsmore_6_5.00_ekwbgew
+firstSeller;Arnav_Dunsmore_99_0.69_weriufheiu uwueth riut
+firstSeller;Colten_Oh_98_10.20_si instructor
+
+
+Output ([] indicate input): 
+Welcome to the Marketplace!
+Do you have an existing account?
+1. Yes
+2. No
+[2]
+Are you a seller or customer?
+1. Seller
+2. Customer
+[1]
+Enter desired username: 
+[sellerUser]
+Enter desired password:
+[password]
+Checking validity... ... ... 
+Account has been created!
+
+LOGIN WINDOW:
+Enter Username:
+[sellerUser]
+Enter Password:
+[password]
+LOGIN SUCCESSFUL
+Markey
+
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+2.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+3.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+5.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+8.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+9.	Colten		Sold by: Oh		Price: 10.20
+
+
+Enter '@' to open a new Store
+Enter '++' to list a new item for sale
+Enter '--' to remove an item from sale
+Enter '*' to edit an item that's on sale
+Enter '&' to See what's on everyone's carts
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[@]
+You do not having anything for sale
+Enter a name for your store
+[Turkstra]
+It is mandatory to have at least one product on sale when opening a new store
+Enter name of product
+[cs182]
+Enter the quantity of this item available in stock
+[900]
+Enter the price of this item
+[420.69]
+Enter the description of this item
+[A course on foundations of cs]
+Markey
+
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+2.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+3.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+5.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+8.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+9.	Colten		Sold by: Oh		Price: 10.20
+
+10.	cs182		Sold by: Turkstra		Price: 420.69
+
+
+Enter '@' to open a new Store
+Enter '++' to list a new item for sale
+Enter '--' to remove an item from sale
+Enter '*' to edit an item that's on sale
+Enter '&' to See what's on everyone's carts
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[++]
+Enter name of product
+[cs180 blk]
+Choose a store for your item
+1. Turkstra
+[1]
+Enter the quantity of this item available in stock
+[400]
+Enter the price of this item
+[1.0]
+Enter the description of this item
+[A java course]
+Markey
+
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+2.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+3.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+5.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+8.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+9.	Colten		Sold by: Oh		Price: 10.20
+
+10.	cs182		Sold by: Turkstra		Price: 420.69
+
+11.	cs180 blk		Sold by: Turkstra		Price: 1.00
+
+
+Enter '@' to open a new Store
+Enter '++' to list a new item for sale
+Enter '--' to remove an item from sale
+Enter '*' to edit an item that's on sale
+Enter '&' to See what's on everyone's carts
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[*]
+
+1.	cs182		Sold by: Turkstra		Price: 420.69
+
+2.	cs180 blk		Sold by: Turkstra		Price: 1.00
+Enter 2 to edit 2nd item
+[1]
+
+cs182		Sold by: Turkstra		Price: 420.69
+Available in stock: 900
+Description: A course on foundations of cs
+
+Enter
+'1' to edit name
+'2' to edit price
+'3' to edit description
+'4' to edit availability in stock
+[2]
+Enter new price
+[2.0]
+Edit successful :)
+Markey
+
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+2.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+3.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+5.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+8.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+9.	Colten		Sold by: Oh		Price: 10.20
+
+10.	cs182		Sold by: Turkstra		Price: 2.00
+
+11.	cs180 blk		Sold by: Turkstra		Price: 1.00
+
+
+Enter '@' to open a new Store
+Enter '++' to list a new item for sale
+Enter '--' to remove an item from sale
+Enter '*' to edit an item that's on sale
+Enter '&' to See what's on everyone's carts
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[--]
+
+1.	cs182		Sold by: Turkstra		Price: 2.00
+
+2.	cs180 blk		Sold by: Turkstra		Price: 1.00
+
+Enter 2 to remove 2nd item from listings
+[2]
+Deletion successful :)
+Markey
+
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+2.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+3.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+5.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+8.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+9.	Colten		Sold by: Oh		Price: 10.20
+
+10.	cs182		Sold by: Turkstra		Price: 2.00
+
+
+Enter '@' to open a new Store
+Enter '++' to list a new item for sale
+Enter '--' to remove an item from sale
+Enter '*' to edit an item that's on sale
+Enter '&' to See what's on everyone's carts
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[?]
+Thank you for using Markey! Have a nice day :)
+____________END OF Sample 1 _________________________________________________________________________
+Sample 2:
+Logging into an existent customer account
+Products.txt:
+wantGorOwner;Metal Headband_WantGor_100_3.98_Metal headband for men and women
+jbl;JBL Vibe 200TWs_JBL_30_29.95_Black wireless earbuds
+steveJ;USB-C Wall Charger_INCORIC_200_9.27_iPhone 14 Charger Block 20W PD Power Adaptor
+proGamer69;Razer DeathAdder Essential Gaming Mouse_Razer_50_17.85_Gaming mouse - 5 programmable buttons - Mechanical switches - rubber side grips - Mercury white
+warrenBuffet;Guide to investing in your 20s_Puffin Books_396_12.99_Book about long term investing
+ysenser;Wool Socks 5 pairs_YSense_10_10.99_Thick Wool socks winter warm for men
+firstSeller;gg_Dunsmore_6_5.00_ekwbgew
+firstSeller;Arnav_Dunsmore_99_0.69_weriufheiu uwueth riut
+firstSeller;Colten_Oh_98_10.20_si instructor
+
+Accounts.txt:
+seller_firstSeller;password
+customer_firstCustomer;password
+
+Output:
+Welcome to the Marketplace!
+Do you have an existing account?
+1. Yes
+2. No
+[1]
+
+LOGIN WINDOW:
+Enter Username:
+[firstCustomer]
+Enter Password:
+[password]
+LOGIN SUCCESSFUL
+Markey
+
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+2.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+3.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+5.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+8.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+9.	Colten		Sold by: Oh		Price: 10.20
+
+
+You have 0 items in your cart
+
+Enter '2' to add item number 2 to your cart
+
+Enter '#' to view your cart
+Enter '<' to sort listings by cost (low to high)
+Enter '>' to sort listings by cost (high to low)
+Enter '<>' to de-sort
+Enter 'q' to sort by availability
+Enter '@' to view your purchase history
+Enter '&' to search for something
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[1]
+
+Metal Headband		Sold by: WantGor		Price: 3.98
+Available in stock: 100
+Description: Metal headband for men and women
+Enter quantity for the selected item ('?' to exit)
+[5]
+Added to your cart :)
+Markey
+
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+2.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+3.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+5.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+8.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+9.	Colten		Sold by: Oh		Price: 10.20
+
+
+You have 1 item in your cart
+
+Enter '2' to add item number 2 to your cart
+
+Enter '#' to view your cart
+Enter '<' to sort listings by cost (low to high)
+Enter '>' to sort listings by cost (high to low)
+Enter '<>' to de-sort
+Enter 'q' to sort by availability
+Enter '@' to view your purchase history
+Enter '&' to search for something
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[<]
+Markey
+
+
+1.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+2.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+3.	gg		Sold by: Dunsmore		Price: 5.00
+
+4.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+5.	Colten		Sold by: Oh		Price: 10.20
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+8.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+9.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+
+You have 1 item in your cart
+
+Enter '2' to add item number 2 to your cart
+
+Enter '#' to view your cart
+Enter '<' to sort listings by cost (low to high)
+Enter '>' to sort listings by cost (high to low)
+Enter '<>' to de-sort
+Enter 'q' to sort by availability
+Enter '@' to view your purchase history
+Enter '&' to search for something
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[>]
+Markey
+
+
+1.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+2.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+3.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+4.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+5.	Colten		Sold by: Oh		Price: 10.20
+
+6.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+8.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+9.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+
+You have 1 item in your cart
+
+Enter '2' to add item number 2 to your cart
+
+Enter '#' to view your cart
+Enter '<' to sort listings by cost (low to high)
+Enter '>' to sort listings by cost (high to low)
+Enter '<>' to de-sort
+Enter 'q' to sort by availability
+Enter '@' to view your purchase history
+Enter '&' to search for something
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[<>]
+Markey
+
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+2.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+3.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+5.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+8.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+9.	Colten		Sold by: Oh		Price: 10.20
+
+
+You have 1 item in your cart
+
+Enter '2' to add item number 2 to your cart
+
+Enter '#' to view your cart
+Enter '<' to sort listings by cost (low to high)
+Enter '>' to sort listings by cost (high to low)
+Enter '<>' to de-sort
+Enter 'q' to sort by availability
+Enter '@' to view your purchase history
+Enter '&' to search for something
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[3]
+
+USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+Available in stock: 200
+Description: iPhone 14 Charger Block 20W PD Power Adaptor
+Enter quantity for the selected item ('?' to exit)
+[5]
+Added to your cart :)
+Markey
+
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+2.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+3.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+5.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+8.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+9.	Colten		Sold by: Oh		Price: 10.20
+
+
+You have 2 items in your cart
+
+Enter '2' to add item number 2 to your cart
+
+Enter '#' to view your cart
+Enter '<' to sort listings by cost (low to high)
+Enter '>' to sort listings by cost (high to low)
+Enter '<>' to de-sort
+Enter 'q' to sort by availability
+Enter '@' to view your purchase history
+Enter '&' to search for something
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[#]
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+Quantity: 5
+2.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+Quantity: 5
+
+Total Price: 66.25
+
+Enter '$' to checkout
+Enter 2 to remove item number 2
+Enter '?' to exit cart
+[$]
+Markey
+
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+2.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+3.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+5.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+8.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+9.	Colten		Sold by: Oh		Price: 10.20
+
+
+You have 0 items in your cart
+
+Enter '2' to add item number 2 to your cart
+
+Enter '#' to view your cart
+Enter '<' to sort listings by cost (low to high)
+Enter '>' to sort listings by cost (high to low)
+Enter '<>' to de-sort
+Enter 'q' to sort by availability
+Enter '@' to view your purchase history
+Enter '&' to search for something
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[?]
+Thank you for using Markey! Have a nice day :)
+_________________END of Sample 2 ____________________________________________
+Sample 3:
+SellerStatistics.txt:
+firstSeller;Arnav_Dunsmore_1_0.69_weriufheiu uwueth riut___Colten_Oh_1_0.69_si instructor___gg_Dunsmore_5_5.00_ekwbgew;firstCustomer
+ysenser;Wool Socks 5 pairs_YSense_5_10.99_Thick Wool socks winter warm for men;firstCustomer
+wantGorOwner;Metal Headband_WantGor_5_3.98_Metal headband for men and women;firstCustomer
+steveJ;USB-C Wall Charger_INCORIC_5_9.27_iPhone 14 Charger Block 20W PD Power Adaptor;firstCustomer
+firstSeller;Colten_Oh_8_10.20_si instructor;scannerTester
+
+Output:
+Welcome to the Marketplace!
+Do you have an existing account?
+1. Yes
+2. No
+[1]
+
+LOGIN WINDOW:
+Enter Username:
+[firstSeller]
+Enter Password:
+[password]
+LOGIN SUCCESSFUL
+Markey
+
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+2.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+3.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+5.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+8.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+9.	Colten		Sold by: Oh		Price: 10.20
+
+
+Enter '@' to open a new Store
+Enter '++' to list a new item for sale
+Enter '--' to remove an item from sale
+Enter '*' to edit an item that's on sale
+Enter '&' to See what's on everyone's carts
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[db]
+*SELLER DASHBOARD*
+
+1. View Customer List
+2. View Product Sales List
+3. Exit Customer Dashboard
+
+Enter Option Here: [1]
+
+********************
+Customer List
+--------------------
+Customer: firstCustomer
+Items Purchased: 7
+--------------------
+Customer: scannerTester
+Items Purchased: 8
+--------------------
+
+Would you like to sort this List?
+1: High to Low
+2: Low to High
+3: Exit
+
+Enter Here: [3]
+
+
+*SELLER DASHBOARD*
+
+1. View Customer List
+2. View Product Sales List
+3. Exit Customer Dashboard
+
+Enter Option Here: [3]
+
+Markey
+
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+2.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+3.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+5.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+8.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+9.	Colten		Sold by: Oh		Price: 10.20
+
+
+Enter '@' to open a new Store
+Enter '++' to list a new item for sale
+Enter '--' to remove an item from sale
+Enter '*' to edit an item that's on sale
+Enter '&' to See what's on everyone's carts
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[?]
+Thank you for using Markey! Have a nice day :)
+__________End of sample 2____________________
+Sample 4:
+CustomerStatistics.txt:
+warrenBuffet;Puffin Books_210
+testUserSeller;neel's Store_206___lewis'_6___yudon_502
+firstSeller;Dunsmore_21___Oh_27
+ysenser;YSense_5
+wantGorOwner;WantGor_5
+steveJ;INCORIC_5
+
+CustomerPurchaseHistory.txt:
+testUser;wantGorOwner Metal Headband_WantGor_2_3.98_Metal headband for men and women___JBL Vibe 200TWs_JBL_1_29.95_Black wireless earbuds
+testuser1;USB-C Wall Charger_INCORIC_1_9.27_iPhone 14 Charger Block 20W PD Power Adaptor___Razer DeathAdder Essential Gaming Mouse_Razer_1_17.85_Gaming mouse - 5 programmable buttons - Mechanical switches - rubber side grips - Mercury white
+firstCustomer;Arnav_Dunsmore_9_0.69_weriufheiu uwueth riut$firstSeller___Colten_Oh_9_0.69_si instructor$firstSellerfirstCustomer;Arnav_Dunsmore_6_0.69_weriufheiu uwueth riut$firstSeller___Colten_Oh_6_0.69_si instructor$firstSellerfirstCustomer;Arnav_Dunsmore_1_0.69_weriufheiu uwueth riut$firstSeller___Wool Socks 5 pairs_YSense_5_10.99_Thick Wool socks winter warm for men$ysenserfirstCustomer;Colten_Oh_1_0.69_si instructor$firstSellerfirstCustomer;Colten_Oh_1_0.69_si instructor$firstSellerfirstCustomer;Colten_Oh_1_0.69_si instructor$firstSellerfirstCustomer;Colten_Oh_1_0.69_si instructor$firstSellerfirstCustomer;gg_Dunsmore_5_5.00_ekwbgew$firstSellerfirstCustomer;Metal Headband_WantGor_5_3.98_Metal headband for men and women$wantGorOwner___USB-C Wall Charger_INCORIC_5_9.27_iPhone 14 Charger Block 20W PD Power Adaptor$steveJscannerTester;Colten_Oh_8_10.20_si instructor$firstSeller
+Output:
+Welcome to the Marketplace!
+Do you have an existing account?
+1. Yes
+2. No
+[1]
+
+LOGIN WINDOW:
+Enter Username:
+[firstCustomer]
+Enter Password:
+[password]
+LOGIN SUCCESSFUL
+Markey
+
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+2.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+3.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+5.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+8.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+9.	Colten		Sold by: Oh		Price: 10.20
+
+
+You have 0 items in your cart
+
+Enter '2' to add item number 2 to your cart
+
+Enter '#' to view your cart
+Enter '<' to sort listings by cost (low to high)
+Enter '>' to sort listings by cost (high to low)
+Enter '<>' to de-sort
+Enter 'q' to sort by availability
+Enter '@' to view your purchase history
+Enter '&' to search for something
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[db]
+*CUSTOMER DASHBOARD*
+
+1. View All Stores
+2. View Stores Purchased From
+3. Exit Customer Dashboard
+
+Enter Option Here: [1]
+
+********************
+STORE INFORMATION
+--------------------
+Seller: warrenBuffet
+Puffin Books: 210 Sales
+--------------------
+Seller: testUserSeller
+neel's Store: 206 Sales
+lewis': 6 Sales
+yudon: 502 Sales
+--------------------
+Seller: firstSeller
+Dunsmore: 21 Sales
+Oh: 27 Sales
+--------------------
+Seller: ysenser
+YSense: 5 Sales
+--------------------
+Seller: wantGorOwner
+WantGor: 5 Sales
+--------------------
+Seller: steveJ
+INCORIC: 5 Sales
+--------------------
+
+Would you like to sort this List?
+1: High to Low
+2: Low to High
+3: Exit
+
+Enter Here: [3]
+
+
+*CUSTOMER DASHBOARD*
+
+1. View All Stores
+2. View Stores Purchased From
+3. Exit Customer Dashboard
+
+Enter Option Here: [3]
+
+Markey
+
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+2.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+3.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+5.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+8.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+9.	Colten		Sold by: Oh		Price: 10.20
+
+
+You have 0 items in your cart
+
+Enter '2' to add item number 2 to your cart
+
+Enter '#' to view your cart
+Enter '<' to sort listings by cost (low to high)
+Enter '>' to sort listings by cost (high to low)
+Enter '<>' to de-sort
+Enter 'q' to sort by availability
+Enter '@' to view your purchase history
+Enter '&' to search for something
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[?]
+Thank you for using Markey! Have a nice day :)
+________________END of Sample 4____________________
+Sample 5:
+CustomerPurchaseHistory.txt:
+testUser;wantGorOwner Metal Headband_WantGor_2_3.98_Metal headband for men and women___JBL Vibe 200TWs_JBL_1_29.95_Black wireless earbuds
+testuser1;USB-C Wall Charger_INCORIC_1_9.27_iPhone 14 Charger Block 20W PD Power Adaptor___Razer DeathAdder Essential Gaming Mouse_Razer_1_17.85_Gaming mouse - 5 programmable buttons - Mechanical switches - rubber side grips - Mercury white
+firstCustomer;Arnav_Dunsmore_9_0.69_weriufheiu uwueth riut$firstSeller___Colten_Oh_9_0.69_si instructor$firstSellerfirstCustomer;Arnav_Dunsmore_6_0.69_weriufheiu uwueth riut$firstSeller___Colten_Oh_6_0.69_si instructor$firstSellerfirstCustomer;Arnav_Dunsmore_1_0.69_weriufheiu uwueth riut$firstSeller___Wool Socks 5 pairs_YSense_5_10.99_Thick Wool socks winter warm for men$ysenserfirstCustomer;Colten_Oh_1_0.69_si instructor$firstSellerfirstCustomer;Colten_Oh_1_0.69_si instructor$firstSellerfirstCustomer;Colten_Oh_1_0.69_si instructor$firstSellerfirstCustomer;Colten_Oh_1_0.69_si instructor$firstSellerfirstCustomer;gg_Dunsmore_5_5.00_ekwbgew$firstSellerfirstCustomer;Metal Headband_WantGor_5_3.98_Metal headband for men and women$wantGorOwner___USB-C Wall Charger_INCORIC_5_9.27_iPhone 14 Charger Block 20W PD Power Adaptor$steveJscannerTester;Colten_Oh_8_10.20_si instructor$firstSeller
+
+Output:
+Welcome to the Marketplace!
+Do you have an existing account?
+1. Yes
+2. No
+[1]
+
+LOGIN WINDOW:
+Enter Username:
+[firstCustomer]
+Enter Password:
+[password]
+LOGIN SUCCESSFUL
+Markey
+
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+2.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+3.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+5.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+8.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+9.	Colten		Sold by: Oh		Price: 10.20
+
+
+You have 0 items in your cart
+
+Enter '2' to add item number 2 to your cart
+
+Enter '#' to view your cart
+Enter '<' to sort listings by cost (low to high)
+Enter '>' to sort listings by cost (high to low)
+Enter '<>' to de-sort
+Enter 'q' to sort by availability
+Enter '@' to view your purchase history
+Enter '&' to search for something
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[csv]
+Enter file path for the csv file
+[purchases.csv]
+File saved
+Markey
+
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+2.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+3.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+5.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+8.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+9.	Colten		Sold by: Oh		Price: 10.20
+
+
+You have 0 items in your cart
+
+Enter '2' to add item number 2 to your cart
+
+Enter '#' to view your cart
+Enter '<' to sort listings by cost (low to high)
+Enter '>' to sort listings by cost (high to low)
+Enter '<>' to de-sort
+Enter 'q' to sort by availability
+Enter '@' to view your purchase history
+Enter '&' to search for something
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[?]
+Thank you for using Markey! Have a nice day :)
+______________END of Output________________
+purchases.csv:
+Item,Store,Quantity,Price,Description,
+Arnav,Dunsmore,9,0.69,weriufheiu uwueth riut,
+Colten,Oh,9,0.69,si instructor,
+_________END of Sample 5___________________________
+Sample 6:
+products.csv:
+Dunsmore,Arnav,0.69,99,weriufheiu uwueth riut
+Oh,Colten,0.69,90,si instructor
+
+Products.txt:
+wantGorOwner;Metal Headband_WantGor_95_3.98_Metal headband for men and women
+jbl;JBL Vibe 200TWs_JBL_30_29.95_Black wireless earbuds
+steveJ;USB-C Wall Charger_INCORIC_195_9.27_iPhone 14 Charger Block 20W PD Power Adaptor
+proGamer69;Razer DeathAdder Essential Gaming Mouse_Razer_50_17.85_Gaming mouse - 5 programmable buttons - Mechanical switches - rubber side grips - Mercury white
+warrenBuffet;Guide to investing in your 20s_Puffin Books_396_12.99_Book about long term investing
+ysenser;Wool Socks 5 pairs_YSense_10_10.99_Thick Wool socks winter warm for men
+firstSeller;gg_Dunsmore_6_5.00_ekwbgew
+
+Welcome to the Marketplace!
+Do you have an existing account?
+1. Yes
+2. No
+[1]
+
+LOGIN WINDOW:
+Enter Username:
+[firstSeller]
+Enter Password:
+[password]
+LOGIN SUCCESSFUL
+Markey
+
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+2.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+3.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+5.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+
+Enter '@' to open a new Store
+Enter '++' to list a new item for sale
+Enter '--' to remove an item from sale
+Enter '*' to edit an item that's on sale
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[csv]
+Enter
+'1' to export
+'2' to import
+[2]
+Make sure the csv file is in this format:
+storeName,itemName,price,quantity,description
+Make sure that no element has commas ','
+Enter file path to csv file
+[products.csv]
+Import successful
+Markey
+
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+2.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+3.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+5.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+8.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+9.	Colten		Sold by: Oh		Price: 0.69
+
+
+Enter '@' to open a new Store
+Enter '++' to list a new item for sale
+Enter '--' to remove an item from sale
+Enter '*' to edit an item that's on sale
+Enter '&' to See what's on everyone's carts
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[csv]
+Enter
+'1' to export
+'2' to import
+[1]
+Enter file path for csv file
+[products.csv]
+File saved
+Markey
+
+
+1.	Metal Headband		Sold by: WantGor		Price: 3.98
+
+2.	JBL Vibe 200TWs		Sold by: JBL		Price: 29.95
+
+3.	USB-C Wall Charger		Sold by: INCORIC		Price: 9.27
+
+4.	Razer DeathAdder Essential Gaming Mouse		Sold by: Razer		Price: 17.85
+
+5.	Guide to investing in your 20s		Sold by: Puffin Books		Price: 12.99
+
+6.	Wool Socks 5 pairs		Sold by: YSense		Price: 10.99
+
+7.	gg		Sold by: Dunsmore		Price: 5.00
+
+8.	Arnav		Sold by: Dunsmore		Price: 0.69
+
+9.	Colten		Sold by: Oh		Price: 0.69
+
+
+Enter '@' to open a new Store
+Enter '++' to list a new item for sale
+Enter '--' to remove an item from sale
+Enter '*' to edit an item that's on sale
+Enter '&' to See what's on everyone's carts
+Enter 'csv' to get a csv file with data
+Enter 'db' to go to dashboard
+Enter '?' to exit
+[?]
+Thank you for using Markey! Have a nice day :)
+___________END of Output_______________________
+products.csv:
+Dunsmore,gg,5.0,6,ekwbgew
+Dunsmore,Arnav,0.69,99,weriufheiu uwueth riut
+Oh,Colten,0.69,90,si instructor
+__________END of sample 6_______________________________
+Sample 7.1:

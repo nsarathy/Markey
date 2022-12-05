@@ -1,0 +1,16 @@
+wantGorOwner;Metal Headband_WantGor_99_3.98_Metal headband for men and women
+jbl;JBL Vibe 200TWs_JBL_28_29.95_Black wireless earbuds
+steveJ;USB-C Wall Charger_INCORIC_200_9.27_iPhone 14 Charger Block 20W PD Power Adaptor
+proGamer69;Razer DeathAdder Essential Gaming Mouse_Razer_45_17.85_Gaming mouse - 5 programmable buttons - Mechanical switches - rubber side grips - Mercury white
+warrenBuffet;Guide to investing in your 20s_Puffin Books_395_12.99_Book about long term investing
+ysenser;Wool Socks 5 pairs_YSense_9_10.99_Thick Wool socks winter warm for men
+firstSeller;gg_Dunsmore_6_5.00_good game
+firstSeller;Arnav_Dunsmore_88_0.69_teaching assistant
+firstSeller;Colten_Oh_98_10.20_si instructor
+secondSeller;Checko_Neel_9989_420.69_the bestest product ever
+testSeller;test item 2_test store 2_222_1.00_test 2
+testSeller;test item 1_test_100_1.00_first test
+testSeller;test item 4_test store 2_400_6.90_test 2
+testSeller;test item 5_test_500_0.24_first test
+testSeller;test item 6_test store 2_2004_6.12_test 6
+firstSeller;Testing reviews_Dunsmore_99_6.12_in order to test reviews feature

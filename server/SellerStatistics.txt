@@ -1,0 +1,13 @@
+firstSeller;Arnav_Dunsmore_1_0.69_weriufheiu uwueth riut___Colten_Oh_1_0.69_si instructor___gg_Dunsmore_5_5.00_ekwbgew;firstCustomer
+ysenser;Wool Socks 5 pairs_YSense_5_10.99_Thick Wool socks winter warm for men;firstCustomer
+wantGorOwner;Metal Headband_WantGor_5_3.98_Metal headband for men and women;firstCustomer
+steveJ;USB-C Wall Charger_INCORIC_5_9.27_iPhone 14 Charger Block 20W PD Power Adaptor;firstCustomer
+firstSeller;Colten_Oh_8_10.20_si instructor;scannerTester
+proGamer69;Razer DeathAdder Essential Gaming Mouse_Razer_1_17.85_Gaming mouse - 5 programmable buttons - Mechanical switches - rubber side grips - Mercury white___Razer DeathAdder Essential Gaming Mouse_Razer_1_17.85_Gaming mouse - 5 programmable buttons - Mechanical switches - rubber side grips - Mercury white___Razer DeathAdder Essential Gaming Mouse_Razer_1_17.85_Gaming mouse - 5 programmable buttons - Mechanical switches - rubber side grips - Mercury white___Razer DeathAdder Essential Gaming Mouse_Razer_2_17.85_Gaming mouse - 5 programmable buttons - Mechanical switches - rubber side grips - Mercury white;testCustomer
+jbl;JBL Vibe 200TWs_JBL_1_29.95_Black wireless earbuds___JBL Vibe 200TWs_JBL_1_29.95_Black wireless earbuds;testCustomer
+warrenBuffet;Guide to investing in your 20s_Puffin Books_1_12.99_Book about long term investing;testCustomer
+ysenser;Wool Socks 5 pairs_YSense_1_10.99_Thick Wool socks winter warm for men;testCustomer
+testSeller;test product 1_test store_1_2.00_djsfh ;testCustomer
+firstSeller;Arnav_Dunsmore_1_0.69_weriufheiu uwueth riut___Arnav_Dunsmore_10_0.69_weriufheiu uwueth riut___Testing reviews_Dunsmore_1_6.12_in order to test reviews feature___Testing reviews_Dunsmore_2_6.12_in order to test reviews feature___Testing reviews_Dunsmore_2_6.12_in order to test reviews feature___Testing reviews_Dunsmore_2_6.12_in order to test reviews feature___Testing reviews_Dunsmore_1_6.12_in order to test reviews feature;testCustomer
+secondSeller;Checko_Neel_1_420.69_the bestest product ever___Checko_Neel_10_420.69_the bestest product ever;testCustomer
+wantGorOwner;Metal Headband_WantGor_1_3.98_Metal headband for men and women;testCustomer

@@ -1,0 +1,10 @@
+seller_firstSeller;password
+customer_firstCustomer;password
+customer_testCustomer;password
+
+seller_testSeller;password
+customer_ewfwerw;r
+customer_testCreate;pass;;-
+seller_testCret;pass
+customer_newUser;passwordAmazing
+customer_newUser1;passwordAmazing

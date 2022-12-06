@@ -9,9 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MarketPlaceGUI implements Runnable {
-    /**
-     * todo: Tests.md
-     */
+
     public static final String CART_REM = "An item was removed from your cart because it was out of stock";
     public static final String ADDED_TO_CART = "Added to your cart :)";
 
@@ -154,12 +152,11 @@ public class MarketPlaceGUI implements Runnable {
                     sellers = sellers.substring(0, sellers.length() - 1);
                 }
                 if (removed) {
-                    // methods.storeCart(gui.getCartItems(), gui.getCartSellerUsernames());
                     String reply1 = Client.main("MPM;" + username + ";SC{" + productsString + ";" + sellers +
                         "}");
                 }
             } catch (Exception e) {
-                if (!e.getMessage().equals("Your cart is empty")) {
+                if (!e.getMessage().equals("Your cart is empty") && !(e instanceof IndexOutOfBoundsException)) {
                     gui.displayErrorMessage(e.getMessage());
                 }
             }
@@ -209,10 +206,10 @@ public class MarketPlaceGUI implements Runnable {
         }
         JScrollPane scrollPane = new JScrollPane(listingPanel);
 
-        refreshIcon = new ImageIcon("images/markey-logo.png");
+        refreshIcon = new ImageIcon("images/refresh.png");
         refreshButton = new JButton(refreshIcon);
         refreshButton.setToolTipText("<html>refresh</html>");
-        refreshButton.addActionListener(customerListener); // todo refresh customer
+        refreshButton.setPreferredSize(new Dimension(36, 36));
 
         searchIcon = new ImageIcon("images/search.png");
         searchButton = new JButton(searchIcon);
@@ -547,6 +544,39 @@ public class MarketPlaceGUI implements Runnable {
                 listingPanel.revalidate();
             }
         });
+
+        refreshButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Listing products = Decoder.decodeListing(Client.main("MPM;" + username + ";RPT"));
+
+                itemsForSale = products.getProducts();
+                sellerUsernames = products.getSellers();
+
+                listingPanel.repaint();
+                listingPanel.removeAll();
+
+                for (Product product : itemsForSale) {
+                    String buttonString =
+                        String.format("<html>%s<br>Sold by: %s<br>Price: %.2f</html>",
+                            product.getName().length() <= 30 ?
+                                product.getName() : product.getName().substring(0, 27) + "...",
+                            product.getStore().getName(),
+                            product.getPrice());
+                    JButton button = new JButton(buttonString);
+                    button.setMargin(new Insets(10, 10, 10, 10));
+                    button.setFont(new Font("Arial", Font.PLAIN, 22));
+                    button.setBorder(new EmptyBorder(10, 10, 10, 10));
+                    listings.put(button, product);
+                    listingPanel.add(button);
+                    if (customer) {
+                        button.addActionListener(productListener);
+                    }
+                }
+
+                listingPanel.revalidate();
+            }
+        });
     }
 
     public ArrayList<Product> getItemsForSale() {
@@ -759,7 +789,7 @@ public class MarketPlaceGUI implements Runnable {
                     String reply1 =
                         Client.main("MPM;" + username + ";COUT{" + productsString + ";" + sellers + "}");
                     if (reply1.startsWith("ERROR")) {
-                        throw new IOException("ERROR 502");
+                        throw new IOException(reply1);
                     }
                     // methods.checkout(cartItems, cartSellerUsernames);
                     cartItems = new ArrayList<>();
@@ -770,6 +800,7 @@ public class MarketPlaceGUI implements Runnable {
                     displayPlainMessage("<html>Order Successful!<br>Thank you for purchasing using Markey :)</html>");
                 } catch (IOException ex) {
                     displayErrorMessage("Something went wrong :(");
+                    displayErrorMessage(ex.getMessage());
                 }
             }
         });
@@ -1652,15 +1683,16 @@ public class MarketPlaceGUI implements Runnable {
                                 pLine = pLine + p.toString() + "___";
                             }
                             if (pLine.endsWith("___")) {
-                                pLine = pLine.substring(0, pLine.length() - 1);
+                                pLine = pLine.substring(0, pLine.length() - 3);
                             }
-                            String reply = Client.main("MPM;" + username + ";SCSVI;" + pLine);
+                            String reply = Client.main("MPM;" + username + ";SelCSVI;" + pLine);
                             if (reply.startsWith("ERROR")) {
-                                throw new IOException();
+                                throw new IOException(reply);
                             }
                             displayPlainMessage("Import successful!");
                         } catch (Exception ex) {
                             displayErrorMessage("Something went wrong :(");
+                            displayErrorMessage(ex.getMessage());
                         }
                     }
                 }

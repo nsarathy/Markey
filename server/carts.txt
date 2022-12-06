@@ -1,6 +1,6 @@
 firstCustomer;JBL Vibe 200TWs_JBL_1_29.95_Black wireless earbuds___Metal Headband_WantGor_1_3.98_Metal headband for men and women;jbl___wantGorOwner
 secondCustomer;;
-testCustomer;JBL Vibe 200TWs_JBL_1_29.95_Black wireless earbuds___Metal Headband_WantGor_1_3.98_Metal headband for men and women;jbl___wantGorOwner
+testCustomer;;
 thirdCustomer;test item 1_test_1_1.00_first test___Razer DeathAdder Essential Gaming Mouse_Razer_1_17.85_Gaming mouse - 5 programmable buttons - Mechanical switches - rubber side grips - Mercury white___Metal Headband_WantGor_5_3.98_Metal headband for men and women;testSeller___proGamer69___wantGorOwner
 fourthCustomer;test item 1_test_1_1.00_first test___test item 2_test store 2_2_1.00_test 2;testSeller___testSeller
 fifthCustomer;Arnav_Dunsmore_2_0.69_weriufheiu uwueth riut;firstSeller

@@ -11,3 +11,5 @@ testCustomer;Arnav_Dunsmore_1_0.69_weriufheiu uwueth riut$firstSeller___Checko_N
 testCustomer;Arnav_Dunsmore_10_0.69_weriufheiu uwueth riut$firstSeller___Checko_Neel_10_420.69_the bestest product ever$secondSeller
 testCustomer;Metal Headband_WantGor_1_3.98_Metal headband for men and women$wantGorOwner___Razer DeathAdder Essential Gaming Mouse_Razer_2_17.85_Gaming mouse - 5 programmable buttons - Mechanical switches - rubber side grips - Mercury white$proGamer69
 testCustomer;Testing reviews_Dunsmore_1_6.12_in order to test reviews feature$firstSeller___Testing reviews_Dunsmore_2_6.12_in order to test reviews feature$firstSeller___Testing reviews_Dunsmore_2_6.12_in order to test reviews feature$firstSeller___Testing reviews_Dunsmore_2_6.12_in order to test reviews feature$firstSeller___Testing reviews_Dunsmore_1_6.12_in order to test reviews feature$firstSeller
+testCustomer;JBL Vibe 200TWs_JBL_1_29.95_Black wireless earbuds$jbl
+testCustomer;Guide to investing in your 20s_Puffin Books_1_12.99_Book about long term investinggg$warrenBuffet

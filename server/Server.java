@@ -128,9 +128,9 @@ public class Server {
                     return det[0].equals("MPM") && det[2].equals("EP");
                 }
 
-                public boolean matchesSellerImportCsv(String s) { // MPM;username;SCSVI;products(___)
+                public boolean matchesSellerImportCsv(String s) { // MPM;username;SelCSVI;products(___)
                     String[] det = s.split(";", -1);
-                    return det[0].equals("MPM") && det[2].equals("SCSVI");
+                    return det[0].equals("MPM") && det[2].equals("SelCSVI");
                 }
 
                 public boolean matchesSeeCarts(String s) { //MPM;username;SEEC
@@ -272,8 +272,8 @@ public class Server {
                             try {
                                 methods.checkout(products, sellers);
                                 reply = "SUCCESS";
-                            } catch (Exception e) {
-                                reply = "ERROR502";
+                            } catch (IOException e) {
+                                reply = "ERROR502<br>"+e.getMessage();
                             }
                         } else if (checker.matchesViewPurchases(line)) {
                             String[] det = line.split(";", -1);
@@ -342,12 +342,12 @@ public class Server {
                                 products.add(new Product(prodDetails[0], new Store(prodDetails[1]),
                                     Integer.parseInt(prodDetails[2]), Double.parseDouble(prodDetails[3]),
                                     prodDetails[4]));
-                                try {
-                                    methods.csvImport(products);
-                                    reply = "SUCCESS";
-                                } catch (Exception e) {
-                                    reply = "ERROR502";
-                                }
+                            }
+                            try {
+                                methods.csvImport(products);
+                                reply = "SUCCESS";
+                            } catch (Exception e) {
+                                reply = "ERROR502";
                             }
                         } else if (checker.matchesSeeCarts(line)) {
                             String[] det = line.split(";", -1);

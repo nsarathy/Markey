@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public class Login {
 
     public static void main(String[] args) {
@@ -39,6 +41,11 @@ public class Login {
                         exists = false;
                     } else {
                         int firstIndex = reply.indexOf(";");
+                        if (firstIndex == -1) {
+                            JOptionPane.showMessageDialog(null, "Server offline",
+                                "Markey", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
                         exists = Boolean.parseBoolean(reply.substring(0, firstIndex));
                         accountType = reply.substring(firstIndex + 1);
                     }

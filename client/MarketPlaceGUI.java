@@ -1593,9 +1593,9 @@ public class MarketPlaceGUI implements Runnable {
 
         JFrame frame = new JFrame("Markey");
         JPanel panel = new JPanel();
-        JRadioButton importButton = new JRadioButton("Import from csv file");
+        JRadioButton importButton = new JRadioButton("Create listings from a csv file");
         importButton.setFont(new Font("Arial", Font.PLAIN, 20));
-        JRadioButton exportButton = new JRadioButton("Export a csv file");
+        JRadioButton exportButton = new JRadioButton("Download your listings' data as a csv file");
         exportButton.setFont(new Font("Arial", Font.PLAIN, 20));
         panel.add(importButton);
         panel.add(exportButton);
@@ -1605,7 +1605,7 @@ public class MarketPlaceGUI implements Runnable {
         JPanel panel1 = new JPanel();
         panel1.add(okButton);
         frame.add(panel1, BorderLayout.SOUTH);
-        frame.setSize(600, 150);
+        frame.setSize(800, 150);
         frame.setVisible(true);
 
         importButton.addActionListener(new ActionListener() {
@@ -1659,7 +1659,8 @@ public class MarketPlaceGUI implements Runnable {
                     frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
                     displayPlainMessage("<html>Make sure that the csv file is in the following " +
                         "format:<br>|store_name|item_name|item_description|item_price|item_in_stock|<br>Also make " +
-                        "sure that no element has any commas \",\"");
+                        "sure that no element has any commas \",\"<br>Also please make sure that you have no headings" +
+                        " for the columns");
                     JFileChooser fileChooser = new JFileChooser();
                     int option = fileChooser.showOpenDialog(frame);
                     if (option == JFileChooser.APPROVE_OPTION) {

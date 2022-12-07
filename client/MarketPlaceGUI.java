@@ -824,9 +824,10 @@ public class MarketPlaceGUI implements Runnable {
         String storeName = unTruncate(p.getStore().getName());
         String description = unTruncate(p.getDescription());
 
-        JLabel label = new JLabel(String.format("<html>%s<br>Sold by: %s<br>Price: %.2f<br>Description:%s</html>",
+        JLabel label = new JLabel(String.format("<html>%s<br>Sold by: %s<br>Price: %" +
+                ".2f<br>Description:%s<br>Available in stock: %d</html>",
             name, storeName, p.getPrice(),
-            description));
+            description, p.getQuantity()));
 
         label.setFont(new Font("Arial", Font.PLAIN, 22));
 
@@ -850,7 +851,7 @@ public class MarketPlaceGUI implements Runnable {
         productFrame.add(panel, BorderLayout.NORTH);
         panel1.add(addToCart);
         productFrame.add(panel1, BorderLayout.SOUTH);
-        productFrame.setSize(600, 200);
+        productFrame.setSize(600, 300);
 
         productFrame.setVisible(true);
 

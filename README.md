@@ -5,6 +5,7 @@
 ## Option 3
 Optional feature: Customers can leave reviews associated with specific products from sellers. Other customers can view the reviews after they post. Sellers may view reviews on their products. 
 ## Instructions to compile and run
+Client and Server were developed as 2 separate intellij projects, so some classes may repeat in the folders.
 There are 2 folders server and client that contain the classes and files for the client and server sides of the project respectively.
 - Compile and run ```Server.java``` in the ```server``` folder to get the server up and running
 - Compile and run ```Login.java``` in the ```client``` folder to start the application 
@@ -37,3 +38,78 @@ There are 2 folders server and client that contain the classes and files for the
 - [x] Sellers can view the number of products currently in customer shopping carts, along with the store and details associated with the products. 
 ## Optional features:
 - [x] Customers can leave reviews associated with specific products from sellers. Other customers can view the reviews after they post. Sellers may view reviews on their products. 
+
+
+## client
+### Account.java
+Objects of this class represent an account of a user.
+
+### CartNotTrackableException.java
+This exception is thrown when there's an error reading a cart of a customer
+
+### Client.java
+Handles connection to the server and transfer of data between the client and server
+
+### CreateAccount.java
+The methods of this class are called to create an account for a user
+
+### CreateAccountGUI.java
+The GUI for creating an account
+
+### Customer.java
+Extends Account,java
+The objects of this class represent a customer user
+
+### CustomerAndSales.java
+Objects of this class hold a list of customers and a list of sales
+
+### CustomerDashboard.java
+Constitutes the customer's dashboard
+
+### CustomerDashboardGUI.java
+GUI for the customer dashboard
+
+### Decoder.java
+Decodes data received by the client from the server for other classes to access and use
+
+### HintTextField.java
+Extends JTextField and shows a hint in the textfield for user
+
+### Listing.java
+Objects of this class hold a list of products and their respectie sellers
+
+### Login.java
+For user to login to Markey
+
+### LoginGUI.java
+GUI for Login
+
+### MarketPlaceGUI.java
+Where the sellers and customers perform most of the operations such as buying, listing, etc
+
+### NotInStockException.java
+This exception is thrown when a product being added to a customer's cart is not available in stock
+
+### Product.java
+Objects of this class represent a product that's on sale on Markey
+
+### ProductAndStores.java
+Objects of this class contain a list of products and a list of stores
+
+### PurchaseHistoryView
+For customers to view their purchase history
+
+### SellerDashboardGUI.java
+Dashboard for a seller
+
+### ServerDetails.java
+Interface which has the IP address of the server
+
+### Store.java
+Objects of this class represent a store belonging to a seller
+
+### StoreAndSales.java
+Objects of this class contain a list of stores and a list of sales
+
+### StoreView
+For sellers to view their stores in their dashboard

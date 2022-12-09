@@ -252,9 +252,9 @@ public class MarketPlaceMethods {
                 same = same && product.getDescription().equals(newProduct.getDescription());
                 if (same) {
                     newProduct.setQuantity(newProduct.getQuantity() - product.getQuantity());
+                    added = true;
                     if (newProduct.getQuantity() > 0) {
                         lines.add(seller + ";" + newProduct.toString());
-                        added = true;
                         break;
                     }
                 }

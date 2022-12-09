@@ -231,6 +231,9 @@ public class Server {
                             MarketPlaceMethods methods = new MarketPlaceMethods(details[1]);
                             try {
                                 Listing listing = methods.readCart();
+                                if (listing.getProducts().isEmpty()) {
+                                    throw new CartNotTrackableException("Your cart is empty");
+                                }
                                 reply = Encoder.encodeListing(listing);
                             } catch (CartNotTrackableException e) {
                                 reply = "ERROR-CNT-" + e.getMessage();
@@ -244,6 +247,9 @@ public class Server {
                             ArrayList<String> sellers = new ArrayList<>(Arrays.asList(sellerUsernames));
                             ArrayList<Product> products = new ArrayList<>();
                             for (String eachLine : prods.split("___", -1)) {
+                                if (eachLine.isEmpty()) {
+                                    break;
+                                }
                                 String[] prodDetails = eachLine.split("_", -1);
                                 products.add(new Product(prodDetails[0], new Store(prodDetails[1]),
                                     Integer.parseInt(prodDetails[2]), Double.parseDouble(prodDetails[3]),

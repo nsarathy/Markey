@@ -1,5 +1,5 @@
 # Tests
-## Test 1 : Login In
+## Test 1 : Login
 
 ### Steps:
 

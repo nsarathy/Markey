@@ -140,7 +140,7 @@ public class MarketPlaceGUI implements Runnable {
                 String productsString = "";
                 String sellers = "";
                 for (Product product : gui.getCartItems()) {
-                    productsString = productsString + product.toString();
+                    productsString = productsString + product.toString() + "___";
                 }
                 if (productsString.endsWith("___")) {
                     productsString = productsString.substring(0, productsString.length() - 3);
@@ -573,6 +573,28 @@ public class MarketPlaceGUI implements Runnable {
                         button.addActionListener(productListener);
                     }
                 }
+                if (customer) {
+                    boolean removed = checkCartStatus();
+                    if (removed) {
+                        String productsString = "";
+                        String sellers = "";
+                        for (Product product : cartItems) {
+                            productsString = productsString + product.toString() + "___";
+                        }
+                        if (productsString.endsWith("___")) {
+                            productsString = productsString.substring(0, productsString.length() - 3);
+                        }
+                        for (String seller : cartSellerUsernames) {
+                            sellers = sellers + seller + ",";
+                        }
+                        if (sellers.endsWith(",")) {
+                            sellers = sellers.substring(0, sellers.length() - 1);
+                        }
+                        String reply1 = Client.main("MPM;" + username + ";SC{" + productsString + ";" + sellers +
+                            "}");
+                    }
+                    cartLabel.setText(String.valueOf(cartLength));
+                }
 
                 listingPanel.revalidate();
             }
@@ -729,7 +751,7 @@ public class MarketPlaceGUI implements Runnable {
                         String productsString = "";
                         String sellers = "";
                         for (Product product : cartItems) {
-                            productsString = productsString + product.toString();
+                            productsString = productsString + product.toString() + "___";
                         }
                         if (productsString.endsWith("___")) {
                             productsString = productsString.substring(0, productsString.length() - 3);
@@ -772,10 +794,14 @@ public class MarketPlaceGUI implements Runnable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    Listing listing = Decoder.decodeListing(Client.main("MPM;" + username + ";RPT"));
+                    itemsForSale = listing.getProducts();
+                    sellerUsernames = listing.getSellers();
+                    boolean removed = checkCartStatus();
                     String productsString = "";
                     String sellers = "";
                     for (Product product : cartItems) {
-                        productsString = productsString + product.toString();
+                        productsString = productsString + product.toString() + "___";
                     }
                     if (productsString.endsWith("___")) {
                         productsString = productsString.substring(0, productsString.length() - 3);
@@ -785,6 +811,10 @@ public class MarketPlaceGUI implements Runnable {
                     }
                     if (sellers.endsWith(",")) {
                         sellers = sellers.substring(0, sellers.length() - 1);
+                    }
+                    if (cartItems.isEmpty()) {
+                        String ignored = Client.main("MPM;" + username + ";SC{" + productsString + ";" + sellers + "}");
+                        return;
                     }
                     String reply1 =
                         Client.main("MPM;" + username + ";COUT{" + productsString + ";" + sellers + "}");
@@ -798,6 +828,7 @@ public class MarketPlaceGUI implements Runnable {
                     cartLabel.setText(String.valueOf(cartLength));
                     cartFrame.dispatchEvent(new WindowEvent(cartFrame, WindowEvent.WINDOW_CLOSING));
                     displayPlainMessage("<html>Order Successful!<br>Thank you for purchasing using Markey :)</html>");
+                    refreshButton.doClick();
                 } catch (IOException ex) {
                     displayErrorMessage("Something went wrong :(");
                     displayErrorMessage(ex.getMessage());
@@ -875,7 +906,7 @@ public class MarketPlaceGUI implements Runnable {
                             String productsString = "";
                             String sellers = "";
                             for (Product product : cartItems) {
-                                productsString = productsString + product.toString();
+                                productsString = productsString + product.toString() + "___";
                             }
                             if (productsString.endsWith("___")) {
                                 productsString = productsString.substring(0, productsString.length() - 3);

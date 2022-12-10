@@ -47,7 +47,7 @@ Passed.
 Application verifies that both fields pass all condtions and creates their account. 
 Information panel notifies that the user will not be sent to the Login process (see Login Test above).
 
-<img width="540" alt="Screenshot 2022-12-09 at 4 04 37 PM" src="https://user-images.githubusercontent.com/112204696/206797110-cc58ff87-63b4-40b6-abe6-e4d0ec9ec393.png">
+[![image-of-client.png](https://i.postimg.cc/SK3HPftd/image-of-client.png)](https://postimg.cc/p9Q0hzv5)
 
 Upon clicking "OK" acknowledging the information the system will send the user back to the Login Panel.
 

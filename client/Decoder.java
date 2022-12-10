@@ -27,6 +27,9 @@ public class Decoder {
         ArrayList<Product> products = new ArrayList<>();
         String[] prods = s.split("___", -1);
         for (String prod : prods) {
+            if (!prod.contains("_")) {
+                return products;
+            }
             String[] prodDetails = prod.split("_", -1);
             products.add(new Product(prodDetails[0], new Store(prodDetails[1]), Integer.parseInt(prodDetails[2]),
                 Double.parseDouble(prodDetails[3]), prodDetails[4]));
@@ -40,8 +43,11 @@ public class Decoder {
         }
         String[] p$s = s.split(";");
         ArrayList<Product> products = decodeProducts(p$s[0]);
-        String[] stores = p$s[1].split("___", -1);
         ArrayList<Store> storeArrayList = new ArrayList<>();
+        if (p$s.length<=1) {
+            return new ProductsAndStores(products, storeArrayList);
+        }
+        String[] stores = p$s[1].split("___", -1);
         for (String value : stores) {
             storeArrayList.add(new Store(value));
         }

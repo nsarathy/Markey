@@ -48,15 +48,35 @@ There are 2 folders server and client that contain the classes and files for the
 ## client
 ### Account.java
 Objects of this class represent an account of a user.
+- Instance variables:
+-   private String username
+    private String password
+- parameterized constructor
+- getters and setters
+- toString()
 
 ### CartNotTrackableException.java
 This exception is thrown when there's an error reading a cart of a customer
 
 ### Client.java
 Handles connection to the server and transfer of data between the client and server
+Sends a line of specific regex to server as a request, reads server's response
 
 ### CreateAccount.java
 The methods of this class are called to create an account for a user
+To create a new account on Markey
+- Instance variables:
+    - private String accountType : seller or buyer type
+    - private boolean accountSignal : chose to be seller or customer (true if customer)
+- Parameterized constructor
+- instance variables have getters and setters
+- public boolean checkingFields(String username, String password, boolean check) : checks validity of fields
+- public boolean checkUsername(String username) : checks if username is already taken
+- public boolean checkLength(String username) : checks if username is empty
+- public boolean checkIfLetter(String username) : cheks if username has valid characters
+- public boolean checkPassword(String password) : checks if password is empty
+- public void writeAccount(Account newAccount, boolean check) : updates data with user details
+- public void main() : prompts user to input details to create account
 
 ### CreateAccountGUI.java
 The GUI for creating an account
@@ -64,12 +84,47 @@ The GUI for creating an account
 ### Customer.java
 Extends Account,java
 The objects of this class represent a customer user
+- Instance variables :
+    - Product[] purchases : array of purchases made by customer
+- Parameterized constructor that calls super
+- getter and seter for instance variable
+- public boolean equals(Object obj) : checks if an object is a particular customer
 
 ### CustomerAndSales.java
 Objects of this class hold a list of customers and a list of sales
+- Instance variables :
+    - private final List<Integer> sales : list of integers
+    - private final List<String> customer : lst of strings
+- Parameterized constructor
+- getters and setters
 
 ### CustomerDashboard.java
 Constitutes the customer's dashboard
+- Instance variable
+    - private String customerUsername : username of customer
+- Parameterized cosntructor
+- getter and setter for instance variable
+- public List<String> readPurchaseHistory() : reads purchase history of customer
+- public List<String> matchCustomerName() throws IOException : to check if customer matches with obtained data
+- public List<String> splitByProduct() throws IOException : splits a line to get every product sold
+- public void displayOriginalCustomerStatistics() throws IOException : displays data
+- public StoreAndSales sortPurchaseHistoryLowHigh() throws IOException : sorts customer's purchases from lowest in quantities bought to highest
+- public void displayPurchaseHistoryLowHigh() throws IOException : formats and displays result from previous method
+- public StoreAndSales sortPurchaseHistoryHighLow() throws IOException : sorts customer's purchases from highest in quantities bought to lowest
+-  public void displayPurchaseHistoryHighLow() throws IOException : formats and displays the result of previous method
+- public List<String> readCustomerStats() throws FileNotFoundException, IOException : reads data
+- public List<String> typeSplitter() throws FileNotFoundException, IOException : splits a line to get seller and store details
+- public String[] getSellerNames() throws FileNotFoundException, IOException : gets seller names
+- public List<String> byStoreSplitter() throws FileNotFoundException, IOException : to split a line and get store details
+- public List<String> getOnlyStore() throws FileNotFoundException, IOException : get stores that have sold something
+- public List<String> getOnlySales() throws FileNotFoundException, IOException : get sales of stores that have sold something
+- public List<Integer> getStoreTotal() throws FileNotFoundException, IOException : get a list of the number of stores under each seller
+- public void displaySortOptions(int givenSortID) : displays options to sort
+- public void displayOriginalStores() throws IOException : display unsorted data
+- public void displayHighLowStores() throws IOException : display high to low on sales sorted stores for each seller
+- public void displayLowHighStores() throws IOException : display low to high on sales sorted stores for each seller
+- public StoreAndSales sortHighLow() throws FileNotFoundException, IOException : sorts the stores of each seller from high to low on sales
+- public StoreAndSales sortLowHigh() throws FileNotFoundException, IOException : sorts the stores of each seller from low to high on sales
 
 ### CustomerDashboardGUI.java
 GUI for the customer dashboard
@@ -82,24 +137,49 @@ Extends JTextField and shows a hint in the textfield for user
 
 ### Listing.java
 Objects of this class hold a list of products and their respectie sellers
+    - Instance variables:
+    private ArrayList<Product> products
+    private ArrayList<String> sellers
+- Parameterized constructor
+- getters and setters
+
+### LoginMethods
+It's methods handle data while login
+- public static String reader(String username, String password) : checks if username and password matches
 
 ### Login.java
 For user to login to Markey
+- public static void main(String[] args) : prompts user to login or create account, executes MarketPlace when logged in
 
 ### LoginGUI.java
 GUI for Login
 
 ### MarketPlaceGUI.java
 Where the sellers and customers perform most of the operations such as buying, listing, etc
+GUI for the main listing page
 
 ### NotInStockException.java
 This exception is thrown when a product being added to a customer's cart is not available in stock
 
 ### Product.java
 Objects of this class represent a product that's on sale on Markey
+- Instance variables:
+    private String name
+    private Store store
+    private int quantity
+    private double price
+    private String description
+- Parameterized constructor
+- getters and setters
+- toString()
 
 ### ProductAndStores.java
 Objects of this class contain a list of products and a list of stores
+- Instance variables:
+    private ArrayList<Product> products
+    private ArrayList<Store> stores
+- Parameterized constructor
+- getters and setters
 
 ### PurchaseHistoryView
 For customers to view their purchase history
@@ -112,9 +192,18 @@ Interface which has the IP address of the server
 
 ### Store.java
 Objects of this class represent a store belonging to a seller
+- Instance variable: private String name
+- Parameterized constructor
+- getter and setter
+- toString()
 
 ### StoreAndSales.java
 Objects of this class contain a list of stores and a list of sales
+- Instance variables :
+    - private final List<Integer> sales : list of integers
+    - private final List<String> stores : list of strings
+- Parameterized constructor
+- getters 
 
 ### StoreView
 For sellers to view their stores in their dashboard

@@ -38,6 +38,11 @@ There are 2 folders server and client that contain the classes and files for the
 - [x] Sellers can view the number of products currently in customer shopping carts, along with the store and details associated with the products. 
 ## Optional features:
 - [x] Customers can leave reviews associated with specific products from sellers. Other customers can view the reviews after they post. Sellers may view reviews on their products. 
+## Cuncurrency, Networks, and GUI
+- [X] The application must support simultaneous use by multiple users over a network. New content should appear appear as users add it.
+- [X] All user interactions must be GUI based.
+- [X] Data must persist regardless of whether or not a user is connected. If a user disconnects and reconnects, their data should still be present. 
+- [X] Descriptive errors should appear as appropriate. The application should not crash under any circumstances. 
 
 
 ## client
@@ -113,3 +118,44 @@ Objects of this class contain a list of stores and a list of sales
 
 ### StoreView
 For sellers to view their stores in their dashboard
+
+## server
+
+### Account.java
+Objects of this class represent an account of a user.
+
+### Cart.java
+It's methods update data when a purchase is made
+
+### CartNotTrackableException.java
+This exception is thrown when there's an error reading a cart of a customer
+
+### CreateAccountMethods.java
+Has methods that handle data when creating an account.
+
+### CustomerDashboardMethods
+It's methods handle data for Customer Dashboard
+
+### Encoder
+Encodes data into a single line of String to send to client
+
+### Listing
+Objects of this class hold a list of products and their respectie sellers
+
+### marketPlaceMethods
+It's methods handle data for the main listing page
+
+### Product
+Objects of this class represent a product that's on sale on Markey
+
+### ProductAndStores
+Objects of this class contain a list of products and a list of stores
+
+### SellerDashboardMethods
+Handles data for Seller Dashboard
+
+### Server
+Wait for connections from clients and sends data to clients when requested
+
+### Store
+Objects of this class represent a store belonging to a seller

@@ -226,7 +226,6 @@ public class MarketPlaceMethods {
 
 
         // updating Products.txt
-        // todo check quantity move to top
 
         FileReader frProducts = new FileReader("Products.txt");
         BufferedReader brProducts = new BufferedReader(frProducts);
@@ -556,7 +555,8 @@ public class MarketPlaceMethods {
             String[] det = eachLine.split("___", -1);
             String[] prodDetails = det[0].split("_", -1);
             if (prodDetails[0].equals(p.getName()) && prodDetails[1].equals(p.getStore().getName()) &&
-                prodDetails[3].equals(String.valueOf(p.getPrice())) && prodDetails[4].equals(p.getDescription())) {
+                prodDetails[3].equals(String.format("%.2f", p.getPrice())) &&
+                prodDetails[4].equals(p.getDescription())) {
                 reviews.add("<br>" + det[1] + "<br>" + unTruncate(det[2]) + "<br>");
             }
         }

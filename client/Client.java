@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -32,9 +33,10 @@ public class Client {
 
             return reply;
         } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Server disconnected", "Markey",
+                JOptionPane.ERROR_MESSAGE);
             return "Error 404";
         }
     }
 
-    // todo check ERROR s
 }

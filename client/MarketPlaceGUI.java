@@ -594,6 +594,15 @@ public class MarketPlaceGUI implements Runnable {
                             "}");
                     }
                     cartLabel.setText(String.valueOf(cartLength));
+                } else {
+                    sellerItems = new ArrayList<>();
+                    sellerStores = new ArrayList<>();
+                    ProductsAndStores productsAndStores =
+                        Decoder.decodeProductsAndStores(Client.main("MPM;" + username + ";RS"));
+                    if (productsAndStores != null) {
+                        sellerStores = productsAndStores.getStores();
+                        sellerItems = productsAndStores.getProducts();
+                    }
                 }
 
                 listingPanel.revalidate();

@@ -311,3 +311,25 @@ Objects of this class represent a store belonging to a seller
 - Parameterized constructor
 - getter and setter
 - toString()
+    
+## Data (.txt files)
+### Accounts
+Account details of all users of Markey
+
+### carts
+Carts of customers
+
+### CustomerPurchaseHistory
+Purchase histories of customers
+
+### CustomerStatistics
+Data for customer dashboard
+
+### Products
+Everything that's on sale
+
+### SellerStatistics
+Data for seller dashboard
+
+### Reviews.txt
+Data of reviews made by customers

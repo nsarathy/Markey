@@ -123,39 +123,102 @@ For sellers to view their stores in their dashboard
 
 ### Account.java
 Objects of this class represent an account of a user.
+- Instance variables:
+-   private String username
+    private String password
+- parameterized constructor
+- getters and setters
+- toString()
 
 ### Cart.java
 It's methods update data when a purchase is made
+- Intance variables:
+-   private ArrayList<Product> productsToBuy
+    private ArrayList<String> sellerUsernames
+    private String customerUsername
+- parameterized constructor
+- public void updateCustomerPurchaseHistory() : update purchase history
+- public void updateSellerStatistics() : update seller statistics
 
 ### CartNotTrackableException.java
 This exception is thrown when there's an error reading a cart of a customer
 
 ### CreateAccountMethods.java
 Has methods that handle data when creating an account.
+- public static boolean checkUsername(String username) : checks if a username is taken
+- public static void writeAccount(Account newAccount, boolean check) : updates data
 
 ### CustomerDashboardMethods
 It's methods handle data for Customer Dashboard
+- public static List<String> readPurchaseHistory() : reads purchase history
+- public static List<String> readCustomerStats() : reads customer statistics
 
 ### Encoder
 Encodes data into a single line of String to send to client
 
 ### Listing
 Objects of this class hold a list of products and their respectie sellers
+- Instance variables:
+    private ArrayList<Product> products
+    private ArrayList<String> sellers
+- Parameterized constructor
+- getters and setters
 
-### marketPlaceMethods
+### LoginMethods
+It's methods handle data while login
+- public static String reader(String username, String password) : checks if username and password matches
+
+### MarketPlaceMethods
 It's methods handle data for the main listing page
+- Instance variable : private final String username
+- Parameterized constructor
+- public Listing readProductsTxt() : Reads products on sale
+- public Listing readCart() : reads customer's cart
+- public void storeCart(ArrayList<Product> currentCart, ArrayList<String> currentSellers) : writes cart data
+- public void checkout(ArrayList<Product> proceedToCheckout, ArrayList<String> sellerUsernames) : Updates data when customer checks out
+- public ArrayList<Product> viewPurchaseHistory() : reads purchase history
+- public StringBuilder customerCsvExport() : reads customer data
+- public ProductsAndStores readSeller() : reads seller details
+- public void createProduct(String name, Store store, int quantity, double price, String description) : writes product
+- public void createProduct(Product newProduct) : writes product
+- public void deleteProduct(String checkLine) : deletes product
+- public void editProduct(String checkLine, String replaceLine) : edits product
+- public ArrayList<ArrayList<String>> seeCarts() : reads all customers' carts
+- public void csvImport(ArrayList<Product> products) : reads seller new products
+- public void reviewWrite(Product product, String stars, String review) : updates reviews data
+- public ArrayList<String> reviewRead(Product p)
 
 ### Product
 Objects of this class represent a product that's on sale on Markey
+- Instance variables:
+    private String name
+    private Store store
+    private int quantity
+    private double price
+    private String description
+- Parameterized constructor
+- getters and setters
+- toString()
 
 ### ProductAndStores
 Objects of this class contain a list of products and a list of stores
+- Instance variables:
+    private ArrayList<Product> products
+    private ArrayList<Store> stores
+- Parameterized constructor
+- getters and setters
 
 ### SellerDashboardMethods
 Handles data for Seller Dashboard
+- public static List<String> readSellerStats() : Reads seller statistics
 
 ### Server
 Wait for connections from clients and sends data to clients when requested
+- Reads a line and sees if it matches with a specific request, once a match is found gets data by calling methods of other classes and sends data to client
 
 ### Store
 Objects of this class represent a store belonging to a seller
+- Instance variable: private String name
+- Parameterized constructor
+- getter and setter
+- toString()

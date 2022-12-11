@@ -212,3 +212,41 @@ You should be able to see the customer's shopping cart
 The file is saved
 
 ### Test Status: Passed
+
+## Test 7 - Seller csv upload
+
+1. Login as a seller
+
+![alt](https://i.postimg.cc/SxSM31mM/Screenshot-20221210-030634.png)
+
+2. Click "OK"
+
+![alt](https://i.postimg.cc/1338JgK0/Screenshot-20221210-030834.png)
+
+3. Click 2nd button from right in top panel
+
+![alt](https://i.postimg.cc/Nft117P5/Screenshot-20221210-084746.png)
+
+4. Choose "Create listings from" option
+5. Click Confirm
+
+![Screenshot-20221210-084931.png](https://i.postimg.cc/Y0zLXZyj/Screenshot-20221210-084931.png)]
+
+6. Click "OK"
+
+![Screenshot-20221210-085121.png](https://i.postimg.cc/gJP0f4hh/Screenshot-20221210-085121.png)
+
+7. Navigate to file location
+8. Select file
+9. Click Open
+
+![Screenshot-20221210-085234.png](https://i.postimg.cc/Gpnr2tpw/Screenshot-20221210-085234.png)
+
+10. Click "OK"
+11. Click refresh (1st button from left in top pane(main listing page))
+
+### Expected Result:
+Listings for added products appear in main listing page
+![Screenshot-20221210-085445.png](https://i.postimg.cc/nhvg3kng/Screenshot-20221210-085445.png)
+
+### Test Status: Passed

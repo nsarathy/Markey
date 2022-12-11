@@ -7,11 +7,14 @@
 Optional feature: Customers can leave reviews associated with specific products from sellers. Other customers can view the reviews after they post. Sellers may view reviews on their products. 
 ## Instructions to compile and run
 Client and Server were developed as 2 separate intellij projects, so some classes may repeat in the folders.
+<-----------------------------------IMPORTANT--------------------------------->
+While testing we found that in some devices IntelliJ doesn't run the program properly if client and server are in the same project. It's best if you have them as separate projects.
+<-----------------------------------IMPORTANT--------------------------------->
 There are 2 folders server and client that contain the classes and files for the client and server sides of the project respectively.
 - Compile and run ```Server.java``` in the ```server``` folder to get the server up and running
 - Compile and run ```Login.java``` in the ```client``` folder to start the application 
 - The GUI components will guide you through using Markey
-- <-----------------------------------IMPORTANT---------------------------------> Changes made by seller or customer such as crreating a listing or deleting or editing one aren't immediately reflected in the main page or certain other areas, the user has to refresh (click refresh button [1st button from left in main listing page's top panel) to see changes. The user also has to click the refresh button to see changed made by other users.
+- Changes made by seller or customer such as crreating a listing or deleting or editing one aren't immediately reflected in the main page or certain other areas, the user has to refresh (click refresh button [1st button from left in main listing page's top panel) to see changes. The user also has to click the refresh button to see changed made by other users.
 
 ## Features:
 ### Core:

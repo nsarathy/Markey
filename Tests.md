@@ -28,7 +28,7 @@ https://postimg.cc/34b5bLHW
 
 ## Test 4 - Seller open store
 1. Login as a seller
-<img src ="https://postimg.cc/YhP0m3Gr">
+<img width = 540 src ="https://postimg.cc/YhP0m3Gr">
 2. Click "OK"
 <img src="https://postimg.cc/hfN4Gt6h">
 3. Click 2nd button from left in top panel

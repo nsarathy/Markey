@@ -424,9 +424,61 @@ Customer Dashboard opens when dashboard button is click in customer marketplace.
 "View all Stores" button on Customer Dashboard opens the Store List.
 Sorting buttons sort according to their functions.
 
-Customer Dashboard 
+Customer Dashboard returns to marketplace after exiting.
+
+[![marketplace.png](https://i.postimg.cc/VvHr5MYn/marketplace.png)](https://postimg.cc/JHZ42sHz)
+
+### Test Status:
+Passed.
+
+## Test 11 : Customer Dashboard (View Purchase History)
+
+### Steps:
+
+1. Customer User enters Markey's marketplace.
+
+[![marketplace.png](https://i.postimg.cc/VvHr5MYn/marketplace.png)](https://postimg.cc/JHZ42sHz)
+
+2. User clicks Dashboard button.
+
+[![dasb.png](https://i.postimg.cc/YSk9r81T/dasb.png)](https://postimg.cc/HrZH3wvt)
+
+3. User clicks "View all Stores" button.
 
 [![cdash.png](https://i.postimg.cc/C12Sq4qh/cdash.png)](https://postimg.cc/mz7vxCjJ)
+
+4. User enters "View Purchase History" button.
+
+[![phdb.png](https://i.postimg.cc/c18zYyC5/phdb.png)](https://postimg.cc/mhBVfnQQ)
+
+5. User clicks "High to Low" button.
+
+[![htl2.png](https://i.postimg.cc/tTnBhWqV/htl2.png)](https://postimg.cc/bD80PG2z)
+
+6. User clicks "Low to High" button.
+
+[![lth2.png](https://i.postimg.cc/brj9k5VK/lth2.png)](https://postimg.cc/jwZfrMbX)
+
+7. User clicks "Revert List" button.
+
+[![phdb.png](https://i.postimg.cc/c18zYyC5/phdb.png)](https://postimg.cc/mhBVfnQQ)
+
+8. User clicks "EXIT" in Store View window.
+
+[![exit.png](https://i.postimg.cc/Pfzkhh6f/exit.png)](https://postimg.cc/hhjY1FWN)
+
+9. User clicks "EXIT" in Customer Dashboard.
+
+[![phdb.png](https://i.postimg.cc/c18zYyC5/phdb.png)](https://postimg.cc/mhBVfnQQ)
+
+### Expected result:
+Customer Dashboard opens when dashboard button is click in customer marketplace.
+"View all Stores" button on Customer Dashboard opens the Store List.
+Sorting buttons sort according to their functions.
+
+Customer Dashboard returns to marketplace after exiting.
+
+[![marketplace.png](https://i.postimg.cc/VvHr5MYn/marketplace.png)](https://postimg.cc/JHZ42sHz)
 
 ### Test Status:
 Passed.

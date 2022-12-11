@@ -7,9 +7,13 @@
 Optional feature: Customers can leave reviews associated with specific products from sellers. Other customers can view the reviews after they post. Sellers may view reviews on their products. 
 ## Instructions to compile and run
 Client and Server were developed as 2 separate intellij projects, so some classes may repeat in the folders.
+
 <-----------------------------------IMPORTANT--------------------------------->
-While testing we found that in some devices IntelliJ doesn't run the program properly if client and server are in the same project. It's best if you have them as separate projects.
+
+While testing we found that in some devices IntelliJ doesn't run the program properly if ```client``` and ```server``` are in the same project. It's best if you have them as separate projects.
+
 <-----------------------------------IMPORTANT--------------------------------->
+
 There are 2 folders server and client that contain the classes and files for the client and server sides of the project respectively.
 - Compile and run ```Server.java``` in the ```server``` folder to get the server up and running
 - Compile and run ```Login.java``` in the ```client``` folder to start the application 

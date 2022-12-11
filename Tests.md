@@ -299,3 +299,25 @@ Test Status: Test passed 7/9
 29. Expected result: File should be saved with customer purchases; Test Status: 9/9 Test Passed
 
 ### Test Status: Test Passed
+
+## Test 9 - Concurrency
+
+Testing only 1 aspect of concurrency in this test, concurrency should work for other things as well
+Create a copy of the client side of this project in a different location in your device in order to emulate multiple users accessing the platform simultaneously.
+When the server is up and running, run both clients
+Log in as a seller in one client and as a customer in the other
+The two tabs should be similar to:
+
+![Screenshot-20221210-095407.png](https://i.postimg.cc/gk8ZPMJB/Screenshot-20221210-095407.png)
+
+1. Create a listing from the seller tab, click refresh in the seller tab
+2. The new listing should appear for the seller
+
+![Screenshot-20221210-095938.png](https://i.postimg.cc/pdqj6pTW/Screenshot-20221210-095938.png)
+
+3. Click refresh in the customer tab
+4. The new listing should now appear for the customer as well
+
+![Screenshot-20221210-100343.png](https://i.postimg.cc/pXJKFGH5/Screenshot-20221210-100343.png)
+
+### Test Status: Test Passed

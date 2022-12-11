@@ -423,6 +423,7 @@ The two tabs should be similar to:
 Customer Dashboard opens when dashboard button is click in customer marketplace.
 "View all Stores" button on Customer Dashboard opens the Store List.
 Sorting buttons sort according to their functions.
+
 Customer Dashboard 
 
 [![cdash.png](https://i.postimg.cc/C12Sq4qh/cdash.png)](https://postimg.cc/mz7vxCjJ)

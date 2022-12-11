@@ -27,7 +27,7 @@ https://i.postimg.cc/85Rk1DHP/Screenshot-20221210-035625.png
 https://i.postimg.cc/hvKDvwy8/Screenshot-20221210-035817.png
 
 
-## Test 4 - Seller open store
+## Test 3 - Seller open store
 1. Login as a seller
 
 ![alt](https://i.postimg.cc/SxSM31mM/Screenshot-20221210-030634.png)
@@ -67,7 +67,7 @@ The created product listing appears in main listing page
 
 ### Test Status: Passed
 
-## Test 5 - Seller Creates Listing
+## Test 4 - Seller Creates Listing
 
 1. Login as a seller
 
@@ -96,5 +96,33 @@ The created product listing appears in main listing page
 Created listing appears in main listing page
 
 ![alt](https://i.postimg.cc/PxYJP1tH/Screenshot-20221210-032416.png)
+
+### Test Status: Passed
+
+## Test 5
+
+1. Login as a seller
+
+![alt](https://i.postimg.cc/SxSM31mM/Screenshot-20221210-030634.png)
+
+2. Click "OK"
+
+![alt](https://i.postimg.cc/1338JgK0/Screenshot-20221210-030834.png)
+
+3. Click 4th button from left in top panel
+
+![alt](https://i.postimg.cc/N0WLsdvb/Screenshot-20221210-033431.png)
+
+4. Click delete icon next to product you want to delete
+5. Close the delete dialog
+
+![alt](https://i.postimg.cc/VNbLVX0t/Screenshot-20221210-034101.png)
+
+6. Click 1st button from left in top panel
+
+### Expected Result:
+Deleted listing disappears from main listing page
+
+![alt](https://i.postimg.cc/C1TLTdbQ/Screenshot-20221210-034153.png)
 
 ### Test Status: Passed

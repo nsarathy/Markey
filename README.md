@@ -2,6 +2,7 @@
 ## Neel Sarathy, Yudon Shin, Lewis Park, Tejasvi Nalagundla, Sehyeong Oh
 ## Yudon Shin - Submitted report on Brightspace
 ## Neel Sarathy - Submitted Vocareum workspace
+## Lewis Park - Submitted Presentation
 ## Option 3 - Marketplace
 Optional feature: Customers can leave reviews associated with specific products from sellers. Other customers can view the reviews after they post. Sellers may view reviews on their products. 
 ## Instructions to compile and run

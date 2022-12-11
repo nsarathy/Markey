@@ -10,6 +10,7 @@ There are 2 folders server and client that contain the classes and files for the
 - Compile and run ```Server.java``` in the ```server``` folder to get the server up and running
 - Compile and run ```Login.java``` in the ```client``` folder to start the application 
 - The GUI components will guide you through using Markey
+- <-----------------------------------IMPORTANT---------------------------------> Changes made by seller or customer such as crreating a listing or deleting or editing one aren't immediately reflected in the main page or certain other areas, the user has to refresh (click refresh button [1st button from left in main listing page's top panel) to see changes. The user also has to click the refresh button to see changed made by other users.
 
 ## Features:
 ### Core:

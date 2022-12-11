@@ -1,5 +1,13 @@
 import javax.swing.*;
 
+/**
+ * LoginGUI
+ * <p>
+ * GUI for login
+ *
+ * @author tnallagu
+ * @version 12/11/2022
+ */
 
 public class LoginGUI {
 
@@ -19,7 +27,8 @@ public class LoginGUI {
     public static void existingAccountDialog() {
         String[] options = {"  Yes  ", "  No  "};
 
-        String option = (String) JOptionPane.showInputDialog(null, "Do you have an existing account?", "Markey",
+        String option = (String) JOptionPane.showInputDialog(null,
+            "Do you have an existing account?", "Markey",
             JOptionPane.PLAIN_MESSAGE, null, options, null);
         if (option != null) {
             if (option.equals(options[0])) {
@@ -57,7 +66,8 @@ public class LoginGUI {
     }
 
     public static void loginUnSuccessDialog() {
-        JOptionPane.showMessageDialog(null, "Wrong username or password!\nPlease try again.",
+        JOptionPane.showMessageDialog(null,
+            "Wrong username or password!\nPlease try again.",
             "Markey", JOptionPane.ERROR_MESSAGE);
     }
 

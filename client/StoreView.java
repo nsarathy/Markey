@@ -4,6 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+/**
+ * StoreView
+ * <p>
+ * Viewing stores in customer dashboard
+ *
+ * @author park1504
+ * @version 12/11/2022
+ */
+
 public class StoreView {
 
     int action = 0;

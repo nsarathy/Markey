@@ -1,4 +1,12 @@
 public class Account {
+    /**
+     * Account
+     * <p>
+     * User's account blueprint
+     *
+     * @author shin369
+     * @version 12/11/2022
+     */
     private String username;
     private String password;
 

@@ -1,3 +1,11 @@
+/**
+ * Product
+ * <p>
+ * Blueprint of a product
+ *
+ * @author shin369
+ * @version 12/11/2022
+ */
 public class Product {
     private String name;
     private Store store;

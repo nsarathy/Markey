@@ -5,7 +5,14 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-// Client class
+/**
+ * Client
+ * <p>
+ * Client Socket for project
+ *
+ * @author nsarathy
+ * @version 12/11/2022
+ */
 public class Client {
 
     // driver code

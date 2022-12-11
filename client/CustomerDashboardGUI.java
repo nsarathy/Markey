@@ -3,7 +3,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+/**
+ * CustomerDashboardGUI
+ * <p>
+ * GUI for customer dashboard
+ *
+ * @author park1504
+ * @version 12/11/2022
+ */
 public class CustomerDashboardGUI extends JComponent implements Runnable {
 
     private String customerUsername;

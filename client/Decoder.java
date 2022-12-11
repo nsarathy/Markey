@@ -1,7 +1,14 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+/**
+ * Decoder
+ * <p>
+ * Decodes line received from Server
+ *
+ * @author nsarathy
+ * @version 12/11/2022
+ */
 public class Decoder {
     public static List<String> decodeList(String s) {
         String[] array = s.split("\\\\/", -1);

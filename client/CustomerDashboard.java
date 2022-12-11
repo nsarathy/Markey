@@ -2,6 +2,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * CustomerDashboard
+ * <p>
+ * Dashboard for customer
+ *
+ * @author park1504
+ * @version 12/11/2022
+ */
 
 public class CustomerDashboard {
 
@@ -254,7 +262,9 @@ public class CustomerDashboard {
         for (int i = 0; i < splitByType.size(); i++) {
             ArrayList<String> collectedData = new ArrayList<>(Arrays.asList(specificStoreStr[i].split("___")));
             int storeNum = i + 1;
-            int sizeOfTypes = splitByType.get(i).length() - splitByType.get(i).replaceAll("___", "").length();
+            int sizeOfTypes = splitByType.get(i).length() - splitByType.get(i)
+                .replaceAll("___", "")
+                .length();
             int wantedNum = sizeOfTypes / 3;
 
             for (int q = 0; q < wantedNum + 1; q++) {
@@ -322,7 +332,6 @@ public class CustomerDashboard {
             if (splitByStoreAndSales.get(i).contains("_")) {
                 List<String> splitterOf = new ArrayList<>(Arrays.asList(specificSalesInfo[i].split("_")));
                 onlySales.add(splitterOf.get(1));
-            } else if (!(splitByStoreAndSales.get(i).contains("_"))) {
             }
         }
 

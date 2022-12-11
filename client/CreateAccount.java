@@ -1,5 +1,12 @@
 import javax.swing.*;
-
+/**
+ * CreateAccount
+ * <p>
+ * To create account
+ *
+ * @author shin369
+ * @version 12/11/2022
+ */
 public class CreateAccount {
     // creates account and updates Accounts.txt
 

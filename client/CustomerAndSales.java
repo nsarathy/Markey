@@ -1,5 +1,13 @@
 import java.util.List;
 
+/**
+ * CustomerAndSales
+ * <p>
+ * list of sales and list of customers
+ *
+ * @author park1504
+ * @version 12/11/2022
+ */
 public class CustomerAndSales {
     private final List<Integer> sales;
     private final List<String> customer;

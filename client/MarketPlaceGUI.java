@@ -8,6 +8,14 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * MarketPlaceGUI
+ * <p>
+ * Main page
+ *
+ * @author nsarathy
+ * @version 12/11/2022
+ */
 public class MarketPlaceGUI implements Runnable {
 
     public static final String CART_REM = "An item was removed from your cart because it was out of stock";
@@ -636,11 +644,13 @@ public class MarketPlaceGUI implements Runnable {
 
     public void displayPlainMessage(String message) {
         Icon icon = new ImageIcon("images/markey.png");
-        JOptionPane.showMessageDialog(null, message, "Markey", JOptionPane.PLAIN_MESSAGE, icon);
+        JOptionPane.showMessageDialog(null, message, "Markey", JOptionPane.PLAIN_MESSAGE,
+            icon);
     }
 
     public void displayInformationMessage(String message) {
-        JOptionPane.showMessageDialog(null, message, "Markey", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, message, "Markey",
+            JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void displayErrorMessage(String message) {
@@ -822,7 +832,8 @@ public class MarketPlaceGUI implements Runnable {
                         sellers = sellers.substring(0, sellers.length() - 1);
                     }
                     if (cartItems.isEmpty()) {
-                        String ignored = Client.main("MPM;" + username + ";SC{" + productsString + ";" + sellers + "}");
+                        String ignored = Client.main("MPM;" + username + ";SC{" + productsString + ";" + sellers
+                            + "}");
                         return;
                     }
                     String reply1 =
@@ -1078,7 +1089,8 @@ public class MarketPlaceGUI implements Runnable {
                                 try {
                                     String reply1 =
                                         Client.main(
-                                            "MPM;" + username + ";RW;" + purchase.toString() + ";" + starReviewString +
+                                            "MPM;" + username + ";RW;" + purchase.toString() + ";" +
+                                                starReviewString +
                                                 ";" + review);
                                     if (reply1.startsWith("ERROR")) {
                                         throw new IOException();
@@ -1556,7 +1568,8 @@ public class MarketPlaceGUI implements Runnable {
 
                             try {
                                 String reply =
-                                    Client.main("MPM___" + username + "___EP___" + checkString + "___" + replaceString);
+                                    Client.main("MPM___" + username + "___EP___" + checkString + "___" +
+                                        replaceString);
                                 if (reply.startsWith("ERROR")) {
                                     throw new IOException();
                                 }

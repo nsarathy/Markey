@@ -3,9 +3,9 @@ import java.util.List;
 /**
  * StoreAndSales
  * <p>
- * Objects of this very useful
+ * list of sales and list of stores
  *
- * @author nsarathy
+ * @author park1504
  * @version 11/13/2022
  */
 public class StoreAndSales {

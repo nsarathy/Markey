@@ -1,3 +1,11 @@
+/**
+ * Customer
+ * <p>
+ * Customer blueprint
+ *
+ * @author shin369
+ * @version 12/11/2022
+ */
 public class Customer extends Account {
     Product[] purchases;
 

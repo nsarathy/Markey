@@ -7,6 +7,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * SellerDashboardGUI
+ * <p>
+ * seller's dashboard and GUI
+ *
+ * @author oh283
+ * @version 12/11/2022
+ */
 public class SellerDashboardGUI extends JComponent implements Runnable {
 
     JTextArea sellerMenu;

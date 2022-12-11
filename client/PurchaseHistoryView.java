@@ -4,6 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+/**
+ * PurchaseHistoryView
+ * <p>
+ * viewing purchase history via customer dashboard
+ *
+ * @author park1504
+ * @version 12/11/2022
+ */
 public class PurchaseHistoryView {
 
     int action = 0;

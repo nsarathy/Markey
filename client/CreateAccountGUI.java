@@ -1,5 +1,13 @@
 import javax.swing.*;
 
+/**
+ * CreateAccountGUI
+ * <p>
+ * GUI for account creation
+ *
+ * @author shin369
+ * @version 12/11/2022
+ */
 
 public class CreateAccountGUI {
 
@@ -12,7 +20,8 @@ public class CreateAccountGUI {
         String accTypeArray[] = {"Seller", "Customer"};
 
         String option =
-            (String) JOptionPane.showInputDialog(null, "Would you like to create a Seller or Customer Account?",
+            (String) JOptionPane.showInputDialog(null,
+                "Would you like to create a Seller or Customer Account?",
                 "Create New Account",
                 JOptionPane.PLAIN_MESSAGE, null, accTypeArray, null);
         if (option == null) {
@@ -38,12 +47,14 @@ public class CreateAccountGUI {
 
     public static void enterPasswordCheck() {
         newPasswordCheck = JOptionPane.showInputDialog(
-            null, "Re-Enter new Password (to reduce typo error):", "Create New Account",
+            null, "Re-Enter new Password (to reduce typo error):",
+            "Create New Account",
             JOptionPane.QUESTION_MESSAGE);
     }
 
     public static void errorSpecialCharacters() {
-        JOptionPane.showMessageDialog(null, "Username field should not include any special characters",
+        JOptionPane.showMessageDialog(null,
+            "Username field should not include any special characters",
             "Create New Account", JOptionPane.ERROR_MESSAGE);
     }
 
@@ -73,7 +84,8 @@ public class CreateAccountGUI {
     }
 
     public static void successInfo() {
-        JOptionPane.showMessageDialog(null, "ACCOUNT CREATED SUCCESSFULLY - Returning to Marketplace",
+        JOptionPane.showMessageDialog(null,
+            "ACCOUNT CREATED SUCCESSFULLY - Returning to Marketplace",
             "Create New Account", JOptionPane.INFORMATION_MESSAGE);
     }
 }

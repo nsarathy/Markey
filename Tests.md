@@ -159,3 +159,26 @@ Product is editied in main listing page
 ![alt](https://i.postimg.cc/T2c2Fd1t/Screenshot-20221210-034808.png)
 
 ### Test Status: Passed
+
+## Test 6 - Seller Sees Customers' carts
+
+1. Login as a seller
+
+![alt](https://i.postimg.cc/SxSM31mM/Screenshot-20221210-030634.png)
+
+2. Click "OK"
+
+![alt](https://i.postimg.cc/1338JgK0/Screenshot-20221210-030834.png)
+
+3. Click 4th button from right in top panel
+
+![alt](https://i.postimg.cc/prk2FZ4w/Screenshot-20221210-035118.png)
+
+4. Click on a customer ('s username)
+
+### Expected result:
+You should be able to see the customer's shopping cart
+
+![alt](https://i.postimg.cc/9Q0fy6WJ/Screenshot-20221210-035242.png)
+
+### Test Status: Passed

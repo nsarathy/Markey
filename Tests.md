@@ -80,3 +80,21 @@ The created product listing appears in main listing page
 3. Click 3rd button from left in top panel
 
 ![alt](https://i.postimg.cc/xTYJNpJ4/Screenshot-20221210-032128.png)
+
+4. Choose store and enter product details in dialog that pops up
+5. Click create listing
+
+![alt](https://i.postimg.cc/bY1SJfJn/Screenshot-20221210-032238.png)
+
+6. Click "OK"
+
+![alt](https://i.postimg.cc/hvnjxhjd/Screenshot-20221210-032308.png)
+
+7. Click 1st button from left in top panel
+
+### Expected result:
+Created listing appears in main listing page
+
+![alt](https://i.postimg.cc/PxYJP1tH/Screenshot-20221210-032416.png)
+
+### Test Status: Passed

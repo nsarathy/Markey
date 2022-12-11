@@ -449,7 +449,7 @@ Passed.
 
 4. User enters "View Purchase History" button.
 
-[![phdb.png](https://i.postimg.cc/c18zYyC5/phdb.png)](https://postimg.cc/mhBVfnQQ)
+[![revert.png](https://i.postimg.cc/05Tydsf6/revert.png)](https://postimg.cc/Yjx7MTTk)
 
 5. User clicks "High to Low" button.
 

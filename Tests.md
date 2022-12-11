@@ -1,51 +1,52 @@
-https://postimg.cc/YhP0m3Gr
-https://postimg.cc/hfN4Gt6h
-https://postimg.cc/75T6120g
-https://postimg.cc/3y5wtxFz
-https://postimg.cc/wy9jd4PV
-https://postimg.cc/349JrCQH
-https://postimg.cc/mcYgJWdk
-https://postimg.cc/68RW4Nxc
-https://postimg.cc/9rDFV7xv
-https://postimg.cc/4KgJzFJg
-https://postimg.cc/rznFvJ91
-https://postimg.cc/F1sHWq0F
-https://postimg.cc/G8MdnLvL
-https://postimg.cc/G83df88g
-https://postimg.cc/T5pGRzcr
-https://postimg.cc/McmztbTj
-https://postimg.cc/xkn2kJRj
-https://postimg.cc/KKfytGqP
-https://postimg.cc/14tycFZf
-https://postimg.cc/t7MprgXD
-https://postimg.cc/xcNYBS8Q
-https://postimg.cc/yWkzSzFR
-https://postimg.cc/5QYdcwxg
-https://postimg.cc/TK8G6H5D
-https://postimg.cc/ZWrmKF6D
-https://postimg.cc/wyBYVCZS
-https://postimg.cc/34b5bLHW
+https://i.postimg.cc/SxSM31mM/Screenshot-20221210-030634.png
+https://i.postimg.cc/1338JgK0/Screenshot-20221210-030834.png
+https://i.postimg.cc/nh3DJKLw/Screenshot-20221210-030946.png
+https://i.postimg.cc/YSjmq4G2/Screenshot-20221210-031100.png
+https://i.postimg.cc/W3kFgQwQ/Screenshot-20221210-031155.png
+https://i.postimg.cc/PJnL426N/Screenshot-20221210-031311.png
+https://i.postimg.cc/zfMHLJKC/Screenshot-20221210-031425.png
+https://i.postimg.cc/QdYHPX62/Screenshot-20221210-031500.png
+https://i.postimg.cc/5N3HB58N/Screenshot-20221210-031558.png
+https://i.postimg.cc/R03NxjyN/Screenshot-20221210-032004.png
+https://i.postimg.cc/xTYJNpJ4/Screenshot-20221210-032128.png
+https://i.postimg.cc/bY1SJfJn/Screenshot-20221210-032238.png
+https://i.postimg.cc/hvnjxhjd/Screenshot-20221210-032308.png
+https://i.postimg.cc/PxYJP1tH/Screenshot-20221210-032416.png
+https://i.postimg.cc/SRGKGq2t/Screenshot-20221210-033104.png
+https://i.postimg.cc/N0WLsdvb/Screenshot-20221210-033431.png
+https://i.postimg.cc/VNbLVX0t/Screenshot-20221210-034101.png
+https://i.postimg.cc/C1TLTdbQ/Screenshot-20221210-034153.png
+https://i.postimg.cc/nVKMxKRY/Screenshot-20221210-034342.png
+https://i.postimg.cc/xT081kBr/Screenshot-20221210-034505.png
+https://i.postimg.cc/7Ym6GHy5/Screenshot-20221210-034550.png
+https://i.postimg.cc/T2c2Fd1t/Screenshot-20221210-034808.png
+https://i.postimg.cc/prk2FZ4w/Screenshot-20221210-035118.png
+https://i.postimg.cc/9Q0fy6WJ/Screenshot-20221210-035242.png
+https://i.postimg.cc/7ZRZ9KhD/Screenshot-20221210-035544.png
+https://i.postimg.cc/85Rk1DHP/Screenshot-20221210-035625.png
+https://i.postimg.cc/hvKDvwy8/Screenshot-20221210-035817.png
+
 
 ## Test 4 - Seller open store
 1. Login as a seller
-<img width = 540 src ="https://postimg.cc/YhP0m3Gr">
+![alt](https://i.postimg.cc/SxSM31mM/Screenshot-20221210-030634.png)
 2. Click "OK"
-<img src="https://postimg.cc/hfN4Gt6h">
+![alt](https://i.postimg.cc/1338JgK0/Screenshot-20221210-030834.png)
 3. Click 2nd button from left in top panel
-![alt](https://postimg.cc/75T6120g)
+![alt](https://i.postimg.cc/nh3DJKLw/Screenshot-20221210-030946.png)
 4. Input dialog pops up, enter store name
-![alt](https://postimg.cc/3y5wtxFz)
+![alt](https://i.postimg.cc/YSjmq4G2/Screenshot-20221210-031100.png)
 5. Click "OK"
-![alt](https://postimg.cc/wy9jd4PV)
+![alt](https://i.postimg.cc/W3kFgQwQ/Screenshot-20221210-031155.png)
 6. Enter product details
-![alt](https://postimg.cc/349JrCQH)
+![alt](https://i.postimg.cc/PJnL426N/Screenshot-20221210-031311.png)
 7. Click "Create listing"
-![alt](https://postimg.cc/mcYgJWdk)
+![alt](https://i.postimg.cc/zfMHLJKC/Screenshot-20221210-031425.png)
 8. Click 1st button from left in top panel
-![alt](https://postimg.cc/68RW4Nxc)
+![alt](https://i.postimg.cc/QdYHPX62/Screenshot-20221210-031500.png)
 
 ### Expected Result:
 The created product listing appears in main listing page
-![alt](https://postimg.cc/9rDFV7xv)
+![alt](https://i.postimg.cc/5N3HB58N/Screenshot-20221210-031558.png)
 
 ### Test Status: Passed

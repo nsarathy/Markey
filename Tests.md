@@ -378,3 +378,54 @@ The two tabs should be similar to:
 ![Screenshot-20221210-100343.png](https://i.postimg.cc/pXJKFGH5/Screenshot-20221210-100343.png)
 
 ### Test Status: Test Passed
+
+## Test 10 : Customer Dashboard (View all Stores)
+
+### Steps:
+
+1. Customer User enters Markey's marketplace.
+
+[![marketplace.png](https://i.postimg.cc/VvHr5MYn/marketplace.png)](https://postimg.cc/JHZ42sHz)
+
+2. User clicks Dashboard button.
+
+[![dasb.png](https://i.postimg.cc/YSk9r81T/dasb.png)](https://postimg.cc/HrZH3wvt)
+
+3. User clicks "View all Stores" button.
+
+[![cdash.png](https://i.postimg.cc/C12Sq4qh/cdash.png)](https://postimg.cc/mz7vxCjJ)
+
+4. User enters "View All Stores" button.
+
+[![allstore.png](https://i.postimg.cc/9MDzK0Pf/allstore.png)](https://postimg.cc/ZBhTyTMk)
+
+5. User clicks "High to Low" button.
+
+[![htl.png](https://i.postimg.cc/vHsHL3KT/htl.png)](https://postimg.cc/pysHPYRM)
+
+6. User clicks "Low to High" button.
+
+[![lth.png](https://i.postimg.cc/rFNyh56J/lth.png)](https://postimg.cc/JGtW0DzD)
+
+7. User clicks "Revert List" button.
+
+[![allstore.png](https://i.postimg.cc/9MDzK0Pf/allstore.png)](https://postimg.cc/ZBhTyTMk)
+
+8. User clicks "EXIT" in Store View window.
+
+[![exit.png](https://i.postimg.cc/Pfzkhh6f/exit.png)](https://postimg.cc/hhjY1FWN)
+
+9. User clicks "EXIT" in Customer Dashboard.
+
+[![cdash.png](https://i.postimg.cc/C12Sq4qh/cdash.png)](https://postimg.cc/mz7vxCjJ)
+
+### Expected result:
+Customer Dashboard opens when dashboard button is click in customer marketplace.
+"View all Stores" button on Customer Dashboard opens the Store List.
+Sorting buttons sort according to their functions.
+Customer Dashboard 
+
+[![cdash.png](https://i.postimg.cc/C12Sq4qh/cdash.png)](https://postimg.cc/mz7vxCjJ)
+
+### Test Status:
+Passed.

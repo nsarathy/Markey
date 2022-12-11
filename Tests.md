@@ -75,9 +75,8 @@ The created product listing appears in main listing page
 
 2. Click "OK"
 
-![alt](https://i.postimg.cc/1338JgK0/Screenshot-20221210-030834.png)
+![alt](https://i.postimg.cc/R03NxjyN/Screenshot-20221210-032004.png)
 
 3. Click 3rd button from left in top panel
 
-![alt](https://i.postimg.cc/R03NxjyN/Screenshot-20221210-032004.png)
-
+![alt](https://i.postimg.cc/xTYJNpJ4/Screenshot-20221210-032128.png)

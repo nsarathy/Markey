@@ -126,3 +126,36 @@ Deleted listing disappears from main listing page
 ![alt](https://i.postimg.cc/C1TLTdbQ/Screenshot-20221210-034153.png)
 
 ### Test Status: Passed
+
+## Test 5 - Seller Edits listing
+
+1. Login as a seller
+
+![alt](https://i.postimg.cc/SxSM31mM/Screenshot-20221210-030634.png)
+
+2. Click "OK"
+
+![alt](https://i.postimg.cc/1338JgK0/Screenshot-20221210-030834.png)
+
+3. Click 5th button from left in top panel
+
+![alt](https://i.postimg.cc/nVKMxKRY/Screenshot-20221210-034342.png)
+
+4. Click edit icon next to listing you want to edit
+
+![alt](https://i.postimg.cc/xT081kBr/Screenshot-20221210-034505.png)
+
+5. Enter/change product details
+6. Click "Edit listing"
+
+![alt](https://i.postimg.cc/7Ym6GHy5/Screenshot-20221210-034550.png)
+
+7. Close Edits dialog
+8. Click 1st button from left in top panel
+
+### Expected result:
+Product is editied in main listing page
+
+![alt](https://i.postimg.cc/T2c2Fd1t/Screenshot-20221210-034808.png)
+
+### Test Status: Passed

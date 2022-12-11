@@ -222,3 +222,80 @@ Listings for added products appear in main listing page
 ![Screenshot-20221210-085445.png](https://i.postimg.cc/nhvg3kng/Screenshot-20221210-085445.png)
 
 ### Test Status: Passed
+
+## Test 8 - Customer
+
+1. Login as a customer
+
+![alt](https://i.postimg.cc/SxSM31mM/Screenshot-20221210-030634.png)
+
+2. Click "OK"
+
+![Screenshot-20221210-091037.png](https://i.postimg.cc/6546RDKM/Screenshot-20221210-091037.png)
+
+3. Enter search key in search text field (textfield in top panel)
+4. Click search button (button right to textfield in top panel)
+5. Expected result: main listing page sorts listings accordingly; Test Status: 1/9 Test passed
+
+![Screenshot-20221210-091447.png](https://i.postimg.cc/28Wm3hdJ/Screenshot-20221210-091447.png)
+
+6. Click 8th button from right in top panel
+7. Expected result: Products are sorted based on price(low to high); Test Status: 2/9 Test passed
+
+![Screenshot-20221210-091649.png](https://i.postimg.cc/zB9zPjSC/Screenshot-20221210-091649.png)
+
+8. Click 7th button from right in top panel
+9. Expected result: Products are sorted based on price(high to low); Test Status: 3/9 Test Passed
+
+![Screenshot-20221210-091858.png](https://i.postimg.cc/LsW2nTWc/Screenshot-20221210-091858.png)
+
+10. Click 6th button from right in top panel
+11. Expected result: Products are reverted to original order; Test Status: 4/9 Test passed
+
+![Screenshot-20221210-092324.png](https://i.postimg.cc/3Jt68wV6/Screenshot-20221210-092324.png)
+
+12. Click 5th button from right in top panel
+13. Expected result: Products are sorted based on availability in stock; Test Status: 5/9 Test Passed
+
+![Screenshot-20221210-092526.png](https://i.postimg.cc/W4gXkpYs/Screenshot-20221210-092526.png)
+
+14. Click a product listed
+
+![Screenshot-20221210-092746.png](https://i.postimg.cc/8Pc4bmXK/Screenshot-20221210-092746.png)
+
+15. Enter quantity in text field in the bottom and click cart icon next to text field
+
+![Screenshot-20221210-092857.png](https://i.postimg.cc/63zVr8rx/Screenshot-20221210-092857.png)
+
+16. Click "OK"
+17. Add another item like this to the cart
+18. Notice label in right most in top panel shows number of items in cart
+19. Click button next to it (1st button from right in top panel)
+
+![Screenshot-20221210-093109.png](https://i.postimg.cc/htbrr4Rs/Screenshot-20221210-093109.png)
+
+20. Click Delete icon next to item you want to delete from cart
+21. Expected result: Item disappears from cart; Test Status: 6/9 Test passed
+22. Click "Proceed to checkout"
+
+Expected result:
+
+[![Screenshot-20221210-093433.png](https://i.postimg.cc/SxqLJ0YM/Screenshot-20221210-093433.png)
+
+Test Status: Test passed 7/9
+
+23. Click 3rd button from right in top panel
+24. Expected result: You should see customer's purchase history; Test Status: 8/9 Test passed
+
+![Screenshot-20221210-094412.png](https://i.postimg.cc/76Vc51m3/Screenshot-20221210-094412.png)
+
+25. Click 2nd button from right
+
+![Screenshot-20221210-094543.png](https://i.postimg.cc/QxWbPk1f/Screenshot-20221210-094543.png)
+
+26. Navigate to desired location
+27. Enter file name
+28. Click save
+29. Expected result: File should be saved with customer purchases; Test Status: 9/9 Test Passed
+
+Test Status: Test Passed

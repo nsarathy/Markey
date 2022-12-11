@@ -28,9 +28,9 @@ https://postimg.cc/34b5bLHW
 
 ## Test 4 - Seller open store
 1. Login as a seller
-![alt](https://postimg.cc/YhP0m3Gr)
+<img src ="https://postimg.cc/YhP0m3Gr">
 2. Click "OK"
-![alt](https://postimg.cc/hfN4Gt6h)
+<img src="https://postimg.cc/hfN4Gt6h">
 3. Click 2nd button from left in top panel
 ![alt](https://postimg.cc/75T6120g)
 4. Input dialog pops up, enter store name

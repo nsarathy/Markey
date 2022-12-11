@@ -1,7 +1,14 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * CustomerDashboardMethods
+ * <p>
+ * File handling for Customer Dashboard
+ *
+ * @author nsarathy
+ * @version 12/11/2022
+ */
 public class CustomerDashboardMethods {
     public static List<String> readPurchaseHistory() throws IOException {
         //first method will be to get which lines belong to the customer

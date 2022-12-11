@@ -1,7 +1,14 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
+/**
+ * LoginMethods
+ * <p>
+ * File handling for Login
+ *
+ * @author nsarathy
+ * @version 12/11/2022
+ */
 public class LoginMethods {
     public static String reader(String username, String password) throws IOException {
         boolean exists = false;

@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * <p>
  * Updates txt files
  *
- * @author Sehonp05, nsarathy
+ * @author oh283
  * @version 11/13/2022
  */
 public class Cart {
@@ -128,7 +128,6 @@ public class Cart {
                     );
                 }
             }
-
 
 
             PrintWriter bw = new PrintWriter(

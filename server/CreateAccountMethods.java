@@ -1,6 +1,13 @@
 import java.io.*;
 import java.util.ArrayList;
-
+/**
+ * CreateAccountMethods
+ * <p>
+ * File handling for creating account
+ *
+ * @author nsarathy
+ * @version 12/11/2022
+ */
 public class CreateAccountMethods {
     public static boolean checkUsername(String username) throws IOException {
         ArrayList<String> usernames = new ArrayList<>();

@@ -1,7 +1,14 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * SellerDashboardMethods
+ * <p>
+ * File handling for seller dashboard
+ *
+ * @author nsarathy
+ * @version 12/11/2022
+ */
 public class SellerDashboardMethods {
     public static List<String> readSellerStats() throws IOException {
         List<String> fullList = new ArrayList<>();

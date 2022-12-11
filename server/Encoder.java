@@ -1,6 +1,13 @@
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Encoder
+ * <p>
+ * Encodes data to a single line to send to server
+ *
+ * @author nsarathy
+ * @version 12/11/2022
+ */
 public class Encoder {
     public static String encodeList(List<String> list) {
         String reply = "";

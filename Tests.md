@@ -182,3 +182,33 @@ You should be able to see the customer's shopping cart
 ![alt](https://i.postimg.cc/9Q0fy6WJ/Screenshot-20221210-035242.png)
 
 ### Test Status: Passed
+
+## Test 7 - Seller download csv
+
+1. Login as a seller
+
+![alt](https://i.postimg.cc/SxSM31mM/Screenshot-20221210-030634.png)
+
+2. Click "OK"
+
+![alt](https://i.postimg.cc/1338JgK0/Screenshot-20221210-030834.png)
+
+3. Click 2nd button from right in top panel
+
+![alt](https://i.postimg.cc/7ZRZ9KhD/Screenshot-20221210-035544.png)
+
+4. Choose download option
+5. Click Confirm
+
+![alt](https://i.postimg.cc/85Rk1DHP/Screenshot-20221210-035625.png)
+
+6. Navigate to desired file location
+7. Enter file name
+8. Click save
+
+![alt](https://i.postimg.cc/hvKDvwy8/Screenshot-20221210-035817.png)
+
+### Expected Result:
+The file is saved
+
+### Test Status: Passed

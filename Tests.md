@@ -66,3 +66,18 @@ The created product listing appears in main listing page
 ![alt](https://i.postimg.cc/5N3HB58N/Screenshot-20221210-031558.png)
 
 ### Test Status: Passed
+
+## Test 5 - Seller Creates Listing
+
+1. Login as a seller
+
+![alt](https://i.postimg.cc/SxSM31mM/Screenshot-20221210-030634.png)
+
+2. Click "OK"
+
+![alt](https://i.postimg.cc/1338JgK0/Screenshot-20221210-030834.png)
+
+3. Click 3rd button from left in top panel
+
+![alt](https://i.postimg.cc/R03NxjyN/Screenshot-20221210-032004.png)
+

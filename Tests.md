@@ -461,7 +461,7 @@ Passed.
 
 7. User clicks "Revert List" button.
 
-[![phdb.png](https://i.postimg.cc/c18zYyC5/phdb.png)](https://postimg.cc/mhBVfnQQ)
+[![revert.png](https://i.postimg.cc/05Tydsf6/revert.png)](https://postimg.cc/Yjx7MTTk)
 
 8. User clicks "EXIT" in Store View window.
 

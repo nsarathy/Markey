@@ -482,3 +482,58 @@ Customer Dashboard returns to marketplace after exiting.
 
 ### Test Status:
 Passed.
+
+## Test 12 : Seller Dashboard 
+
+### Steps:
+
+1. Seller User enters Markey's marketplace.
+
+<img width="1499" alt="Screen Shot 2022-12-11 at 8 27 40 PM" src="https://user-images.githubusercontent.com/112426445/206950986-f8cfe93f-6433-4c65-98a6-2e228d807e3c.png">
+
+2. User enters 1 to view the customer list.
+
+<img width="598" alt="Screen Shot 2022-12-11 at 9 45 34 PM" src="https://user-images.githubusercontent.com/112426445/206951269-c82fd6af-3d1e-4cc5-91c6-84106c93c31c.png">
+
+3. User clicks "High to Low" button.
+
+<img width="590" alt="Screen Shot 2022-12-11 at 9 47 24 PM" src="https://user-images.githubusercontent.com/112426445/206951332-0620408b-71eb-40f7-972c-86f2f18bb454.png">
+
+4. User clicks "Low to High" button.
+
+<img width="597" alt="Screen Shot 2022-12-11 at 9 47 46 PM" src="https://user-images.githubusercontent.com/112426445/206951349-cb11f967-472a-4a00-a652-1fee835f6a27.png">
+
+5. User clicks "EXIT" buttin to return to Seller Dashboard.
+
+<img width="1499" alt="Screen Shot 2022-12-11 at 8 27 40 PM" src="https://user-images.githubusercontent.com/112426445/206951368-86138860-94d5-453c-b23e-a27254c8e30a.png">
+
+6. User enters 2 to view the product sales list.
+
+<img width="598" alt="Screen Shot 2022-12-11 at 9 45 34 PM" src="https://user-images.githubusercontent.com/112426445/206951375-b6fe7dd7-55db-4915-92e9-7c4d81da7358.png">
+
+7. User clicks "High to Low" button.
+
+<img width="593" alt="Screen Shot 2022-12-11 at 9 48 17 PM" src="https://user-images.githubusercontent.com/112426445/206951400-ba0cce55-5e2e-452d-835c-9937ba639554.png">
+
+8. User clicks "Low to High" button.
+
+<img width="595" alt="Screen Shot 2022-12-11 at 9 48 43 PM" src="https://user-images.githubusercontent.com/112426445/206951411-2caadf68-7e22-4258-b222-acff74fe36a8.png">
+
+9. User clicks "EXIT" buttin to return to Seller Dashboard.
+
+<img width="1507" alt="Screen Shot 2022-12-11 at 9 49 02 PM" src="https://user-images.githubusercontent.com/112426445/206951440-9f3c3227-0e38-4437-86d7-4416f6d3164b.png">
+
+10. User enters invalid option in the Seller Dashboard.
+
+<img width="597" alt="Screen Shot 2022-12-11 at 9 46 14 PM" src="https://user-images.githubusercontent.com/112426445/206951535-eaf725d4-0228-4c1c-8ead-096ccb13e657.png">
+
+=
+### Expected result:
+Seller Dashboard opens when dashboard button is clicked in seller marketplace.
+User enters 1 to view the customer list and 2 to view the product sales list.
+Sorting buttons sort according to their functions.
+
+Seller Dashboard returns to marketplace after exiting.
+
+### Test Status:
+Passed.

@@ -503,7 +503,7 @@ Passed.
 
 <img width="597" alt="Screen Shot 2022-12-11 at 9 47 46 PM" src="https://user-images.githubusercontent.com/112426445/206951349-cb11f967-472a-4a00-a652-1fee835f6a27.png">
 
-5. User clicks "EXIT" buttin to return to Seller Dashboard.
+5. User clicks "EXIT" buttin to return to Markerplace.
 
 <img width="1499" alt="Screen Shot 2022-12-11 at 8 27 40 PM" src="https://user-images.githubusercontent.com/112426445/206951368-86138860-94d5-453c-b23e-a27254c8e30a.png">
 
